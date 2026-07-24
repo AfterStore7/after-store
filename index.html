@@ -87,7 +87,7 @@
     <header>
         <button class="header-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
         <div class="header-logo-container">
-            <img src="https://i.ibb.co/4RkGwkcG/Screenshot-20260724-134837-Samsung-Browser.jpg" id="topLogo" class="header-logo" alt="Logo">
+            <img src="https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg" id="topLogo" class="header-logo" alt="Logo">
         </div>
         <div class="header-right">
             <button class="cart-icon-btn" onclick="openCartModal()">
@@ -102,7 +102,7 @@
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <span class="sidebar-close" onclick="toggleSidebar()">&times;</span>
-            <img src="https://i.ibb.co/4RkGwkcG/Screenshot-20260724-134837-Samsung-Browser.jpg" id="sideLogo" class="sidebar-logo" alt="Logo">
+            <img src="https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg" id="sideLogo" class="sidebar-logo" alt="Logo">
             <div class="sidebar-title"><span id="sideName">After Store</span> <i class="fa-solid fa-star" style="color:var(--purple-bright); font-size:0.8rem;"></i></div>
         </div>
 
@@ -119,7 +119,7 @@
         <a class="menu-item" onclick="openAdmin()"><i class="fa-solid fa-lock"></i> Acessar Painel</a>
     </div>
 
-    <!-- BARRA DE CATEGORIAS EDITÁVEIS -->
+    <!-- BARRA DE CATEGORIAS -->
     <div class="categories-bar" id="categoriesBar"></div>
 
     <!-- CONTEÚDO DA LOJA -->
@@ -207,21 +207,26 @@
     </div>
 
     <script>
-        let config = JSON.parse(localStorage.getItem('after_cfg_v3')) || {
+        // CONFIGURAÇÕES PADRÃO FIXAS NO CÓDIGO
+        let config = JSON.parse(localStorage.getItem('after_cfg_v10')) || {
             name: "After Store",
-            logo: "https://i.ibb.co/4RkGwkcG/Screenshot-20260724-134837-Samsung-Browser.jpg",
+            logo: "https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg",
             whats1: "5521999999999",
             whats2: "5521999999999",
             discord: "https://discord.gg/BbBACKC5S"
         };
 
-        let products = JSON.parse(localStorage.getItem('after_prods_v3')) || [
-            { id: 1, name: "🎲 LEVEL 1000 + ITENS ALEATÓRIOS", price: "1.50", category: "Contas", img: "https://i.ibb.co/4RkGwkcG/Screenshot-20260724-134837-Samsung-Browser.jpg" },
-            { id: 2, name: "🍎 FRUTAS MÍTICAS + LEVEL MAX", price: "3.50", category: "Frutas", img: "https://i.ibb.co/4RkGwkcG/Screenshot-20260724-134837-Samsung-Browser.jpg" }
+        // PRODUTOS FIXOS (IMAGENS CORRIGIDAS)
+        let defaultProducts = [
+            { id: 1, name: "🥊 • GODHUMAN + LVL MAX + ITENS •", price: "6.90", category: "Contas", img: "https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg" },
+            { id: 2, name: "🎲 • LEVEL 1000 + ITENS ALEATÓRIOS •", price: "2.50", category: "Contas", img: "https://i.ibb.co/9kcDwTwf/IMG-20260723-WA0510.jpg" }
         ];
 
-        let feedbacks = JSON.parse(localStorage.getItem('after_fb_v3')) || [
-            { name: "Gabriel_Blox", stars: 5, comment: "Entrega super rápida, recomendo bastante!" }
+        let products = JSON.parse(localStorage.getItem('after_prods_v10')) || defaultProducts;
+
+        let feedbacks = JSON.parse(localStorage.getItem('after_fb_v10')) || [
+            { name: "Gabriel_Blox", stars: 5, comment: "Entrega super rápida, recomendo bastante!" },
+            { name: "Felipinho", stars: 5, comment: "Mt bom, extraordinario!" }
         ];
 
         let cart = JSON.parse(localStorage.getItem('after_cart')) || [];
@@ -268,7 +273,7 @@
             grid.innerHTML = list.map(p => `
                 <div class="card" onclick="openProductModal(${p.id})">
                     <div class="card-banner"><i class="fa-solid fa-bolt"></i> ENTREGA 24H</div>
-                    <img src="${p.img}" class="card-img">
+                    <img src="${p.img}" class="card-img" onerror="this.src='https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg'">
                     <div class="card-body">
                         <div class="card-title">${p.name}</div>
                         <div class="card-price">R$ ${parseFloat(p.price).toFixed(2).replace('.',',')}</div>
@@ -352,7 +357,7 @@
             const comment = document.getElementById('fbComment').value;
             if(!name || !comment) return alert("Preencha todos os campos!");
             feedbacks.push({ name, stars, comment });
-            localStorage.setItem('after_fb_v3', JSON.stringify(feedbacks));
+            localStorage.setItem('after_fb_v10', JSON.stringify(feedbacks));
             renderFeedbacks();
             closeModal('feedbackModal');
         }
@@ -377,7 +382,7 @@
             config.whats1 = document.getElementById('cfgWhats1').value;
             config.whats2 = document.getElementById('cfgWhats2').value;
             config.discord = document.getElementById('cfgDiscord').value;
-            localStorage.setItem('after_cfg_v3', JSON.stringify(config));
+            localStorage.setItem('after_cfg_v10', JSON.stringify(config));
             init(); alert("Salvo com sucesso!");
         }
 
@@ -388,13 +393,13 @@
             const img = document.getElementById('pImg').value;
             if(!name || !price) return alert("Preencha os dados!");
             products.push({ id: Date.now(), name, price, category, img });
-            localStorage.setItem('after_prods_v3', JSON.stringify(products));
+            localStorage.setItem('after_prods_v10', JSON.stringify(products));
             init(); renderAdminList(); alert("Produto cadastrado!");
         }
 
         function removeProd(id) {
             products = products.filter(p => p.id !== id);
-            localStorage.setItem('after_prods_v3', JSON.stringify(products));
+            localStorage.setItem('after_prods_v10', JSON.stringify(products));
             init(); renderAdminList();
         }
 
