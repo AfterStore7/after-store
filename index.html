@@ -16,463 +16,88 @@
             --text-sub: #9ca3af;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-        }
+        /* HEADER */
+        header { background: rgba(11, 7, 19, 0.95); backdrop-filter: blur(10px); height: 65px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(138, 43, 226, 0.15); }
+        .header-btn { background: transparent; border: none; color: white; font-size: 1.3rem; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+        .header-logo-container { position: absolute; left: 50%; transform: translateX(-50%); top: 10px; }
+        .header-logo { width: 50px; height: 50px; border-radius: 12px; object-fit: cover; border: 2px solid var(--purple-bright); box-shadow: 0 0 15px var(--purple-glow); }
+        .header-right { display: flex; gap: 10px; align-items: center; }
+        
+        .cart-icon-btn { position: relative; background: rgba(138, 43, 226, 0.2); border: 1px solid var(--purple-bright); color: white; padding: 8px 12px; border-radius: 20px; font-size: 0.9rem; cursor: pointer; }
+        .cart-badge { position: absolute; top: -5px; right: -5px; background: #ef4444; color: white; font-size: 0.7rem; font-weight: bold; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 
-        /* HEADER FIXO HYPERBLOX */
-        header {
-            background: rgba(11, 7, 19, 0.95);
-            backdrop-filter: blur(10px);
-            height: 65px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 16px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid rgba(138, 43, 226, 0.15);
-        }
-
-        .header-btn {
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 1.3rem;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .header-logo-container {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            top: 10px;
-        }
-
-        .header-logo {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            object-fit: cover;
-            border: 2px solid var(--purple-bright);
-            box-shadow: 0 0 15px var(--purple-glow);
-        }
-
-        .header-right {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .btn-login {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        /* MENU LATERAL SLIDE */
-        .sidebar-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(4px);
-            z-index: 200;
-            display: none;
-        }
-
-        .sidebar {
-            position: fixed;
-            top: 0; left: -280px;
-            width: 280px; height: 100%;
-            background: #0f0a1c;
-            border-right: 2px solid var(--purple-bright);
-            z-index: 201;
-            transition: 0.3s ease;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-        }
-
+        /* SIDEBAR */
+        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 200; display: none; }
+        .sidebar { position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background: #0f0a1c; border-right: 2px solid var(--purple-bright); z-index: 201; transition: 0.3s ease; padding: 20px; display: flex; flex-direction: column; }
         .sidebar.active { left: 0; }
-
-        .sidebar-header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .sidebar-close {
-            position: absolute;
-            top: 0; left: 0;
-            color: var(--text-sub);
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
-
-        .sidebar-logo {
-            width: 70px; height: 70px;
-            border-radius: 16px;
-            border: 2px solid var(--purple-bright);
-            box-shadow: 0 0 20px var(--purple-glow);
-            margin-bottom: 10px;
-        }
-
-        .sidebar-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .menu-section {
-            font-size: 0.75rem;
-            color: var(--text-sub);
-            letter-spacing: 1px;
-            margin: 15px 0 8px 0;
-            text-transform: uppercase;
-        }
-
-        .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 12px;
-            color: #d1d5db;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            transition: 0.2s;
-            cursor: pointer;
-        }
-
-        .menu-item:hover, .menu-item.active {
-            background: rgba(138, 43, 226, 0.15);
-            color: white;
-        }
-
+        .sidebar-header { display: flex; flex-direction: column; align-items: center; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 20px; position: relative; }
+        .sidebar-close { position: absolute; top: 0; left: 0; color: var(--text-sub); font-size: 1.2rem; cursor: pointer; }
+        .sidebar-logo { width: 70px; height: 70px; border-radius: 16px; border: 2px solid var(--purple-bright); box-shadow: 0 0 20px var(--purple-glow); margin-bottom: 10px; }
+        .sidebar-title { font-size: 1.2rem; font-weight: 700; display: flex; align-items: center; gap: 5px; }
+        .menu-section { font-size: 0.75rem; color: var(--text-sub); letter-spacing: 1px; margin: 15px 0 8px 0; text-transform: uppercase; }
+        .menu-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; color: #d1d5db; text-decoration: none; border-radius: 8px; font-size: 0.95rem; cursor: pointer; }
+        .menu-item:hover { background: rgba(138, 43, 226, 0.15); color: white; }
         .menu-item i { width: 20px; text-align: center; color: var(--purple-bright); }
 
-        /* BANNER SEPARADOR DE CATEGORIA */
-        .category-divider {
-            margin: 25px 0 15px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
+        /* CATEGORIAS DINÂMICAS */
+        .categories-bar { display: flex; gap: 8px; overflow-x: auto; padding: 15px 16px 5px 16px; max-width: 1100px; margin: 0 auto; width: 100%; }
+        .cat-btn { background: var(--card-bg); border: 1px solid rgba(168, 85, 247, 0.3); color: var(--text-sub); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; cursor: pointer; white-space: nowrap; }
+        .cat-btn.active { background: var(--purple-bright); color: white; border-color: var(--purple-bright); box-shadow: 0 0 10px var(--purple-glow); }
 
-        .category-badge {
-            background: rgba(19, 13, 34, 0.9);
-            border: 1px solid var(--purple-bright);
-            padding: 8px 20px;
-            border-radius: 25px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+        /* GRID */
+        .container { padding: 16px; max-width: 1100px; margin: 0 auto; width: 100%; flex: 1; }
+        .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        @media (min-width: 768px) { .products-grid { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px; } }
 
-        .category-line {
-            height: 1px;
-            flex: 1;
-            background: linear-gradient(90deg, transparent, var(--purple-bright), transparent);
-        }
+        .card { background: var(--card-bg); border-radius: 16px; border: 1px solid rgba(138, 43, 226, 0.2); overflow: hidden; display: flex; flex-direction: column; cursor: pointer; }
+        .card-banner { background: #8b5cf6; color: white; font-size: 0.65rem; font-weight: 800; text-align: center; padding: 4px; text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 4px; }
+        .card-img { width: 100%; height: 140px; object-fit: cover; background: #000; }
+        .card-body { padding: 10px 12px 14px 12px; display: flex; flex-direction: column; flex: 1; }
+        .card-title { font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; height: 2.4em; overflow: hidden; }
+        .card-price { font-size: 1.1rem; font-weight: 800; color: white; margin-bottom: 8px; }
+        .btn-card-buy { background: var(--purple-bright); color: white; border: none; width: 100%; padding: 10px; border-radius: 12px; font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; gap: 6px; }
 
-        /* GRID DE PRODUTOS estilo HYPERBLOX */
-        .container {
-            padding: 16px;
-            max-width: 1100px;
-            margin: 0 auto;
-            width: 100%;
-        }
+        /* FEEDBACKS */
+        .feedbacks-section { margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 20px; }
+        .feedback-card { background: var(--card-bg); border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 12px; padding: 12px; margin-bottom: 10px; }
+        .fb-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+        .fb-stars { color: #facc15; font-size: 0.8rem; }
 
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
+        /* MODAIS */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 300; justify-content: center; align-items: flex-end; }
+        @media (min-width: 600px) { .modal { align-items: center; } }
+        .modal-content { background: #110b1f; border-top: 2px solid var(--purple-bright); border-radius: 24px 24px 0 0; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; padding: 20px; position: relative; }
+        @media (min-width: 600px) { .modal-content { border-radius: 20px; border: 2px solid var(--purple-bright); } }
+        .close-btn { position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.1); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
 
-        @media (min-width: 768px) {
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-                gap: 18px;
-            }
-        }
+        .btn-purple { background: var(--purple-bright); color: white; border: none; width: 100%; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 8px; }
+        .btn-outline { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: white; width: 100%; padding: 10px; border-radius: 12px; font-weight: 600; cursor: pointer; margin-top: 6px; }
 
-        .card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            border: 1px solid rgba(138, 43, 226, 0.2);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            cursor: pointer;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-
-        .card:active { transform: scale(0.98); }
-
-        .card-banner {
-            background: #8b5cf6;
-            color: white;
-            font-size: 0.65rem;
-            font-weight: 800;
-            text-align: center;
-            padding: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-        }
-
-        .card-img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            background: #000;
-        }
-
-        .card-body {
-            padding: 10px 12px 14px 12px;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-
-        .card-title {
-            font-size: 0.85rem;
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 8px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            height: 2.4em;
-        }
-
-        .card-sub {
-            font-size: 0.7rem;
-            color: var(--text-sub);
-            margin-bottom: 2px;
-        }
-
-        .card-price {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: white;
-            margin-bottom: 8px;
-        }
-
-        .btn-card-buy {
-            background: var(--purple-bright);
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 10px;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            box-shadow: 0 4px 12px var(--purple-glow);
-        }
-
-        /* MODAL DETALHES DO PRODUTO (PRINT 3) */
-        .modal-product {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(8px);
-            z-index: 300;
-            justify-content: center;
-            align-items: flex-end;
-        }
-
-        @media (min-width: 600px) {
-            .modal-product { align-items: center; }
-        }
-
-        .modal-product-content {
-            background: #110b1f;
-            border-top: 2px solid var(--purple-bright);
-            border-radius: 24px 24px 0 0;
-            width: 100%;
-            max-width: 500px;
-            max-height: 90vh;
-            overflow-y: auto;
-            padding: 20px;
-            position: relative;
-        }
-
-        @media (min-width: 600px) {
-            .modal-product-content { border-radius: 20px; border: 2px solid var(--purple-bright); }
-        }
-
-        .close-product-modal {
-            position: absolute;
-            top: 15px; right: 15px;
-            background: rgba(255,255,255,0.1);
-            color: white; width: 30px; height: 30px;
-            border-radius: 50%; display: flex;
-            align-items: center; justify-content: center;
-            cursor: pointer; z-index: 10;
-        }
-
-        .product-modal-img {
-            width: 100%; height: 220px;
-            object-fit: cover;
-            border-radius: 16px;
-            margin-bottom: 15px;
-            border: 1px solid rgba(168, 85, 247, 0.3);
-        }
-
-        .viewers-tag {
-            display: flex; align-items: center; gap: 6px;
-            font-size: 0.75rem; color: #4ade80;
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.2);
-            padding: 4px 10px; border-radius: 15px;
-            width: fit-content; margin-bottom: 10px;
-        }
-
-        .stock-tag-yellow {
-            background: rgba(234, 179, 8, 0.15);
-            border: 1px solid rgba(234, 179, 8, 0.3);
-            color: #facc15;
-            font-size: 0.75rem; font-weight: 700;
-            padding: 4px 10px; border-radius: 6px;
-            width: fit-content; margin-bottom: 10px;
-        }
-
-        .badge-delivery {
-            background: rgba(138, 43, 226, 0.2);
-            color: var(--purple-bright);
-            font-size: 0.75rem; font-weight: 700;
-            padding: 4px 10px; border-radius: 6px;
-            width: fit-content; margin-bottom: 15px;
-            display: flex; align-items: center; gap: 5px;
-        }
-
-        .price-box {
-            background: #170f2b;
-            border: 1px solid rgba(168, 85, 247, 0.2);
-            padding: 15px; border-radius: 12px;
-            margin-bottom: 15px;
-        }
-
-        .price-box .val {
-            font-size: 1.8rem; font-weight: 900; color: var(--purple-bright);
-        }
-
-        .price-box .sub { font-size: 0.75rem; color: var(--text-sub); }
-
-        .btn-modal-buy {
-            background: var(--purple-bright);
-            color: white; border: none;
-            width: 100%; padding: 14px;
-            border-radius: 12px; font-weight: 700;
-            font-size: 1rem; margin-bottom: 8px;
-            cursor: pointer; display: flex; align-items: center;
-            justify-content: center; gap: 8px;
-        }
-
-        .btn-modal-cart {
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white; width: 100%; padding: 12px;
-            border-radius: 12px; font-weight: 600;
-            font-size: 0.9rem; cursor: pointer;
-            display: flex; align-items: center;
-            justify-content: center; gap: 8px;
-        }
-
-        /* PAINEL DO DONO */
-        .modal-admin {
-            display: none; position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); z-index: 400;
-            justify-content: center; align-items: center; padding: 15px;
-        }
-
-        .modal-admin-content {
-            background: #130d22;
-            border: 1px solid var(--purple-bright);
-            padding: 20px; border-radius: 16px;
-            width: 100%; max-width: 480px;
-            max-height: 85vh; overflow-y: auto;
-        }
-
-        .form-group { margin-bottom: 12px; }
+        .form-group { margin-bottom: 10px; }
         .form-group label { display: block; font-size: 0.8rem; margin-bottom: 4px; color: var(--text-sub); }
-        .form-group input, .form-group textarea {
-            width: 100%; padding: 10px; border-radius: 8px;
-            background: #0b0713; border: 1px solid rgba(168, 85, 247, 0.3);
-            color: white; font-size: 0.9rem;
-        }
-
-        .btn-save {
-            width: 100%; padding: 10px; background: var(--purple-bright);
-            border: none; color: white; font-weight: 700;
-            border-radius: 8px; cursor: pointer; margin-top: 5px;
-        }
-
-        .btn-danger { background: #ef4444; margin-top: 4px; padding: 4px 8px; border:none; color:white; border-radius:4px; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px; border-radius: 8px; background: #0b0713; border: 1px solid rgba(168, 85, 247, 0.3); color: white; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
-    <!-- HEADER TOP -->
+    <!-- HEADER -->
     <header>
         <button class="header-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
-        
         <div class="header-logo-container">
             <img src="https://i.ibb.co/4RkGwkcG/Screenshot-20260724-134837-Samsung-Browser.jpg" id="topLogo" class="header-logo" alt="Logo">
         </div>
-
         <div class="header-right">
-            <button class="btn-login"><i class="fa-regular fa-user"></i> Entrar</button>
+            <button class="cart-icon-btn" onclick="openCartModal()">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <div class="cart-badge" id="cartCount">0</div>
+            </button>
         </div>
     </header>
 
-    <!-- OVERLAY E MENU LATERAL (SIDEBAR) -->
+    <!-- SIDEBAR -->
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
@@ -482,268 +107,309 @@
         </div>
 
         <div class="menu-section">Navegação</div>
-        <a class="menu-item active" onclick="toggleSidebar()"><i class="fa-solid fa-house"></i> Início</a>
-        <a class="menu-item" onclick="toggleSidebar()"><i class="fa-solid fa-box"></i> Produtos</a>
-        <a class="menu-item" onclick="toggleSidebar()"><i class="fa-solid fa-layer-group"></i> Categorias</a>
+        <a class="menu-item" onclick="toggleSidebar()"><i class="fa-solid fa-house"></i> Início</a>
+        <a class="menu-item" onclick="openCartModal()"><i class="fa-solid fa-cart-shopping"></i> Meu Carrinho</a>
 
-        <div class="menu-section">Suporte & Redes</div>
-        <a class="menu-item" id="sideDiscord" target="_blank"><i class="fa-brands fa-discord"></i> Discord</a>
-        <a class="menu-item" id="sideWhats" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+        <div class="menu-section">Suporte & Vendas</div>
+        <a class="menu-item" id="sideWhatsBuy" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp Vendas</a>
+        <a class="menu-item" id="sideWhatsHelp" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp Suporte</a>
+        <a class="menu-item" id="sideDiscord" target="_blank"><i class="fa-brands fa-discord"></i> Discord Oficial</a>
 
-        <div class="menu-section" style="margin-top:auto;">Administração</div>
-        <a class="menu-item" onclick="openAdmin()"><i class="fa-solid fa-lock"></i> Painel do Dono</a>
+        <div class="menu-section" style="margin-top:auto;">Painel do Dono</div>
+        <a class="menu-item" onclick="openAdmin()"><i class="fa-solid fa-lock"></i> Acessar Painel</a>
     </div>
 
-    <!-- CONTEÚDO PRINCIPAL -->
+    <!-- BARRA DE CATEGORIAS EDITÁVEIS -->
+    <div class="categories-bar" id="categoriesBar"></div>
+
+    <!-- CONTEÚDO DA LOJA -->
     <div class="container">
-        
-        <!-- SEÇÃO / CATEGORIA 1 -->
-        <div class="category-divider">
-            <div class="category-line"></div>
-            <div class="category-badge">🎲 CONTAS & FRUTAS</div>
-            <div class="category-line"></div>
-        </div>
-
         <div class="products-grid" id="productsGrid"></div>
+
+        <!-- ÁREA DE FEEDBACKS -->
+        <div class="feedbacks-section">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                <h3><i class="fa-solid fa-comments" style="color:var(--purple-bright);"></i> Avaliações de Clientes</h3>
+                <button class="btn-outline" style="width:auto; padding:5px 12px; font-size:0.8rem;" onclick="openFeedbackModal()">+ Avaliar</button>
+            </div>
+            <div id="feedbacksList"></div>
+        </div>
     </div>
 
-    <!-- MODAL DETALHES DO PRODUTO -->
-    <div class="modal-product" id="productModal">
-        <div class="modal-product-content">
-            <span class="close-product-modal" onclick="closeProductModal()">&times;</span>
-            <img id="mImg" class="product-modal-img" src="" alt="Produto">
-            
-            <div class="viewers-tag">
-                <span style="width:8px; height:8px; background:#22c55e; border-radius:50%; display:inline-block;"></span>
-                <span id="mViewers">42 pessoas vendo este produto</span>
+    <!-- MODAL DETALHES PRODUTO -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('productModal')">&times;</span>
+            <img id="mImg" style="width:100%; height:200px; object-fit:cover; border-radius:12px; margin-bottom:12px;" src="" alt="Produto">
+            <h2 id="mTitle" style="font-size:1.1rem; margin-bottom:8px;">-</h2>
+            <div style="color:var(--purple-bright); font-size:1.5rem; font-weight:800; margin-bottom:12px;" id="mPrice">R$ 0,00</div>
+            <button class="btn-purple" id="mAddCartBtn"><i class="fa-solid fa-cart-plus"></i> Adicionar ao Carrinho</button>
+            <button class="btn-outline" id="mBuyNowBtn"><i class="fa-solid fa-bolt"></i> Comprar Agora via WhatsApp</button>
+        </div>
+    </div>
+
+    <!-- MODAL CARRINHO -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('cartModal')">&times;</span>
+            <h3 style="margin-bottom:15px;"><i class="fa-solid fa-cart-shopping"></i> Seu Carrinho</h3>
+            <div id="cartItemsList"></div>
+            <hr style="border-color:rgba(255,255,255,0.1); margin:15px 0;">
+            <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:1.2rem; margin-bottom:12px;">
+                <span>Total:</span>
+                <span id="cartTotal" style="color:var(--purple-bright);">R$ 0,00</span>
             </div>
+            <button class="btn-purple" onclick="checkoutCart()"><i class="fa-brands fa-whatsapp"></i> Finalizar Compra no WhatsApp</button>
+        </div>
+    </div>
 
-            <h2 id="mTitle" style="font-size:1.1rem; margin-bottom:10px;">-</h2>
-            
-            <div class="stock-tag-yellow" id="mStock">13 RESTANTES</div>
-            <div class="badge-delivery"><i class="fa-solid fa-bolt"></i> Entrega Automática</div>
-
-            <div class="price-box">
-                <div class="val" id="mPrice">R$ 0,00</div>
-                <div class="sub">⚡ À VISTA NO PIX</div>
+    <!-- MODAL NOVO FEEDBACK -->
+    <div class="modal" id="feedbackModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('feedbackModal')">&times;</span>
+            <h3 style="margin-bottom:12px;">Deixar uma Avaliação</h3>
+            <div class="form-group"><label>Seu Nome/Nick</label><input type="text" id="fbName"></div>
+            <div class="form-group"><label>Nota (1 a 5 Estrelas)</label>
+                <select id="fbStars"><option value="5">⭐⭐⭐⭐⭐ (5/5)</option><option value="4">⭐⭐⭐⭐ (4/5)</option></select>
             </div>
-
-            <button class="btn-modal-buy" id="mBuyBtn"><i class="fa-solid fa-bag-shopping"></i> Comprar agora</button>
-            <button class="btn-modal-cart" onclick="alert('Item adicionado!')"><i class="fa-solid fa-cart-shopping"></i> Adicionar ao carrinho</button>
+            <div class="form-group"><label>Sua Mensagem</label><textarea id="fbComment" rows="3"></textarea></div>
+            <button class="btn-purple" onclick="saveFeedback()">Enviar Feedback</button>
         </div>
     </div>
 
     <!-- MODAL PAINEL DO DONO -->
-    <div class="modal-admin" id="adminModal">
-        <div class="modal-admin-content">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                <h3 style="color:var(--purple-bright);"><i class="fa-solid fa-gear"></i> Painel do Dono</h3>
-                <span style="cursor:pointer; font-size:1.2rem;" onclick="closeAdmin()">&times;</span>
-            </div>
-
-            <!-- CONFIGS DA LOJA -->
-            <h4 style="margin-bottom:8px;">Configurações da Loja</h4>
-            <div class="form-group">
-                <label>Nome da Loja</label>
-                <input type="text" id="cfgName">
-            </div>
-            <div class="form-group">
-                <label>URL do Logo / Foto de Perfil</label>
-                <input type="text" id="cfgLogo">
-            </div>
-            <div class="form-group">
-                <label>WhatsApp (com DDD ex: 5521999999999)</label>
-                <input type="text" id="cfgWhats">
-            </div>
-            <div class="form-group">
-                <label>Link do Convite do Discord</label>
-                <input type="text" id="cfgDiscord">
-            </div>
-            <button class="btn-save" onclick="saveStoreConfig()">Salvar Loja</button>
+    <div class="modal" id="adminModal" style="align-items:center;">
+        <div class="modal-content" style="border-radius:20px; border:2px solid var(--purple-bright);">
+            <span class="close-btn" onclick="closeModal('adminModal')">&times;</span>
+            <h3 style="color:var(--purple-bright); margin-bottom:15px;"><i class="fa-solid fa-gear"></i> Painel do Dono</h3>
+            
+            <h4 style="margin-top:10px;">Configurações Gerais</h4>
+            <div class="form-group"><label>Nome da Loja</label><input type="text" id="cfgName"></div>
+            <div class="form-group"><label>URL da Logo</label><input type="text" id="cfgLogo"></div>
+            <div class="form-group"><label>WhatsApp 1 (Vendas)</label><input type="text" id="cfgWhats1"></div>
+            <div class="form-group"><label>WhatsApp 2 (Suporte)</label><input type="text" id="cfgWhats2"></div>
+            <div class="form-group"><label>Link do Discord</label><input type="text" id="cfgDiscord"></div>
+            <button class="btn-purple" onclick="saveConfig()">Salvar Loja</button>
 
             <hr style="border-color:rgba(255,255,255,0.1); margin:15px 0;">
 
-            <!-- ADICIONAR PRODUTO -->
-            <h4 style="margin-bottom:8px;">Adicionar Novo Produto</h4>
-            <div class="form-group">
-                <label>Nome do Produto</label>
-                <input type="text" id="pName" placeholder="Ex: 🎲 LEVEL 1000 + ITENS">
-            </div>
-            <div class="form-group">
-                <label>Preço (R$)</label>
-                <input type="number" step="0.01" id="pPrice" placeholder="1.50">
-            </div>
-            <div class="form-group">
-                <label>Link da Imagem (https://...)</label>
-                <input type="text" id="pImg" placeholder="https://i.ibb.co/...">
-            </div>
-            <div class="form-group">
-                <label>Estoque Disponível</label>
-                <input type="number" id="pStock" value="10">
-            </div>
-            <button class="btn-save" onclick="addProduct()">Cadastrar Produto</button>
+            <h4>Cadastrar Produto</h4>
+            <div class="form-group"><label>Nome</label><input type="text" id="pName"></div>
+            <div class="form-group"><label>Preço (R$)</label><input type="number" step="0.01" id="pPrice"></div>
+            <div class="form-group"><label>Categoria (Ex: Contas, Frutas, Robux)</label><input type="text" id="pCat"></div>
+            <div class="form-group"><label>URL da Imagem</label><input type="text" id="pImg"></div>
+            <button class="btn-purple" onclick="addProduct()">Salvar Produto</button>
 
             <hr style="border-color:rgba(255,255,255,0.1); margin:15px 0;">
-
-            <h4 style="margin-bottom:8px;">Produtos Cadastrados</h4>
-            <div id="adminProductList"></div>
+            <h4>Produtos Existentes</h4>
+            <div id="adminProdList"></div>
         </div>
     </div>
 
     <script>
-        // DADOS LOCAIS DA LOJA
-        let storeConfig = JSON.parse(localStorage.getItem('after_config_v2')) || {
+        let config = JSON.parse(localStorage.getItem('after_cfg_v3')) || {
             name: "After Store",
             logo: "https://i.ibb.co/4RkGwkcG/Screenshot-20260724-134837-Samsung-Browser.jpg",
-            whats: "5521999999999",
+            whats1: "5521999999999",
+            whats2: "5521999999999",
             discord: "https://discord.gg/BbBACKC5S"
         };
 
-        let products = JSON.parse(localStorage.getItem('after_products_v2')) || [
-            {
-                id: 1,
-                name: "🎲 • LEVEL 1000 + ITENS ALEATÓRIOS • 🎲",
-                price: "1.50",
-                img: "https://i.ibb.co/4RkGwkcG/Screenshot-20260724-134837-Samsung-Browser.jpg",
-                stock: 15
-            },
-            {
-                id: 2,
-                name: "🍎 • 1 - 5 FRUTAS MÍTICAS + LEVEL MAX • 🍎",
-                price: "3.50",
-                img: "https://i.ibb.co/4RkGwkcG/Screenshot-20260724-134837-Samsung-Browser.jpg",
-                stock: 8
-            }
+        let products = JSON.parse(localStorage.getItem('after_prods_v3')) || [
+            { id: 1, name: "🎲 LEVEL 1000 + ITENS ALEATÓRIOS", price: "1.50", category: "Contas", img: "https://i.ibb.co/4RkGwkcG/Screenshot-20260724-134837-Samsung-Browser.jpg" },
+            { id: 2, name: "🍎 FRUTAS MÍTICAS + LEVEL MAX", price: "3.50", category: "Frutas", img: "https://i.ibb.co/4RkGwkcG/Screenshot-20260724-134837-Samsung-Browser.jpg" }
         ];
 
-        function initSite() {
-            document.getElementById('topLogo').src = storeConfig.logo;
-            document.getElementById('sideLogo').src = storeConfig.logo;
-            document.getElementById('sideName').innerText = storeConfig.name;
-            
-            document.getElementById('sideDiscord').href = storeConfig.discord;
-            document.getElementById('sideWhats').href = `https://wa.me/${storeConfig.whats}?text=Ol%C3%A1,%20preciso%20de%20suporte!`;
+        let feedbacks = JSON.parse(localStorage.getItem('after_fb_v3')) || [
+            { name: "Gabriel_Blox", stars: 5, comment: "Entrega super rápida, recomendo bastante!" }
+        ];
 
+        let cart = JSON.parse(localStorage.getItem('after_cart')) || [];
+        let currentCat = "Todos";
+
+        function init() {
+            document.getElementById('topLogo').src = config.logo;
+            document.getElementById('sideLogo').src = config.logo;
+            document.getElementById('sideName').innerText = config.name;
+            document.getElementById('sideDiscord').href = config.discord;
+            document.getElementById('sideWhatsBuy').href = `https://wa.me/${config.whats1}`;
+            document.getElementById('sideWhatsHelp').href = `https://wa.me/${config.whats2}`;
+
+            renderCategories();
             renderProducts();
+            renderFeedbacks();
+            updateCartBadge();
         }
 
         function toggleSidebar() {
             const sb = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
             sb.classList.toggle('active');
-            overlay.style.display = sb.classList.contains('active') ? 'block' : 'none';
+            document.getElementById('sidebarOverlay').style.display = sb.classList.contains('active') ? 'block' : 'none';
+        }
+
+        function renderCategories() {
+            const cats = ["Todos", ...new Set(products.map(p => p.category || "Geral"))];
+            const bar = document.getElementById('categoriesBar');
+            bar.innerHTML = cats.map(c => `
+                <button class="cat-btn ${c === currentCat ? 'active' : ''}" onclick="filterCat('${c}')">${c}</button>
+            `).join('');
+        }
+
+        function filterCat(cat) {
+            currentCat = cat;
+            renderCategories();
+            renderProducts();
         }
 
         function renderProducts() {
             const grid = document.getElementById('productsGrid');
-            grid.innerHTML = '';
-
-            products.forEach(p => {
-                grid.innerHTML += `
-                    <div class="card" onclick="openProductModal(${p.id})">
-                        <div class="card-banner"><i class="fa-solid fa-bolt"></i> ENTREGA AUTOMÁTICA</div>
-                        <img src="${p.img}" class="card-img" alt="${p.name}" onerror="this.src='https://via.placeholder.com/300x180?text=Sem+Imagem'">
-                        <div class="card-body">
-                            <div class="card-title">${p.name}</div>
-                            <div class="card-sub">À vista no Pix</div>
-                            <div class="card-price">R$ ${parseFloat(p.price).toFixed(2).replace('.', ',')}</div>
-                            <button class="btn-card-buy"><i class="fa-solid fa-bag-shopping"></i> Comprar agora</button>
-                        </div>
+            const list = currentCat === "Todos" ? products : products.filter(p => p.category === currentCat);
+            
+            grid.innerHTML = list.map(p => `
+                <div class="card" onclick="openProductModal(${p.id})">
+                    <div class="card-banner"><i class="fa-solid fa-bolt"></i> ENTREGA 24H</div>
+                    <img src="${p.img}" class="card-img">
+                    <div class="card-body">
+                        <div class="card-title">${p.name}</div>
+                        <div class="card-price">R$ ${parseFloat(p.price).toFixed(2).replace('.',',')}</div>
+                        <button class="btn-card-buy"><i class="fa-solid fa-bag-shopping"></i> Comprar</button>
                     </div>
-                `;
-            });
+                </div>
+            `).join('');
         }
 
-        // MODAL DO PRODUTO (MODELO PRINT 3)
+        /* CARRINHO LOGICA */
+        function addToCart(id) {
+            const p = products.find(prod => prod.id === id);
+            cart.push(p);
+            localStorage.setItem('after_cart', JSON.stringify(cart));
+            updateCartBadge();
+            alert("Produto adicionado ao carrinho!");
+        }
+
+        function updateCartBadge() {
+            document.getElementById('cartCount').innerText = cart.length;
+        }
+
+        function openCartModal() {
+            const list = document.getElementById('cartItemsList');
+            let total = 0;
+            list.innerHTML = cart.map((item, idx) => {
+                total += parseFloat(item.price);
+                return `
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; background:#0b0713; padding:8px; border-radius:8px;">
+                        <div>${item.name} - <strong>R$ ${item.price}</strong></div>
+                        <button style="background:none; border:none; color:#ef4444; cursor:pointer;" onclick="removeFromCart(${idx})"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('cartTotal').innerText = `R$ ${total.toFixed(2).replace('.',',')}`;
+            document.getElementById('cartModal').style.display = 'flex';
+        }
+
+        function removeFromCart(idx) {
+            cart.splice(idx, 1);
+            localStorage.setItem('after_cart', JSON.stringify(cart));
+            updateCartBadge();
+            openCartModal();
+        }
+
+        function checkoutCart() {
+            if(cart.length === 0) return alert("Seu carrinho está vazio!");
+            let msg = "Olá! Quero finalizar o seguinte pedido:\n\n";
+            cart.forEach(i => msg += `• ${i.name} (R$ ${i.price})\n`);
+            window.open(`https://wa.me/${config.whats1}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        /* MODAL PRODUTO */
         function openProductModal(id) {
             const p = products.find(prod => prod.id === id);
-            if(!p) return;
-
             document.getElementById('mImg').src = p.img;
             document.getElementById('mTitle').innerText = p.name;
-            document.getElementById('mStock').innerText = `🟡 ${p.stock} RESTANTES`;
-            document.getElementById('mPrice').innerText = `R$ ${parseFloat(p.price).toFixed(2).replace('.', ',')}`;
-            document.getElementById('mViewers').innerText = `${Math.floor(Math.random() * 30) + 15} pessoas vendo este produto`;
-
-            document.getElementById('mBuyBtn').onclick = function() {
-                const text = encodeURIComponent(`Olá! Quero comprar o produto: ${p.name} por R$ ${p.price}`);
-                window.open(`https://wa.me/${storeConfig.whats}?text=${text}`, '_blank');
+            document.getElementById('mPrice').innerText = `R$ ${parseFloat(p.price).toFixed(2).replace('.',',')}`;
+            
+            document.getElementById('mAddCartBtn').onclick = () => { addToCart(p.id); closeModal('productModal'); };
+            document.getElementById('mBuyNowBtn').onclick = () => {
+                window.open(`https://wa.me/${config.whats1}?text=${encodeURIComponent("Quero comprar: " + p.name)}`, '_blank');
             };
-
             document.getElementById('productModal').style.display = 'flex';
         }
 
-        function closeProductModal() {
-            document.getElementById('productModal').style.display = 'none';
+        /* FEEDBACKS LOGICA */
+        function renderFeedbacks() {
+            document.getElementById('feedbacksList').innerHTML = feedbacks.map(f => `
+                <div class="feedback-card">
+                    <div class="fb-header"><strong>${f.name}</strong> <span class="fb-stars">${'⭐'.repeat(f.stars)}</span></div>
+                    <div style="font-size:0.85rem; color:var(--text-sub);">${f.comment}</div>
+                </div>
+            `).join('');
         }
 
-        // PAINEL DE DONO LOGICA
+        function openFeedbackModal() { document.getElementById('feedbackModal').style.display = 'flex'; }
+        function saveFeedback() {
+            const name = document.getElementById('fbName').value;
+            const stars = parseInt(document.getElementById('fbStars').value);
+            const comment = document.getElementById('fbComment').value;
+            if(!name || !comment) return alert("Preencha todos os campos!");
+            feedbacks.push({ name, stars, comment });
+            localStorage.setItem('after_fb_v3', JSON.stringify(feedbacks));
+            renderFeedbacks();
+            closeModal('feedbackModal');
+        }
+
+        /* PAINEL DONO */
         function openAdmin() {
             toggleSidebar();
-            const pass = prompt("Digite a senha do Painel:");
-            if(pass === "admin123" || pass === "after") {
-                document.getElementById('cfgName').value = storeConfig.name;
-                document.getElementById('cfgLogo').value = storeConfig.logo;
-                document.getElementById('cfgWhats').value = storeConfig.whats;
-                document.getElementById('cfgDiscord').value = storeConfig.discord;
-                renderAdminProducts();
+            if(prompt("Senha do Dono:") === "admin123") {
+                document.getElementById('cfgName').value = config.name;
+                document.getElementById('cfgLogo').value = config.logo;
+                document.getElementById('cfgWhats1').value = config.whats1;
+                document.getElementById('cfgWhats2').value = config.whats2;
+                document.getElementById('cfgDiscord').value = config.discord;
+                renderAdminList();
                 document.getElementById('adminModal').style.display = 'flex';
-            } else if(pass !== null) {
-                alert("Senha incorreta!");
             }
         }
 
-        function closeAdmin() {
-            document.getElementById('adminModal').style.display = 'none';
-        }
-
-        function saveStoreConfig() {
-            storeConfig.name = document.getElementById('cfgName').value;
-            storeConfig.logo = document.getElementById('cfgLogo').value;
-            storeConfig.whats = document.getElementById('cfgWhats').value;
-            storeConfig.discord = document.getElementById('cfgDiscord').value;
-            
-            localStorage.setItem('after_config_v2', JSON.stringify(storeConfig));
-            initSite();
-            alert("Configurações atualizadas!");
+        function saveConfig() {
+            config.name = document.getElementById('cfgName').value;
+            config.logo = document.getElementById('cfgLogo').value;
+            config.whats1 = document.getElementById('cfgWhats1').value;
+            config.whats2 = document.getElementById('cfgWhats2').value;
+            config.discord = document.getElementById('cfgDiscord').value;
+            localStorage.setItem('after_cfg_v3', JSON.stringify(config));
+            init(); alert("Salvo com sucesso!");
         }
 
         function addProduct() {
             const name = document.getElementById('pName').value;
             const price = document.getElementById('pPrice').value;
+            const category = document.getElementById('pCat').value || "Geral";
             const img = document.getElementById('pImg').value;
-            const stock = parseInt(document.getElementById('pStock').value) || 1;
-
-            if(!name || !price) return alert("Preencha Nome e Preço!");
-
-            products.push({ id: Date.now(), name, price, img, stock });
-            localStorage.setItem('after_products_v2', JSON.stringify(products));
-
-            initSite();
-            renderAdminProducts();
-            alert("Produto cadastrado!");
+            if(!name || !price) return alert("Preencha os dados!");
+            products.push({ id: Date.now(), name, price, category, img });
+            localStorage.setItem('after_prods_v3', JSON.stringify(products));
+            init(); renderAdminList(); alert("Produto cadastrado!");
         }
 
-        function removeProduct(id) {
-            if(confirm("Remover este produto?")) {
-                products = products.filter(p => p.id !== id);
-                localStorage.setItem('after_products_v2', JSON.stringify(products));
-                initSite();
-                renderAdminProducts();
-            }
+        function removeProd(id) {
+            products = products.filter(p => p.id !== id);
+            localStorage.setItem('after_prods_v3', JSON.stringify(products));
+            init(); renderAdminList();
         }
 
-        function renderAdminProducts() {
-            const list = document.getElementById('adminProductList');
-            list.innerHTML = products.map(p => `
-                <div style="display:flex; justify-content:space-between; align-items:center; background:#0b0713; padding:8px; margin-top:5px; border-radius:6px; font-size:0.8rem;">
-                    <div><strong>${p.name}</strong> - R$ ${p.price}</div>
-                    <button class="btn-danger" onclick="removeProduct(${p.id})">Deletar</button>
+        function renderAdminList() {
+            document.getElementById('adminProdList').innerHTML = products.map(p => `
+                <div style="display:flex; justify-content:space-between; margin-top:5px; background:#0b0713; padding:6px; border-radius:6px; font-size:0.8rem;">
+                    <span>${p.name} (${p.category})</span>
+                    <button style="color:red; background:none; border:none; cursor:pointer;" onclick="removeProd(${p.id})">Deletar</button>
                 </div>
             `).join('');
         }
 
-        initSite();
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+        init();
     </script>
 </body>
 </html>
