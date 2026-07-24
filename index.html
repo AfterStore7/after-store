@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>After Store - Blox Fruit</title>
+    <!-- Ícones FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #12021c;
+            --bg-card: #220833;
+            --gold-primary: #f5c842;
+            --gold-gradient: linear-gradient(135deg, #ffe58f 0%, #d4af37 50%, #aa7c11 100%);
+            --gold-glow: rgba(212, 175, 55, 0.4);
+            --purple-accent: #8a2be2;
+            --text-light: #f7f0fc;
+            --text-muted: #c4b3d8;
+            --discord-color: #5865F2;
+            --whatsapp-color: #25d366;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at top, #2d0a42 0%, #12021c 80%);
+            color: var(--text-light);
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        /* BARRA SUPERIOR */
+        .top-bar {
+            background: var(--gold-gradient);
+            color: #12021c;
+            text-align: center;
+            padding: 8px 12px;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* HEADER & PERFIL CIRCULAR */
+        .header {
+            text-align: center;
+            padding: 30px 0 20px 0;
+        }
+
+        .profile-img-container {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 15px auto;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--gold-primary);
+            box-shadow: 0 0 25px var(--gold-glow), 0 0 12px var(--gold-primary);
+        }
+
+        .store-title {
+            font-size: 32px;
+            font-weight: 800;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+
+        .store-desc {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        /* CARDS DE DESTAQUE */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            padding: 12px 5px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            color: var(--text-light);
+            display: block;
+        }
+
+        .feature-card i {
+            font-size: 20px;
+            color: var(--gold-primary);
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        /* TITULO DAS SEÇÕES */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gold-primary);
+        }
+
+        .badge-count {
+            background: var(--gold-gradient);
+            color: #12021c;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        /* BUSCA */
+        .filter-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 11px 15px;
+            background: var(--bg-card);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 8px;
+            color: #fff;
+            outline: none;
+        }
+
+        /* CATÁLOGO DE PRODUTOS */
+        .products-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--gold-gradient);
+        }
+
+        .product-img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            margin-bottom: 5px;
+        }
+
+        .product-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .product-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .product-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 5px;
+        }
+
+        .product-price {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--gold-primary);
+        }
+
+        .btn-buy {
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .no-stock {
+            background: var(--bg-card);
+            border-radius: 14px;
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--text-muted);
+            border: 1px dashed rgba(212, 175, 55, 0.3);
+        }
+
+        .no-stock i {
+            font-size: 45px;
+            color: var(--gold-primary);
+            margin-bottom: 10px;
+        }
+
+        /* SEÇÃO DE SUPORTE */
+        .support-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .btn-support {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            color: #fff;
+            transition: transform 0.2s;
+        }
+
+        .btn-support:active {
+            transform: scale(0.98);
+        }
+
+        .btn-whatsapp-support {
+            background: linear-gradient(135deg, #25d366, #128c7e);
+        }
+
+        .btn-discord-support {
+            background: linear-gradient(135deg, #5865F2, #3b42a1);
+        }
+
+        /* CARDS & FEEDBACKS */
+        .card-box {
+            background: var(--bg-card);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stars-selector {
+            display: flex;
+            gap: 8px;
+            font-size: 26px;
+            color: #4a3b5c;
+            cursor: pointer;
+            margin: 10px 0;
+            justify-content: center;
+        }
+
+        .stars-selector .star.active {
+            color: var(--gold-primary);
+            text-shadow: 0 0 8px var(--gold-glow);
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 11px;
+            background: rgba(18, 2, 28, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            margin-bottom: 10px;
+            outline: none;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--gold-gradient);
+            color: #12021c;
+            font-weight: bold;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .feedback-item {
+            background: rgba(18, 2, 28, 0.6);
+            border-left: 3px solid var(--gold-primary);
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        /* PAINEL DO DONO */
+        .admin-toggle {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .btn-admin {
+            background: transparent;
+            border: 1px dashed var(--gold-primary);
+            color: var(--gold-primary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .admin-panel {
+            display: none;
+            border: 2px solid var(--gold-primary);
+        }
+
+        .btn-delete {
+            background: #ff3366;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BARRA SUPERIOR -->
+    <div class="top-bar">
+        ⚡ ENTREGA RÁPIDA VIA WHATSAPP • SUPORTE 24/7 ⚡
+    </div>
+
+    <div class="container">
+
+        <!-- CABEÇALHO -->
+        <div class="header">
+            <div class="profile-img-container">
+                <img src="1000073521.jpg" alt="After Store Logo" class="profile-img" onerror="this.src='https://via.placeholder.com/140/220833/f5c842?text=After+Store'">
+            </div>
+            <h1 class="store-title">After Store</h1>
+            <p class="store-desc">Sua loja de confiança para contas de Blox Fruits &amp; Gamepass!</p>
+        </div>
+
+        <!-- 3 CARDS DE DESTAQUE -->
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fa-solid fa-bolt"></i>
+                Entrega Rápida
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-shield-halved"></i>
+                100% Seguro
+            </div>
+            <a href="#suporte" class="feature-card">
+                <i class="fa-solid fa-headset"></i>
+                Suporte Via Zap/Discord
+            </a>
+        </div>
+
+        <!-- SEÇÃO DE PRODUTOS -->
+        <div class="section-header">
+            <div class="section-title">
+                <i class="fa-solid fa-fire"></i> CATÁLOGO DE CONTAS
+            </div>
+            <span class="badge-count" id="stockBadge">0 Disponíveis</span>
+        </div>
+
+        <!-- BARRA DE BUSCA -->
+        <div class="filter-box">
+            <input type="text" id="searchInput" class="search-input" placeholder="🔍 Buscar por fruta, level ou conta..." oninput="filterProducts()">
+        </div>
+
+        <!-- LISTA DE PRODUTOS -->
+        <div id="productsList" class="products-grid">
+            <!-- Renderizado via JS -->
+        </div>
+
+        <!-- SEÇÃO DE SUPORTE -->
+        <div class="card-box" id="suporte">
+            <div class="section-title" style="margin-bottom: 8px;">
+                <i class="fa-solid fa-headset"></i> Atendimento & Suporte
+            </div>
+            <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px;">
+                Precisa de ajuda com alguma dúvida ou problema? Fale diretamente conosco!
+            </p>
+            <div class="support-grid">
+                <a href="https://wa.me/5521973125303?text=Ol%C3%A1!%20Preciso%20de%20suporte%20na%20After%20Store." target="_blank" class="btn-support btn-whatsapp-support">
+                    <i class="fa-brands fa-whatsapp"></i> WhatsApp Suporte
+                </a>
+                <a href="https://discord.gg/SEU_LINK_DO_DISCORD" target="_blank" class="btn-support btn-discord-support">
+                    <i class="fa-brands fa-discord"></i> Comunidade Discord
+                </a>
+            </div>
+        </div>
+
+        <!-- SEÇÃO DE FEEDBACKS -->
+        <div class="card-box">
+            <div class="section-title" style="margin-bottom: 12px;">
+                <i class="fa-solid fa-star"></i> Deixe seu Feedback
+            </div>
+            <form id="feedbackForm">
+                <input type="text" id="fbName" placeholder="Seu Nome ou Nick" required>
+                <div class="stars-selector" id="starSelector">
+                    <span class="star active" data-val="1">★</span>
+                    <span class="star active" data-val="2">★</span>
+                    <span class="star active" data-val="3">★</span>
+                    <span class="star active" data-val="4">★</span>
+                    <span class="star active" data-val="5">★</span>
+                </div>
+                <textarea id="fbComment" rows="2" placeholder="O que achou do atendimento/compra?" required></textarea>
+                <button type="submit" class="btn-submit">Enviar Avaliação</button>
+            </form>
+        </div>
+
+        <div class="card-box">
+            <div class="section-title" style="margin-bottom: 15px;">
+                <i class="fa-solid fa-comments"></i> Avaliações dos Clientes
+            </div>
+            <div id="feedbacksList">
+                <!-- Renderizado via JS -->
+            </div>
+        </div>
+
+        <!-- BOTÃO ÁREA DO DONO -->
+        <div class="admin-toggle">
+            <button class="btn-admin" onclick="openAdminPanel()">🔑 Login do Dono</button>
+        </div>
+
+        <!-- PAINEL RESTRITO DO DONO -->
+        <div id="adminPanel" class="card-box admin-panel">
+            <div class="section-title" style="margin-bottom: 12px;">
+                ⚙️ Painel de Controle do Dono
+            </div>
+            <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">
+                Conectado como: <b style="color:var(--gold-primary);">marcosviniciusdasilvareno053@gmail.com</b>
+            </p>
+            <form id="productForm">
+                <input type="text" id="pTitle" placeholder="Título (ex: Conta Level Max + Dough)" required>
+                <textarea id="pDesc" rows="2" placeholder="Descrição do produto..." required></textarea>
+                <input type="number" id="pPrice" placeholder="Preço (R$)" step="0.01" required>
+                <input type="text" id="pImg" placeholder="Link/Nome da Imagem da Conta (Opcional)">
+                <button type="submit" class="btn-submit" style="background: #25d366; color: #fff;">+ Adicionar Produto</button>
+            </form>
+        </div>
+
+    </div>
+
+<script>
+    const OWNER_EMAIL = "marcosviniciusdasilvareno053@gmail.com";
+    const BUY_WHATSAPP = "5521993107236"; // Número para compras
+    let isOwnerLoggedIn = false;
+    let selectedRating = 5;
+
+    // BANCO DE DADOS LOCAL
+    let products = JSON.parse(localStorage.getItem('afterStoreProducts')) || [];
+    let feedbacks = JSON.parse(localStorage.getItem('afterStoreFeedbacks')) || [];
+
+    function saveProducts() {
+        localStorage.setItem('afterStoreProducts', JSON.stringify(products));
+        renderProducts();
+    }
+
+    function renderProducts(filterText = "") {
+        const list = document.getElementById('productsList');
+        const badge = document.getElementById('stockBadge');
+        
+        const filtered = products.filter(p => 
+            p.title.toLowerCase().includes(filterText.toLowerCase()) || 
+            p.desc.toLowerCase().includes(filterText.toLowerCase())
+        );
+
+        badge.innerText = `${filtered.length} Disponíveis`;
+
+        if (filtered.length === 0) {
+            list.innerHTML = `
+                <div class="no-stock">
+                    <i class="fa-solid fa-box-open"></i>
+                    <h3>Nenhuma conta no estoque</h3>
+                    <p>Fique atento às novidades no nosso catálogo!</p>
+                </div>
+            `;
+            return;
+        }
+
+        list.innerHTML = "";
+        filtered.forEach((p, index) => {
+            const msg = encodeURIComponent(`Olá After Store! Tenho interesse em comprar: ${p.title} (R$ ${p.price})`);
+            const zapLink = `https://wa.me/${BUY_WHATSAPP}?text=${msg}`;
+            const imgHtml = p.img ? `<img src="${escapeHtml(p.img)}" class="product-img" alt="${escapeHtml(p.title)}" onerror="this.style.display='none'">` : '';
+
+            list.innerHTML += `
+                <div class="product-card">
+                    ${imgHtml}
+                    <div class="product-title">${escapeHtml(p.title)}</div>
+                    <div class="product-desc">${escapeHtml(p.desc)}</div>
+                    <div class="product-bottom">
+                        <div class="product-price">R$ ${parseFloat(p.price).toFixed(2)}</div>
+                        <a href="${zapLink}" target="_blank" class="btn-buy">
+                            <i class="fa-brands fa-whatsapp"></i> Comprar
+                        </a>
+                    </div>
+                    ${isOwnerLoggedIn ? `<button class="btn-delete" onclick="deleteProduct(${index})">🗑️ Remover Produto (Dono)</button>` : ''}
+                </div>
+            `;
+        });
+    }
+
+    function filterProducts() {
+        renderProducts(document.getElementById('searchInput').value);
+    }
+
+    function deleteProduct(index) {
+        if (confirm("Tem certeza que deseja remover este produto do estoque?")) {
+            products.splice(index, 1);
+            saveProducts();
+        }
+    }
+
+    // AUTENTICAÇÃO DO DONO POR EMAIL
+    function openAdminPanel() {
+        if (isOwnerLoggedIn) {
+            alert("Você já está logado como dono!");
+            return;
+        }
+
+        const inputEmail = prompt("Digite seu e-mail de dono para acessar:");
+        if (inputEmail && inputEmail.trim().toLowerCase() === OWNER_EMAIL.toLowerCase()) {
+            isOwnerLoggedIn = true;
+            document.getElementById('adminPanel').style.display = 'block';
+            renderProducts();
+            alert("Acesso concedido! Você pode adicionar e remover produtos.");
+        } else if (inputEmail !== null) {
+            alert("E-mail incorreto! Somente o dono tem permissão para alterar os produtos.");
+        }
+    }
+
+    document.getElementById('productForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const title = document.getElementById('pTitle').value;
+        const desc = document.getElementById('pDesc').value;
+        const price = document.getElementById('pPrice').value;
+        const img = document.getElementById('pImg').value;
+
+        products.push({ title, desc, price, img });
+        saveProducts();
+
+        document.getElementById('pTitle').value = '';
+        document.getElementById('pDesc').value = '';
+        document.getElementById('pPrice').value = '';
+        document.getElementById('pImg').value = '';
+        alert("Produto adicionado ao estoque!");
+    });
+
+    // SISTEMA DE ESTRELAS DE FEEDBACK
+    const stars = document.querySelectorAll('#starSelector .star');
+    stars.forEach(s => {
+        s.addEventListener('click', function() {
+            selectedRating = parseInt(this.getAttribute('data-val'));
+            stars.forEach(st => {
+                st.classList.toggle('active', parseInt(st.getAttribute('data-val')) <= selectedRating);
+            });
+        });
+    });
+
+    function renderFeedbacks() {
+        const list = document.getElementById('feedbacksList');
+        if (feedbacks.length === 0) {
+            list.innerHTML = `<p style="color:var(--text-muted); font-size:13px; text-align:center;">Nenhuma avaliação enviada ainda.</p>`;
+            return;
+        }
+
+        list.innerHTML = "";
+        feedbacks.slice().reverse().forEach(fb => {
+            const starsStr = '★'.repeat(fb.rating) + '☆'.repeat(5 - fb.rating);
+            list.innerHTML += `
+                <div class="feedback-item">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                        <strong style="color:var(--gold-primary);">${escapeHtml(fb.name)}</strong>
+                        <span style="color:var(--gold-primary); font-size:12px;">${starsStr}</span>
+                    </div>
+                    <div style="font-size:13px; color:#fff;">${escapeHtml(fb.comment)}</div>
+                </div>
+            `;
+        });
+    }
+
+    document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('fbName').value;
+        const comment = document.getElementById('fbComment').value;
+
+        feedbacks.push({ name, comment, rating: selectedRating });
+        localStorage.setItem('afterStoreFeedbacks', JSON.stringify(feedbacks));
+
+        document.getElementById('fbName').value = '';
+        document.getElementById('fbComment').value = '';
+        renderFeedbacks();
+    });
+
+    function escapeHtml(text) {
+        return text.replace(/[&<>"']/g, function(m) {
+            return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
+        });
+    }
+
+    // INICIALIZAÇÃO
+    renderProducts();
+    renderFeedbacks();
+</script>
+</body>
+</html>
+
