@@ -7,31 +7,31 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-dark: #08050e;
-            --bg-card: #120a21;
-            --purple-main: #7c3aed;
-            --purple-bright: #9333ea;
-            --purple-glow: rgba(147, 51, 234, 0.4);
-            --text-light: #f3f4f6;
+            --bg-color: #0b0713;
+            --card-bg: #130d22;
+            --purple-main: #8a2be2;
+            --purple-bright: #a855f7;
+            --purple-glow: rgba(168, 85, 247, 0.4);
+            --text-main: #ffffff;
             --text-sub: #9ca3af;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background-color: var(--bg-dark); color: var(--text-light); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+        body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
 
         /* HEADER */
-        header { background: rgba(8, 5, 14, 0.95); backdrop-filter: blur(12px); height: 65px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(147, 51, 234, 0.2); }
+        header { background: rgba(11, 7, 19, 0.95); backdrop-filter: blur(10px); height: 65px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(138, 43, 226, 0.15); }
         .header-btn { background: transparent; border: none; color: white; font-size: 1.3rem; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
-        .header-logo-container { position: absolute; left: 50%; transform: translateX(-50%); top: 8px; }
+        .header-logo-container { position: absolute; left: 50%; transform: translateX(-50%); top: 10px; }
         .header-logo { width: 50px; height: 50px; border-radius: 12px; object-fit: cover; border: 2px solid var(--purple-bright); box-shadow: 0 0 15px var(--purple-glow); }
-        .header-right { display: flex; gap: 8px; align-items: center; }
+        .header-right { display: flex; gap: 10px; align-items: center; }
         
-        .cart-icon-btn, .support-icon-btn { position: relative; background: rgba(124, 58, 237, 0.2); border: 1px solid var(--purple-bright); color: white; padding: 8px 12px; border-radius: 20px; font-size: 0.9rem; cursor: pointer; }
+        .cart-icon-btn { position: relative; background: rgba(138, 43, 226, 0.2); border: 1px solid var(--purple-bright); color: white; padding: 8px 12px; border-radius: 20px; font-size: 0.9rem; cursor: pointer; }
         .cart-badge { position: absolute; top: -5px; right: -5px; background: #ef4444; color: white; font-size: 0.7rem; font-weight: bold; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 
         /* SIDEBAR */
-        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); z-index: 200; display: none; }
-        .sidebar { position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background: #0c0718; border-right: 2px solid var(--purple-bright); z-index: 201; transition: 0.3s ease; padding: 20px; display: flex; flex-direction: column; }
+        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 200; display: none; }
+        .sidebar { position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background: #0f0a1c; border-right: 2px solid var(--purple-bright); z-index: 201; transition: 0.3s ease; padding: 20px; display: flex; flex-direction: column; }
         .sidebar.active { left: 0; }
         .sidebar-header { display: flex; flex-direction: column; align-items: center; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 20px; position: relative; }
         .sidebar-close { position: absolute; top: 0; left: 0; color: var(--text-sub); font-size: 1.2rem; cursor: pointer; }
@@ -39,23 +39,21 @@
         .sidebar-title { font-size: 1.2rem; font-weight: 700; display: flex; align-items: center; gap: 5px; }
         .menu-section { font-size: 0.75rem; color: var(--text-sub); letter-spacing: 1px; margin: 15px 0 8px 0; text-transform: uppercase; }
         .menu-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; color: #d1d5db; text-decoration: none; border-radius: 8px; font-size: 0.95rem; cursor: pointer; }
-        .menu-item:hover { background: rgba(124, 58, 237, 0.2); color: white; }
+        .menu-item:hover { background: rgba(138, 43, 226, 0.15); color: white; }
         .menu-item i { width: 20px; text-align: center; color: var(--purple-bright); }
 
-        /* CATEGORIAS */
-        .categories-bar { display: flex; gap: 8px; overflow-x: auto; padding: 15px 16px 5px 16px; max-width: 1100px; margin: 0 auto; width: 100%; scrollbar-width: none; }
-        .categories-bar::-webkit-scrollbar { display: none; }
-        .cat-btn { background: var(--bg-card); border: 1px solid rgba(147, 51, 234, 0.3); color: var(--text-sub); padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: 0.2s; }
-        .cat-btn.active { background: var(--purple-bright); color: white; border-color: var(--purple-bright); box-shadow: 0 0 12px var(--purple-glow); }
+        /* CATEGORIAS DINÂMICAS */
+        .categories-bar { display: flex; gap: 8px; overflow-x: auto; padding: 15px 16px 5px 16px; max-width: 1100px; margin: 0 auto; width: 100%; }
+        .cat-btn { background: var(--card-bg); border: 1px solid rgba(168, 85, 247, 0.3); color: var(--text-sub); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; cursor: pointer; white-space: nowrap; }
+        .cat-btn.active { background: var(--purple-bright); color: white; border-color: var(--purple-bright); box-shadow: 0 0 10px var(--purple-glow); }
 
         /* GRID */
         .container { padding: 16px; max-width: 1100px; margin: 0 auto; width: 100%; flex: 1; }
         .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
         @media (min-width: 768px) { .products-grid { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px; } }
 
-        .card { background: var(--bg-card); border-radius: 16px; border: 1px solid rgba(147, 51, 234, 0.25); overflow: hidden; display: flex; flex-direction: column; cursor: pointer; transition: 0.2s; }
-        .card:hover { border-color: var(--purple-bright); transform: translateY(-3px); }
-        .card-banner { background: var(--purple-bright); color: white; font-size: 0.65rem; font-weight: 800; text-align: center; padding: 4px; text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 4px; }
+        .card { background: var(--card-bg); border-radius: 16px; border: 1px solid rgba(138, 43, 226, 0.2); overflow: hidden; display: flex; flex-direction: column; cursor: pointer; }
+        .card-banner { background: #8b5cf6; color: white; font-size: 0.65rem; font-weight: 800; text-align: center; padding: 4px; text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 4px; }
         .card-img { width: 100%; height: 140px; object-fit: cover; background: #000; }
         .card-body { padding: 10px 12px 14px 12px; display: flex; flex-direction: column; flex: 1; }
         .card-title { font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; height: 2.4em; overflow: hidden; }
@@ -64,31 +62,23 @@
 
         /* FEEDBACKS */
         .feedbacks-section { margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 20px; }
-        .feedback-card { background: var(--bg-card); border: 1px solid rgba(147, 51, 234, 0.2); border-radius: 12px; padding: 12px; margin-bottom: 10px; }
+        .feedback-card { background: var(--card-bg); border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 12px; padding: 12px; margin-bottom: 10px; }
         .fb-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
         .fb-stars { color: #facc15; font-size: 0.8rem; }
-
-        /* CHAT SUPORTE INTERNO */
-        .chat-box { background: #0c0718; border: 1px solid rgba(147, 51, 234, 0.3); border-radius: 12px; height: 250px; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
-        .msg { padding: 8px 12px; border-radius: 12px; font-size: 0.85rem; max-width: 80%; }
-        .msg-bot { background: rgba(124, 58, 237, 0.2); border: 1px solid var(--purple-bright); align-self: flex-start; }
-        .msg-user { background: var(--purple-bright); color: white; align-self: flex-end; }
 
         /* MODAIS */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 300; justify-content: center; align-items: flex-end; }
         @media (min-width: 600px) { .modal { align-items: center; } }
-        .modal-content { background: #0f081d; border-top: 2px solid var(--purple-bright); border-radius: 24px 24px 0 0; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; padding: 20px; position: relative; }
+        .modal-content { background: #110b1f; border-top: 2px solid var(--purple-bright); border-radius: 24px 24px 0 0; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; padding: 20px; position: relative; }
         @media (min-width: 600px) { .modal-content { border-radius: 20px; border: 2px solid var(--purple-bright); } }
         .close-btn { position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.1); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
 
-        .btn-purple { background: var(--purple-bright); color: white; border: none; width: 100%; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .btn-seller-1 { background: #25d366; color: white; border: none; width: 100%; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 8px; }
-        .btn-seller-2 { background: #128c7e; color: white; border: none; width: 100%; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 6px; }
+        .btn-purple { background: var(--purple-bright); color: white; border: none; width: 100%; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 8px; }
         .btn-outline { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: white; width: 100%; padding: 10px; border-radius: 12px; font-weight: 600; cursor: pointer; margin-top: 6px; }
 
         .form-group { margin-bottom: 10px; }
         .form-group label { display: block; font-size: 0.8rem; margin-bottom: 4px; color: var(--text-sub); }
-        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px; border-radius: 8px; background: #08050e; border: 1px solid rgba(147, 51, 234, 0.3); color: white; font-size: 0.9rem; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px; border-radius: 8px; background: #0b0713; border: 1px solid rgba(168, 85, 247, 0.3); color: white; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -100,7 +90,6 @@
             <img src="https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg" id="topLogo" class="header-logo" alt="Logo">
         </div>
         <div class="header-right">
-            <button class="support-icon-btn" onclick="openSupportModal()"><i class="fa-solid fa-headset"></i></button>
             <button class="cart-icon-btn" onclick="openCartModal()">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <div class="cart-badge" id="cartCount">0</div>
@@ -119,12 +108,11 @@
 
         <div class="menu-section">Navegação</div>
         <a class="menu-item" onclick="toggleSidebar()"><i class="fa-solid fa-house"></i> Início</a>
-        <a class="menu-item" onclick="openCartModal(); toggleSidebar();"><i class="fa-solid fa-cart-shopping"></i> Meu Carrinho</a>
-        <a class="menu-item" onclick="openSupportModal(); toggleSidebar();"><i class="fa-solid fa-headset"></i> Suporte no Site</a>
+        <a class="menu-item" onclick="openCartModal()"><i class="fa-solid fa-cart-shopping"></i> Meu Carrinho</a>
 
-        <div class="menu-section">Contato com Vendedores</div>
-        <a class="menu-item" id="sideWhats1" target="_blank"><i class="fa-brands fa-whatsapp"></i> Vendedor 1 (Principal)</a>
-        <a class="menu-item" id="sideWhats2" target="_blank"><i class="fa-brands fa-whatsapp"></i> Vendedor 2 (Secundário)</a>
+        <div class="menu-section">Suporte & Vendas</div>
+        <a class="menu-item" id="sideWhatsBuy" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp Vendas</a>
+        <a class="menu-item" id="sideWhatsHelp" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp Suporte</a>
         <a class="menu-item" id="sideDiscord" target="_blank"><i class="fa-brands fa-discord"></i> Discord Oficial</a>
 
         <div class="menu-section" style="margin-top:auto;">Painel do Dono</div>
@@ -155,35 +143,8 @@
             <img id="mImg" style="width:100%; height:200px; object-fit:cover; border-radius:12px; margin-bottom:12px;" src="" alt="Produto">
             <h2 id="mTitle" style="font-size:1.1rem; margin-bottom:8px;">-</h2>
             <div style="color:var(--purple-bright); font-size:1.5rem; font-weight:800; margin-bottom:12px;" id="mPrice">R$ 0,00</div>
-            
             <button class="btn-purple" id="mAddCartBtn"><i class="fa-solid fa-cart-plus"></i> Adicionar ao Carrinho</button>
-            
-            <div style="margin-top:15px; font-size:0.85rem; color:var(--text-sub); text-align:center;">Comprar Direto pelo WhatsApp:</div>
-            <button class="btn-seller-1" id="mBuySeller1"><i class="fa-brands fa-whatsapp"></i> Comprar com Vendedor 1</button>
-            <button class="btn-seller-2" id="mBuySeller2"><i class="fa-brands fa-whatsapp"></i> Comprar com Vendedor 2</button>
-        </div>
-    </div>
-
-    <!-- MODAL SUPORTE INTERNO NO SITE -->
-    <div class="modal" id="supportModal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('supportModal')">&times;</span>
-            <h3 style="margin-bottom:12px;"><i class="fa-solid fa-headset" style="color:var(--purple-bright);"></i> Central de Suporte</h3>
-            <p style="font-size:0.8rem; color:var(--text-sub); margin-bottom:10px;">Tire suas dúvidas rápido no nosso chat interno:</p>
-            
-            <div class="chat-box" id="chatBox">
-                <div class="msg msg-bot">Olá! Como posso te ajudar hoje? Escolha uma dúvida rápida ou mande sua mensagem.</div>
-            </div>
-
-            <div style="display:flex; gap:5px; margin-bottom:10px; overflow-x:auto;">
-                <button class="btn-outline" style="font-size:0.75rem; white-space:nowrap;" onclick="sendQuickHelp('Como recebo minha conta?')">Como recebo?</button>
-                <button class="btn-outline" style="font-size:0.75rem; white-space:nowrap;" onclick="sendQuickHelp('Quais as formas de pagamento?')">Pagamentos?</button>
-            </div>
-
-            <div style="display:flex; gap:6px;">
-                <input type="text" id="chatInput" style="flex:1; padding:10px; border-radius:8px; background:#08050e; border:1px solid rgba(147, 51, 234, 0.3); color:white;" placeholder="Digite sua mensagem...">
-                <button class="btn-purple" style="width:auto; margin:0;" onclick="sendChatMessage()"><i class="fa-solid fa-paper-plane"></i></button>
-            </div>
+            <button class="btn-outline" id="mBuyNowBtn"><i class="fa-solid fa-bolt"></i> Comprar Agora via WhatsApp</button>
         </div>
     </div>
 
@@ -198,8 +159,7 @@
                 <span>Total:</span>
                 <span id="cartTotal" style="color:var(--purple-bright);">R$ 0,00</span>
             </div>
-            <button class="btn-seller-1" onclick="checkoutCart(1)"><i class="fa-brands fa-whatsapp"></i> Finalizar c/ Vendedor 1</button>
-            <button class="btn-seller-2" onclick="checkoutCart(2)"><i class="fa-brands fa-whatsapp"></i> Finalizar c/ Vendedor 2</button>
+            <button class="btn-purple" onclick="checkoutCart()"><i class="fa-brands fa-whatsapp"></i> Finalizar Compra no WhatsApp</button>
         </div>
     </div>
 
@@ -226,8 +186,8 @@
             <h4 style="margin-top:10px;">Configurações Gerais</h4>
             <div class="form-group"><label>Nome da Loja</label><input type="text" id="cfgName"></div>
             <div class="form-group"><label>URL da Logo</label><input type="text" id="cfgLogo"></div>
-            <div class="form-group"><label>WhatsApp Vendedor 1</label><input type="text" id="cfgWhats1"></div>
-            <div class="form-group"><label>WhatsApp Vendedor 2</label><input type="text" id="cfgWhats2"></div>
+            <div class="form-group"><label>WhatsApp 1 (Vendas)</label><input type="text" id="cfgWhats1"></div>
+            <div class="form-group"><label>WhatsApp 2 (Suporte)</label><input type="text" id="cfgWhats2"></div>
             <div class="form-group"><label>Link do Discord</label><input type="text" id="cfgDiscord"></div>
             <button class="btn-purple" onclick="saveConfig()">Salvar Loja</button>
 
@@ -236,7 +196,7 @@
             <h4>Cadastrar Produto</h4>
             <div class="form-group"><label>Nome</label><input type="text" id="pName"></div>
             <div class="form-group"><label>Preço (R$)</label><input type="number" step="0.01" id="pPrice"></div>
-            <div class="form-group"><label>Categoria (Ex: Contas, Frutas, Robux, Gamepass)</label><input type="text" id="pCat"></div>
+            <div class="form-group"><label>Categoria (Ex: Contas, Frutas, Robux)</label><input type="text" id="pCat"></div>
             <div class="form-group"><label>URL da Imagem</label><input type="text" id="pImg"></div>
             <button class="btn-purple" onclick="addProduct()">Salvar Produto</button>
 
@@ -247,8 +207,8 @@
     </div>
 
     <script>
-        // CONFIGURAÇÃO
-        let config = JSON.parse(localStorage.getItem('after_cfg_v11')) || {
+        // CONFIGURAÇÕES PADRÃO FIXAS NO CÓDIGO
+        let config = JSON.parse(localStorage.getItem('after_cfg_v10')) || {
             name: "After Store",
             logo: "https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg",
             whats1: "5521999999999",
@@ -256,16 +216,15 @@
             discord: "https://discord.gg/BbBACKC5S"
         };
 
-        // PRODUTOS
+        // PRODUTOS FIXOS (IMAGENS CORRIGIDAS)
         let defaultProducts = [
             { id: 1, name: "🥊 • GODHUMAN + LVL MAX + ITENS •", price: "6.90", category: "Contas", img: "https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg" },
-            { id: 2, name: "🎲 • LEVEL 1000 + ITENS ALEATÓRIOS •", price: "2.50", category: "Contas", img: "https://i.ibb.co/9kcDwTwf/IMG-20260723-WA0510.jpg" },
-            { id: 3, name: "🍎 • FRUTA LEOPARD / DOUGH •", price: "12.00", category: "Frutas", img: "https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg" }
+            { id: 2, name: "🎲 • LEVEL 1000 + ITENS ALEATÓRIOS •", price: "2.50", category: "Contas", img: "https://i.ibb.co/9kcDwTwf/IMG-20260723-WA0510.jpg" }
         ];
 
-        let products = JSON.parse(localStorage.getItem('after_prods_v11')) || defaultProducts;
+        let products = JSON.parse(localStorage.getItem('after_prods_v10')) || defaultProducts;
 
-        let feedbacks = JSON.parse(localStorage.getItem('after_fb_v11')) || [
+        let feedbacks = JSON.parse(localStorage.getItem('after_fb_v10')) || [
             { name: "Gabriel_Blox", stars: 5, comment: "Entrega super rápida, recomendo bastante!" },
             { name: "Felipinho", stars: 5, comment: "Mt bom, extraordinario!" }
         ];
@@ -278,8 +237,8 @@
             document.getElementById('sideLogo').src = config.logo;
             document.getElementById('sideName').innerText = config.name;
             document.getElementById('sideDiscord').href = config.discord;
-            document.getElementById('sideWhats1').href = `https://wa.me/${config.whats1}`;
-            document.getElementById('sideWhats2').href = `https://wa.me/${config.whats2}`;
+            document.getElementById('sideWhatsBuy').href = `https://wa.me/${config.whats1}`;
+            document.getElementById('sideWhatsHelp').href = `https://wa.me/${config.whats2}`;
 
             renderCategories();
             renderProducts();
@@ -294,10 +253,7 @@
         }
 
         function renderCategories() {
-            const presetCats = ["Todos", "Contas", "Frutas", "Gamepass", "Itens", "Robux"];
-            const customCats = products.map(p => p.category || "Geral");
-            const cats = [...new Set([...presetCats, ...customCats])];
-            
+            const cats = ["Todos", ...new Set(products.map(p => p.category || "Geral"))];
             const bar = document.getElementById('categoriesBar');
             bar.innerHTML = cats.map(c => `
                 <button class="cat-btn ${c === currentCat ? 'active' : ''}" onclick="filterCat('${c}')">${c}</button>
@@ -314,11 +270,6 @@
             const grid = document.getElementById('productsGrid');
             const list = currentCat === "Todos" ? products : products.filter(p => p.category === currentCat);
             
-            if(list.length === 0) {
-                grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding:30px; color:var(--text-sub);">Nenhum produto nesta categoria.</div>`;
-                return;
-            }
-
             grid.innerHTML = list.map(p => `
                 <div class="card" onclick="openProductModal(${p.id})">
                     <div class="card-banner"><i class="fa-solid fa-bolt"></i> ENTREGA 24H</div>
@@ -332,42 +283,7 @@
             `).join('');
         }
 
-        /* SUPORTE INTERNO */
-        function openSupportModal() { document.getElementById('supportModal').style.display = 'flex'; }
-        
-        function sendChatMessage() {
-            const input = document.getElementById('chatInput');
-            if(!input.value.trim()) return;
-            appendMsg(input.value, 'msg-user');
-            const userMsg = input.value;
-            input.value = '';
-
-            setTimeout(() => {
-                if(userMsg.toLowerCase().includes("entrega") || userMsg.toLowerCase().includes("receb")) {
-                    appendMsg("A entrega é feita diretamente no seu WhatsApp ou Discord após a confirmação do pagamento!", "msg-bot");
-                } else if(userMsg.toLowerCase().includes("pag") || userMsg.toLowerCase().includes("pix")) {
-                    appendMsg("Aceitamos PIX com aprovação imediata!", "msg-bot");
-                } else {
-                    appendMsg("Obrigado pelo contato! Se precisar de atendimento humano, chame um de nossos vendedores no WhatsApp pelo menu lateral.", "msg-bot");
-                }
-            }, 800);
-        }
-
-        function sendQuickHelp(txt) {
-            appendMsg(txt, 'msg-user');
-            setTimeout(() => {
-                if(txt.includes("recebo")) appendMsg("A entrega é enviada na hora pelo WhatsApp do vendedor escolhido!", "msg-bot");
-                if(txt.includes("pagamento")) appendMsg("Pagamentos são feitos via PIX!", "msg-bot");
-            }, 600);
-        }
-
-        function appendMsg(txt, cls) {
-            const box = document.getElementById('chatBox');
-            box.innerHTML += `<div class="msg ${cls}">${txt}</div>`;
-            box.scrollTop = box.scrollHeight;
-        }
-
-        /* CARRINHO */
+        /* CARRINHO LOGICA */
         function addToCart(id) {
             const p = products.find(prod => prod.id === id);
             cart.push(p);
@@ -376,7 +292,9 @@
             alert("Produto adicionado ao carrinho!");
         }
 
-        function updateCartBadge() { document.getElementById('cartCount').innerText = cart.length; }
+        function updateCartBadge() {
+            document.getElementById('cartCount').innerText = cart.length;
+        }
 
         function openCartModal() {
             const list = document.getElementById('cartItemsList');
@@ -384,7 +302,7 @@
             list.innerHTML = cart.map((item, idx) => {
                 total += parseFloat(item.price);
                 return `
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; background:#08050e; padding:8px; border-radius:8px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; background:#0b0713; padding:8px; border-radius:8px;">
                         <div>${item.name} - <strong>R$ ${item.price}</strong></div>
                         <button style="background:none; border:none; color:#ef4444; cursor:pointer;" onclick="removeFromCart(${idx})"><i class="fa-solid fa-trash"></i></button>
                     </div>
@@ -401,12 +319,11 @@
             openCartModal();
         }
 
-        function checkoutCart(seller) {
+        function checkoutCart() {
             if(cart.length === 0) return alert("Seu carrinho está vazio!");
-            let num = seller === 1 ? config.whats1 : config.whats2;
             let msg = "Olá! Quero finalizar o seguinte pedido:\n\n";
             cart.forEach(i => msg += `• ${i.name} (R$ ${i.price})\n`);
-            window.open(`https://wa.me/${num}?text=${encodeURIComponent(msg)}`, '_blank');
+            window.open(`https://wa.me/${config.whats1}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
         /* MODAL PRODUTO */
@@ -417,16 +334,13 @@
             document.getElementById('mPrice').innerText = `R$ ${parseFloat(p.price).toFixed(2).replace('.',',')}`;
             
             document.getElementById('mAddCartBtn').onclick = () => { addToCart(p.id); closeModal('productModal'); };
-            document.getElementById('mBuySeller1').onclick = () => {
+            document.getElementById('mBuyNowBtn').onclick = () => {
                 window.open(`https://wa.me/${config.whats1}?text=${encodeURIComponent("Quero comprar: " + p.name)}`, '_blank');
-            };
-            document.getElementById('mBuySeller2').onclick = () => {
-                window.open(`https://wa.me/${config.whats2}?text=${encodeURIComponent("Quero comprar: " + p.name)}`, '_blank');
             };
             document.getElementById('productModal').style.display = 'flex';
         }
 
-        /* FEEDBACKS */
+        /* FEEDBACKS LOGICA */
         function renderFeedbacks() {
             document.getElementById('feedbacksList').innerHTML = feedbacks.map(f => `
                 <div class="feedback-card">
@@ -443,7 +357,7 @@
             const comment = document.getElementById('fbComment').value;
             if(!name || !comment) return alert("Preencha todos os campos!");
             feedbacks.push({ name, stars, comment });
-            localStorage.setItem('after_fb_v11', JSON.stringify(feedbacks));
+            localStorage.setItem('after_fb_v10', JSON.stringify(feedbacks));
             renderFeedbacks();
             closeModal('feedbackModal');
         }
@@ -468,7 +382,7 @@
             config.whats1 = document.getElementById('cfgWhats1').value;
             config.whats2 = document.getElementById('cfgWhats2').value;
             config.discord = document.getElementById('cfgDiscord').value;
-            localStorage.setItem('after_cfg_v11', JSON.stringify(config));
+            localStorage.setItem('after_cfg_v10', JSON.stringify(config));
             init(); alert("Salvo com sucesso!");
         }
 
@@ -479,19 +393,19 @@
             const img = document.getElementById('pImg').value;
             if(!name || !price) return alert("Preencha os dados!");
             products.push({ id: Date.now(), name, price, category, img });
-            localStorage.setItem('after_prods_v11', JSON.stringify(products));
+            localStorage.setItem('after_prods_v10', JSON.stringify(products));
             init(); renderAdminList(); alert("Produto cadastrado!");
         }
 
         function removeProd(id) {
             products = products.filter(p => p.id !== id);
-            localStorage.setItem('after_prods_v11', JSON.stringify(products));
+            localStorage.setItem('after_prods_v10', JSON.stringify(products));
             init(); renderAdminList();
         }
 
         function renderAdminList() {
             document.getElementById('adminProdList').innerHTML = products.map(p => `
-                <div style="display:flex; justify-content:space-between; margin-top:5px; background:#08050e; padding:6px; border-radius:6px; font-size:0.8rem;">
+                <div style="display:flex; justify-content:space-between; margin-top:5px; background:#0b0713; padding:6px; border-radius:6px; font-size:0.8rem;">
                     <span>${p.name} (${p.category})</span>
                     <button style="color:red; background:none; border:none; cursor:pointer;" onclick="removeProd(${p.id})">Deletar</button>
                 </div>
