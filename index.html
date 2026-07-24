@@ -3,662 +3,556 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>After Store - Blox Fruit</title>
-    <!-- Ícones FontAwesome -->
+    <title>After Store - Oficial</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-dark: #12021c;
-            --bg-card: #220833;
-            --gold-primary: #f5c842;
-            --gold-gradient: linear-gradient(135deg, #ffe58f 0%, #d4af37 50%, #aa7c11 100%);
-            --gold-glow: rgba(212, 175, 55, 0.4);
-            --purple-accent: #8a2be2;
-            --text-light: #f7f0fc;
-            --text-muted: #c4b3d8;
-            --discord-color: #5865F2;
-            --whatsapp-color: #25d366;
+            --bg-color: #0d0a14;
+            --card-bg: #161224;
+            --accent-purple: #8b5cf6;
+            --neon-purple: #a855f7;
+            --text-color: #f3f4f6;
+            --text-dim: #9ca3af;
         }
 
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
             font-family: 'Segoe UI', Roboto, sans-serif;
-            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--bg-dark);
-            background-image: radial-gradient(circle at top, #2d0a42 0%, #12021c 80%);
-            color: var(--text-light);
+            background-color: var(--bg-color);
+            color: var(--text-color);
             min-height: 100vh;
-            padding-bottom: 50px;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* BARRA SUPERIOR */
-        .top-bar {
-            background: var(--gold-gradient);
-            color: #12021c;
-            text-align: center;
-            padding: 8px 12px;
-            font-size: 13px;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        /* NAVBAR */
+        header {
+            background: rgba(22, 18, 36, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 0 15px;
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        /* HEADER & PERFIL CIRCULAR */
-        .header {
-            text-align: center;
-            padding: 30px 0 20px 0;
-        }
-
-        .profile-img-container {
-            position: relative;
-            width: 140px;
-            height: 140px;
-            margin: 0 auto 15px auto;
-        }
-
-        .profile-img {
-            width: 100%;
-            height: 100%;
+        .brand img {
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
+            border: 2px solid var(--accent-purple);
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
             object-fit: cover;
-            border: 3px solid var(--gold-primary);
-            box-shadow: 0 0 25px var(--gold-glow), 0 0 12px var(--gold-primary);
         }
 
-        .store-title {
-            font-size: 32px;
-            font-weight: 800;
-            background: var(--gold-gradient);
+        .brand h1 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #fff, var(--neon-purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 5px;
         }
 
-        .store-desc {
-            color: var(--text-muted);
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-
-        /* CARDS DE DESTAQUE */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 30px;
-        }
-
-        .feature-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 12px;
-            padding: 12px 5px;
-            text-align: center;
-            font-size: 12px;
-            font-weight: 600;
-            text-decoration: none;
-            color: var(--text-light);
-            display: block;
-        }
-
-        .feature-card i {
-            font-size: 20px;
-            color: var(--gold-primary);
-            margin-bottom: 6px;
-            display: block;
-        }
-
-        /* TITULO DAS SEÇÕES */
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .section-title {
-            font-size: 20px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--gold-primary);
-        }
-
-        .badge-count {
-            background: var(--gold-gradient);
-            color: #12021c;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 800;
-        }
-
-        /* BUSCA */
-        .filter-box {
+        .nav-btns {
             display: flex;
             gap: 10px;
-            margin-bottom: 20px;
         }
 
-        .search-input {
-            flex: 1;
-            padding: 11px 15px;
-            background: var(--bg-card);
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            border-radius: 8px;
-            color: #fff;
-            outline: none;
-        }
-
-        /* CATÁLOGO DE PRODUTOS */
-        .products-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 35px;
-        }
-
-        .product-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(212, 175, 55, 0.35);
-            border-radius: 14px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .product-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 4px; height: 100%;
-            background: var(--gold-gradient);
-        }
-
-        .product-img {
-            width: 100%;
-            max-height: 200px;
-            object-fit: cover;
-            border-radius: 8px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            margin-bottom: 5px;
-        }
-
-        .product-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #fff;
-        }
-
-        .product-desc {
-            font-size: 13px;
-            color: var(--text-muted);
-            line-height: 1.4;
-        }
-
-        .product-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 5px;
-        }
-
-        .product-price {
-            font-size: 22px;
-            font-weight: 800;
-            color: var(--gold-primary);
-        }
-
-        .btn-buy {
-            background: linear-gradient(135deg, #25d366, #128c7e);
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 18px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .no-stock {
-            background: var(--bg-card);
-            border-radius: 14px;
-            padding: 40px 20px;
-            text-align: center;
-            color: var(--text-muted);
-            border: 1px dashed rgba(212, 175, 55, 0.3);
-        }
-
-        .no-stock i {
-            font-size: 45px;
-            color: var(--gold-primary);
-            margin-bottom: 10px;
-        }
-
-        /* SEÇÃO DE SUPORTE */
-        .support-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 10px;
-        }
-
-        .btn-support {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 12px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 14px;
-            color: #fff;
-            transition: transform 0.2s;
-        }
-
-        .btn-support:active {
-            transform: scale(0.98);
-        }
-
-        .btn-whatsapp-support {
-            background: linear-gradient(135deg, #25d366, #128c7e);
-        }
-
-        .btn-discord-support {
-            background: linear-gradient(135deg, #5865F2, #3b42a1);
-        }
-
-        /* CARDS & FEEDBACKS */
-        .card-box {
-            background: var(--bg-card);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 14px;
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-
-        .stars-selector {
-            display: flex;
-            gap: 8px;
-            font-size: 26px;
-            color: #4a3b5c;
-            cursor: pointer;
-            margin: 10px 0;
-            justify-content: center;
-        }
-
-        .stars-selector .star.active {
-            color: var(--gold-primary);
-            text-shadow: 0 0 8px var(--gold-glow);
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 11px;
-            background: rgba(18, 2, 28, 0.8);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 8px;
-            color: #fff;
-            margin-bottom: 10px;
-            outline: none;
-        }
-
-        .btn-submit {
-            width: 100%;
-            background: var(--gold-gradient);
-            color: #12021c;
-            font-weight: bold;
-            padding: 12px;
-            border: none;
+        .btn-icon {
+            background: #231c38;
+            border: 1px solid var(--accent-purple);
+            color: white;
+            padding: 8px 12px;
             border-radius: 8px;
             cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        .feedback-item {
-            background: rgba(18, 2, 28, 0.6);
-            border-left: 3px solid var(--gold-primary);
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 10px;
+        .btn-icon:hover {
+            background: var(--accent-purple);
+            box-shadow: 0 0 15px var(--accent-purple);
         }
 
-        /* PAINEL DO DONO */
-        .admin-toggle {
-            text-align: center;
-            margin: 30px 0;
+        /* CATEGORIAS / ABAS */
+        .tabs-container {
+            display: flex;
+            gap: 10px;
+            padding: 15px 20px;
+            overflow-x: auto;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        .btn-admin {
-            background: transparent;
-            border: 1px dashed var(--gold-primary);
-            color: var(--gold-primary);
+        .tab-btn {
+            background: var(--card-bg);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            color: var(--text-dim);
             padding: 8px 16px;
             border-radius: 20px;
             cursor: pointer;
-            font-size: 12px;
+            white-space: nowrap;
+            transition: 0.3s;
         }
 
-        .admin-panel {
-            display: none;
-            border: 2px solid var(--gold-primary);
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--accent-purple);
+            color: white;
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
         }
 
-        .btn-delete {
-            background: #ff3366;
-            color: #fff;
+        /* GRID DE PRODUTOS */
+        .container {
+            padding: 20px;
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(139, 92, 246, 0.3);
+            border-color: var(--neon-purple);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .card-body {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-bottom: 15px;
+            flex: 1;
+        }
+
+        .stock-tag {
+            font-size: 0.75rem;
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+            padding: 3px 8px;
+            border-radius: 4px;
+            width: fit-content;
+            margin-bottom: 10px;
+        }
+
+        .stock-tag.out {
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #a855f7;
+        }
+
+        .btn-buy {
+            background: var(--accent-purple);
+            color: white;
             border: none;
-            padding: 8px 12px;
+            padding: 8px 15px;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 12px;
-            font-weight: bold;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-buy:hover {
+            background: var(--neon-purple);
+            box-shadow: 0 0 10px var(--neon-purple);
+        }
+
+        /* SUPORTE FIXO */
+        .support-tickets {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 99;
+        }
+
+        .btn-support {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: 0.3s;
+        }
+
+        .btn-support.discord { background: #5865F2; }
+        .btn-support.whatsapp { background: #25D366; }
+        .btn-support:hover { transform: scale(1.1); }
+
+        /* PAINEL DO DONO (MODAL) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--accent-purple);
+            padding: 25px;
+            border-radius: 12px;
             width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal h2 { margin-bottom: 15px; color: var(--neon-purple); }
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-size: 0.85rem; margin-bottom: 5px; }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            background: #0d0a14;
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            color: white;
+        }
+
+        .btn-action {
+            width: 100%;
+            padding: 10px;
+            background: var(--accent-purple);
+            border: none;
+            color: white;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
             margin-top: 10px;
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            margin-top: 5px;
+        }
+
+        .close-modal {
+            float: right;
+            cursor: pointer;
+            font-size: 1.2rem;
         }
     </style>
 </head>
 <body>
 
-    <!-- BARRA SUPERIOR -->
-    <div class="top-bar">
-        ⚡ ENTREGA RÁPIDA VIA WHATSAPP • SUPORTE 24/7 ⚡
+    <!-- NAVBAR -->
+    <header>
+        <div class="brand">
+            <img src="https://via.placeholder.com/150" id="storeLogo" alt="Logo">
+            <h1 id="storeName">After Store</h1>
+        </div>
+        <div class="nav-btns">
+            <button class="btn-icon" onclick="openAdmin()"><i class="fa-solid fa-lock"></i> Dono</button>
+        </div>
+    </header>
+
+    <!-- ABAS / CATEGORIAS -->
+    <div class="tabs-container" id="tabsContainer">
+        <button class="tab-btn active" onclick="filterCategory('todos')">Todos</button>
     </div>
 
+    <!-- PRODUTOS -->
     <div class="container">
-
-        <!-- CABEÇALHO -->
-        <div class="header">
-            <div class="profile-img-container">
-                <img src="1000073521.jpg" alt="After Store Logo" class="profile-img" onerror="this.src='https://via.placeholder.com/140/220833/f5c842?text=After+Store'">
-            </div>
-            <h1 class="store-title">After Store</h1>
-            <p class="store-desc">Sua loja de confiança para contas de Blox Fruits &amp; Gamepass!</p>
-        </div>
-
-        <!-- 3 CARDS DE DESTAQUE -->
-        <div class="features-grid">
-            <div class="feature-card">
-                <i class="fa-solid fa-bolt"></i>
-                Entrega Rápida
-            </div>
-            <div class="feature-card">
-                <i class="fa-solid fa-shield-halved"></i>
-                100% Seguro
-            </div>
-            <a href="#suporte" class="feature-card">
-                <i class="fa-solid fa-headset"></i>
-                Suporte Via Zap/Discord
-            </a>
-        </div>
-
-        <!-- SEÇÃO DE PRODUTOS -->
-        <div class="section-header">
-            <div class="section-title">
-                <i class="fa-solid fa-fire"></i> CATÁLOGO DE CONTAS
-            </div>
-            <span class="badge-count" id="stockBadge">0 Disponíveis</span>
-        </div>
-
-        <!-- BARRA DE BUSCA -->
-        <div class="filter-box">
-            <input type="text" id="searchInput" class="search-input" placeholder="🔍 Buscar por fruta, level ou conta..." oninput="filterProducts()">
-        </div>
-
-        <!-- LISTA DE PRODUTOS -->
-        <div id="productsList" class="products-grid">
-            <!-- Renderizado via JS -->
-        </div>
-
-        <!-- SEÇÃO DE SUPORTE -->
-        <div class="card-box" id="suporte">
-            <div class="section-title" style="margin-bottom: 8px;">
-                <i class="fa-solid fa-headset"></i> Atendimento & Suporte
-            </div>
-            <p style="font-size:13px; color:var(--text-muted); margin-bottom:15px;">
-                Precisa de ajuda com alguma dúvida ou problema? Fale diretamente conosco!
-            </p>
-            <div class="support-grid">
-                <a href="https://wa.me/5521973125303?text=Ol%C3%A1!%20Preciso%20de%20suporte%20na%20After%20Store." target="_blank" class="btn-support btn-whatsapp-support">
-                    <i class="fa-brands fa-whatsapp"></i> WhatsApp Suporte
-                </a>
-                <a href="https://discord.gg/SEU_LINK_DO_DISCORD" target="_blank" class="btn-support btn-discord-support">
-                    <i class="fa-brands fa-discord"></i> Comunidade Discord
-                </a>
-            </div>
-        </div>
-
-        <!-- SEÇÃO DE FEEDBACKS -->
-        <div class="card-box">
-            <div class="section-title" style="margin-bottom: 12px;">
-                <i class="fa-solid fa-star"></i> Deixe seu Feedback
-            </div>
-            <form id="feedbackForm">
-                <input type="text" id="fbName" placeholder="Seu Nome ou Nick" required>
-                <div class="stars-selector" id="starSelector">
-                    <span class="star active" data-val="1">★</span>
-                    <span class="star active" data-val="2">★</span>
-                    <span class="star active" data-val="3">★</span>
-                    <span class="star active" data-val="4">★</span>
-                    <span class="star active" data-val="5">★</span>
-                </div>
-                <textarea id="fbComment" rows="2" placeholder="O que achou do atendimento/compra?" required></textarea>
-                <button type="submit" class="btn-submit">Enviar Avaliação</button>
-            </form>
-        </div>
-
-        <div class="card-box">
-            <div class="section-title" style="margin-bottom: 15px;">
-                <i class="fa-solid fa-comments"></i> Avaliações dos Clientes
-            </div>
-            <div id="feedbacksList">
-                <!-- Renderizado via JS -->
-            </div>
-        </div>
-
-        <!-- BOTÃO ÁREA DO DONO -->
-        <div class="admin-toggle">
-            <button class="btn-admin" onclick="openAdminPanel()">🔑 Login do Dono</button>
-        </div>
-
-        <!-- PAINEL RESTRITO DO DONO -->
-        <div id="adminPanel" class="card-box admin-panel">
-            <div class="section-title" style="margin-bottom: 12px;">
-                ⚙️ Painel de Controle do Dono
-            </div>
-            <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">
-                Conectado como: <b style="color:var(--gold-primary);">marcosviniciusdasilvareno053@gmail.com</b>
-            </p>
-            <form id="productForm">
-                <input type="text" id="pTitle" placeholder="Título (ex: Conta Level Max + Dough)" required>
-                <textarea id="pDesc" rows="2" placeholder="Descrição do produto..." required></textarea>
-                <input type="number" id="pPrice" placeholder="Preço (R$)" step="0.01" required>
-                <input type="text" id="pImg" placeholder="Link/Nome da Imagem da Conta (Opcional)">
-                <button type="submit" class="btn-submit" style="background: #25d366; color: #fff;">+ Adicionar Produto</button>
-            </form>
-        </div>
-
+        <div class="products-grid" id="productsGrid"></div>
     </div>
 
-<script>
-    const OWNER_EMAIL = "marcosviniciusdasilvareno053@gmail.com";
-    const BUY_WHATSAPP = "5521993107236"; // Número para compras
-    let isOwnerLoggedIn = false;
-    let selectedRating = 5;
+    <!-- TICKETS FLUTUANTES -->
+    <div class="support-tickets">
+        <a href="https://discord.gg/BbBACKC5S" target="_blank" class="btn-support discord" title="Ticket Discord">
+            <i class="fa-brands fa-discord"></i>
+        </a>
+        <a href="#" id="whatsBtn" target="_blank" class="btn-support whatsapp" title="Ticket WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+    </div>
 
-    // BANCO DE DADOS LOCAL
-    let products = JSON.parse(localStorage.getItem('afterStoreProducts')) || [];
-    let feedbacks = JSON.parse(localStorage.getItem('afterStoreFeedbacks')) || [];
+    <!-- MODAL PAINEL DO DONO -->
+    <div class="modal" id="adminModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeAdmin()">&times;</span>
+            <h2><i class="fa-solid fa-gear"></i> Painel do Dono</h2>
 
-    function saveProducts() {
-        localStorage.setItem('afterStoreProducts', JSON.stringify(products));
-        renderProducts();
-    }
+            <!-- Configurações Gerais -->
+            <h3>Configurar Loja</h3>
+            <div class="form-group">
+                <label>Nome da Loja</label>
+                <input type="text" id="cfgName" placeholder="Ex: After Store">
+            </div>
+            <div class="form-group">
+                <label>URL do Logo/Foto de Perfil</label>
+                <input type="text" id="cfgLogo" placeholder="Cole o link da imagem">
+            </div>
+            <div class="form-group">
+                <label>Número do WhatsApp (com DDD)</label>
+                <input type="text" id="cfgWhats" placeholder="Ex: 5521999999999">
+            </div>
+            <button class="btn-action" onclick="saveStoreConfig()">Salvar Configurações</button>
 
-    function renderProducts(filterText = "") {
-        const list = document.getElementById('productsList');
-        const badge = document.getElementById('stockBadge');
-        
-        const filtered = products.filter(p => 
-            p.title.toLowerCase().includes(filterText.toLowerCase()) || 
-            p.desc.toLowerCase().includes(filterText.toLowerCase())
-        );
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 20px 0;">
 
-        badge.innerText = `${filtered.length} Disponíveis`;
+            <!-- Adicionar Produto -->
+            <h3>Adicionar / Editar Produto</h3>
+            <div class="form-group">
+                <label>Nome do Produto</label>
+                <input type="text" id="pName">
+            </div>
+            <div class="form-group">
+                <label>Descrição</label>
+                <textarea id="pDesc" rows="2"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Preço (R$)</label>
+                <input type="number" id="pPrice" step="0.01">
+            </div>
+            <div class="form-group">
+                <label>Aba / Categoria</label>
+                <input type="text" id="pCategory" placeholder="Ex: Contas, Frutas, Métodos">
+            </div>
+            <div class="form-group">
+                <label>URL da Imagem do Produto</label>
+                <input type="text" id="pImg" placeholder="https://link-da-imagem.com/foto.png">
+            </div>
+            <div class="form-group">
+                <label>Quantidade em Estoque</label>
+                <input type="number" id="pStock" value="1">
+            </div>
+            <button class="btn-action" onclick="addProduct()">Salvar Produto</button>
 
-        if (filtered.length === 0) {
-            list.innerHTML = `
-                <div class="no-stock">
-                    <i class="fa-solid fa-box-open"></i>
-                    <h3>Nenhuma conta no estoque</h3>
-                    <p>Fique atento às novidades no nosso catálogo!</p>
-                </div>
-            `;
-            return;
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 20px 0;">
+
+            <!-- Gerenciar Estoque / Remover -->
+            <h3>Gerenciar Produtos</h3>
+            <div id="adminProductList"></div>
+        </div>
+    </div>
+
+    <script>
+        // BANCO DE DADOS LOCAL
+        let storeConfig = JSON.parse(localStorage.getItem('after_config')) || {
+            name: "After Store",
+            logo: "1000073521.jpg",
+            whats: "5521999999999"
+        };
+
+        let products = JSON.parse(localStorage.getItem('after_products')) || [
+            {
+                id: 1,
+                name: "Conta Level 1K+ (Frutas)",
+                desc: "Conta com frutas lendárias e level alto pronta para uso.",
+                price: "25.00",
+                category: "Contas",
+                img: "1000073521.jpg",
+                stock: 5
+            }
+        ];
+
+        // INICIALIZAR SITE
+        function initSite() {
+            document.getElementById('storeName').innerText = storeConfig.name;
+            document.getElementById('storeLogo').src = storeConfig.logo;
+            document.getElementById('whatsBtn').href = `https://wa.me/${storeConfig.whats}?text=Ol%C3%A1,%20preciso%20de%20suporte%20na%20${encodeURIComponent(storeConfig.name)}`;
+            
+            renderCategories();
+            renderProducts('todos');
         }
 
-        list.innerHTML = "";
-        filtered.forEach((p, index) => {
-            const msg = encodeURIComponent(`Olá After Store! Tenho interesse em comprar: ${p.title} (R$ ${p.price})`);
-            const zapLink = `https://wa.me/${BUY_WHATSAPP}?text=${msg}`;
-            const imgHtml = p.img ? `<img src="${escapeHtml(p.img)}" class="product-img" alt="${escapeHtml(p.title)}" onerror="this.style.display='none'">` : '';
+        // RENDERIZAR CATEGORIAS
+        function renderCategories() {
+            const tabsContainer = document.getElementById('tabsContainer');
+            const categories = ['todos', ...new Set(products.map(p => p.category.toLowerCase()))];
 
-            list.innerHTML += `
-                <div class="product-card">
-                    ${imgHtml}
-                    <div class="product-title">${escapeHtml(p.title)}</div>
-                    <div class="product-desc">${escapeHtml(p.desc)}</div>
-                    <div class="product-bottom">
-                        <div class="product-price">R$ ${parseFloat(p.price).toFixed(2)}</div>
-                        <a href="${zapLink}" target="_blank" class="btn-buy">
-                            <i class="fa-brands fa-whatsapp"></i> Comprar
-                        </a>
+            tabsContainer.innerHTML = categories.map(cat => `
+                <button class="tab-btn ${cat === 'todos' ? 'active' : ''}" onclick="filterCategory('${cat}', this)">
+                    ${cat.charAt(0).toUpperCase() + cat.slice(1)}
+                </button>
+            `).join('');
+        }
+
+        function filterCategory(cat, btn) {
+            if(btn) {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            }
+            renderProducts(cat);
+        }
+
+        // RENDERIZAR PRODUTOS
+        function renderProducts(filter = 'todos') {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+
+            const filtered = filter === 'todos' 
+                ? products 
+                : products.filter(p => p.category.toLowerCase() === filter);
+
+            filtered.forEach(p => {
+                grid.innerHTML += `
+                    <div class="card">
+                        <img src="${p.img}" class="card-img" alt="${p.name}" onerror="this.src='https://via.placeholder.com/300x180?text=Sem+Imagem'">
+                        <div class="card-body">
+                            <span class="stock-tag ${p.stock <= 0 ? 'out' : ''}">
+                                ${p.stock > 0 ? `Estoque 24h: ${p.stock}` : 'Esgotado'}
+                            </span>
+                            <div class="card-title">${p.name}</div>
+                            <div class="card-desc">${p.desc}</div>
+                            <div class="card-footer">
+                                <div class="price">R$ ${parseFloat(p.price).toFixed(2)}</div>
+                                <button class="btn-buy" onclick="buyProduct('${p.name}')" ${p.stock <= 0 ? 'disabled' : ''}>
+                                    ${p.stock > 0 ? 'Comprar' : 'Sem Estoque'}
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    ${isOwnerLoggedIn ? `<button class="btn-delete" onclick="deleteProduct(${index})">🗑️ Remover Produto (Dono)</button>` : ''}
-                </div>
-            `;
-        });
-    }
-
-    function filterProducts() {
-        renderProducts(document.getElementById('searchInput').value);
-    }
-
-    function deleteProduct(index) {
-        if (confirm("Tem certeza que deseja remover este produto do estoque?")) {
-            products.splice(index, 1);
-            saveProducts();
-        }
-    }
-
-    // AUTENTICAÇÃO DO DONO POR EMAIL
-    function openAdminPanel() {
-        if (isOwnerLoggedIn) {
-            alert("Você já está logado como dono!");
-            return;
-        }
-
-        const inputEmail = prompt("Digite seu e-mail de dono para acessar:");
-        if (inputEmail && inputEmail.trim().toLowerCase() === OWNER_EMAIL.toLowerCase()) {
-            isOwnerLoggedIn = true;
-            document.getElementById('adminPanel').style.display = 'block';
-            renderProducts();
-            alert("Acesso concedido! Você pode adicionar e remover produtos.");
-        } else if (inputEmail !== null) {
-            alert("E-mail incorreto! Somente o dono tem permissão para alterar os produtos.");
-        }
-    }
-
-    document.getElementById('productForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const title = document.getElementById('pTitle').value;
-        const desc = document.getElementById('pDesc').value;
-        const price = document.getElementById('pPrice').value;
-        const img = document.getElementById('pImg').value;
-
-        products.push({ title, desc, price, img });
-        saveProducts();
-
-        document.getElementById('pTitle').value = '';
-        document.getElementById('pDesc').value = '';
-        document.getElementById('pPrice').value = '';
-        document.getElementById('pImg').value = '';
-        alert("Produto adicionado ao estoque!");
-    });
-
-    // SISTEMA DE ESTRELAS DE FEEDBACK
-    const stars = document.querySelectorAll('#starSelector .star');
-    stars.forEach(s => {
-        s.addEventListener('click', function() {
-            selectedRating = parseInt(this.getAttribute('data-val'));
-            stars.forEach(st => {
-                st.classList.toggle('active', parseInt(st.getAttribute('data-val')) <= selectedRating);
+                `;
             });
-        });
-    });
-
-    function renderFeedbacks() {
-        const list = document.getElementById('feedbacksList');
-        if (feedbacks.length === 0) {
-            list.innerHTML = `<p style="color:var(--text-muted); font-size:13px; text-align:center;">Nenhuma avaliação enviada ainda.</p>`;
-            return;
         }
 
-        list.innerHTML = "";
-        feedbacks.slice().reverse().forEach(fb => {
-            const starsStr = '★'.repeat(fb.rating) + '☆'.repeat(5 - fb.rating);
-            list.innerHTML += `
-                <div class="feedback-item">
-                    <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
-                        <strong style="color:var(--gold-primary);">${escapeHtml(fb.name)}</strong>
-                        <span style="color:var(--gold-primary); font-size:12px;">${starsStr}</span>
-                    </div>
-                    <div style="font-size:13px; color:#fff;">${escapeHtml(fb.comment)}</div>
+        // REDIRECIONAR COMPRA PARA DISCORD/WHATSAPP
+        function buyProduct(pName) {
+            const text = encodeURIComponent(`Olá! Quero comprar o produto: ${pName}`);
+            window.open(`https://wa.me/${storeConfig.whats}?text=${text}`, '_blank');
+        }
+
+        // PAINEL DO DONO LOGICA
+        function openAdmin() {
+            const pass = prompt("Digite a Senha do Painel:");
+            if(pass === "admin123" || pass === "after") { // SENHA DO PAINEL
+                document.getElementById('cfgName').value = storeConfig.name;
+                document.getElementById('cfgLogo').value = storeConfig.logo;
+                document.getElementById('cfgWhats').value = storeConfig.whats;
+                renderAdminProducts();
+                document.getElementById('adminModal').style.display = 'flex';
+            } else if (pass !== null) {
+                alert("Senha incorreta!");
+            }
+        }
+
+        function closeAdmin() {
+            document.getElementById('adminModal').style.display = 'none';
+        }
+
+        function saveStoreConfig() {
+            storeConfig.name = document.getElementById('cfgName').value;
+            storeConfig.logo = document.getElementById('cfgLogo').value;
+            storeConfig.whats = document.getElementById('cfgWhats').value;
+            localStorage.setItem('after_config', JSON.stringify(storeConfig));
+            initSite();
+            alert("Configurações salvas!");
+        }
+
+        function addProduct() {
+            const name = document.getElementById('pName').value;
+            const desc = document.getElementById('pDesc').value;
+            const price = document.getElementById('pPrice').value;
+            const category = document.getElementById('pCategory').value || "Geral";
+            const img = document.getElementById('pImg').value;
+            const stock = parseInt(document.getElementById('pStock').value);
+
+            if(!name || !price) return alert("Preencha Nome e Preço!");
+
+            products.push({ id: Date.now(), name, desc, price, category, img, stock });
+            localStorage.setItem('after_products', JSON.stringify(products));
+            
+            initSite();
+            renderAdminProducts();
+            alert("Produto adicionado com sucesso!");
+        }
+
+        function removeProduct(id) {
+            if(confirm("Tem certeza que deseja remover este produto?")) {
+                products = products.filter(p => p.id !== id);
+                localStorage.setItem('after_products', JSON.stringify(products));
+                initSite();
+                renderAdminProducts();
+            }
+        }
+
+        function renderAdminProducts() {
+            const list = document.getElementById('adminProductList');
+            list.innerHTML = products.map(p => `
+                <div style="display:flex; justify-content:space-between; align-items:center; background:#0d0a14; padding:8px; margin-top:5px; border-radius:6px;">
+                    <div><strong>${p.name}</strong> - R$ ${p.price} (${p.stock} un)</div>
+                    <button class="btn-action btn-danger" style="width:auto; padding:4px 8px;" onclick="removeProduct(${p.id})">Deletar</button>
                 </div>
-            `;
-        });
-    }
+            `).join('');
+        }
 
-    document.getElementById('feedbackForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const name = document.getElementById('fbName').value;
-        const comment = document.getElementById('fbComment').value;
-
-        feedbacks.push({ name, comment, rating: selectedRating });
-        localStorage.setItem('afterStoreFeedbacks', JSON.stringify(feedbacks));
-
-        document.getElementById('fbName').value = '';
-        document.getElementById('fbComment').value = '';
-        renderFeedbacks();
-    });
-
-    function escapeHtml(text) {
-        return text.replace(/[&<>"']/g, function(m) {
-            return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
-        });
-    }
-
-    // INICIALIZAÇÃO
-    renderProducts();
-    renderFeedbacks();
-</script>
+        initSite();
+    </script>
 </body>
 </html>
 
