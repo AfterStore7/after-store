@@ -3,27 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>After Store - Blox Fruits & VIP Accounts</title>
+    <title id="pageTitle">After Store - System Labs 2</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-dark: #080810;
-            --bg-card: #10101c;
-            --bg-glass: rgba(20, 20, 35, 0.7);
+            --bg-dark: #07070e;
+            --bg-card: #0f0f1b;
+            --bg-modal: #121224;
             --green-main: #10b981;
             --green-glow: rgba(16, 185, 129, 0.4);
             --purple-main: #8b5cf6;
+            --purple-glow: rgba(139, 92, 246, 0.4);
             --red-main: #ef4444;
             --text-light: #f8fafc;
             --text-sub: #94a3b8;
-            --border-color: rgba(16, 185, 129, 0.2);
+            --border-color: rgba(16, 185, 129, 0.25);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background-color: var(--bg-dark); color: var(--text-light); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; padding-bottom: 75px; }
 
         /* TOP BARS */
-        .top-status-bar { background: #040408; padding: 6px 12px; font-size: 0.72rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); }
+        .top-status-bar { background: #030306; padding: 6px 12px; font-size: 0.72rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); }
         .status-badge { display: flex; align-items: center; gap: 6px; color: var(--green-main); font-weight: 700; }
         .status-dot { width: 8px; height: 8px; background: var(--green-main); border-radius: 50%; box-shadow: 0 0 8px var(--green-main); animation: pulse 1.5s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
@@ -36,12 +37,16 @@
         .header-logo { width: 42px; height: 42px; border-radius: 10px; object-fit: cover; border: 2px solid var(--green-main); }
         .header-brand-title { font-weight: 900; font-size: 1.1rem; color: #fff; }
 
-        .header-right { display: flex; gap: 8px; }
-        .nav-btn { position: relative; background: var(--bg-card); border: 1px solid var(--border-color); color: white; padding: 8px 12px; border-radius: 10px; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; gap: 6px; font-weight: 700; }
+        .header-right { display: flex; gap: 6px; }
+        .nav-btn { position: relative; background: var(--bg-card); border: 1px solid var(--border-color); color: white; padding: 8px 10px; border-radius: 10px; font-size: 0.78rem; cursor: pointer; display: flex; align-items: center; gap: 5px; font-weight: 700; }
         .cart-badge { position: absolute; top: -5px; right: -5px; background: var(--red-main); color: white; font-size: 0.65rem; font-weight: 900; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 
+        /* BANNER */
+        .store-banner { width: 100%; height: 140px; background-size: cover; background-position: center; position: relative; border-bottom: 1px solid var(--border-color); }
+        .store-banner-overlay { position: absolute; inset: 0; background: linear-gradient(to top, var(--bg-dark), transparent); }
+
         /* TABS */
-        .tabs-nav { display: flex; background: #06060c; border-bottom: 1px solid var(--border-color); overflow-x: auto; scrollbar-width: none; }
+        .tabs-nav { display: flex; background: #05050a; border-bottom: 1px solid var(--border-color); overflow-x: auto; scrollbar-width: none; }
         .tab-link { padding: 12px 16px; font-size: 0.82rem; font-weight: 700; color: var(--text-sub); border: none; background: transparent; cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; }
         .tab-link.active { color: var(--green-main); border-bottom-color: var(--green-main); }
 
@@ -54,7 +59,8 @@
 
         .card { background: var(--bg-card); border-radius: 16px; border: 1px solid var(--border-color); overflow: hidden; display: flex; flex-direction: column; cursor: pointer; position: relative; transition: transform 0.2s; }
         .card:hover { transform: translateY(-4px); border-color: var(--green-main); }
-        .card-tag { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.8); border: 1px solid var(--green-main); color: #fff; font-size: 0.6rem; font-weight: 900; padding: 3px 6px; border-radius: 6px; z-index: 2; }
+        .card-tag { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.85); border: 1px solid var(--green-main); color: #fff; font-size: 0.6rem; font-weight: 900; padding: 3px 6px; border-radius: 6px; z-index: 2; }
+        .card-fav-btn { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.85); color: #fff; border: 1px solid var(--border-color); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 2; cursor: pointer; }
         .card-img-container { width: 100%; height: 130px; background: #000; position: relative; }
         .card-img { width: 100%; height: 100%; object-fit: cover; }
         .card-body { padding: 10px; display: flex; flex-direction: column; flex: 1; }
@@ -65,24 +71,29 @@
 
         /* BUTTONS & MODALS */
         .btn-purple { background: linear-gradient(90deg, var(--green-main), var(--purple-main)); color: white; border: none; width: 100%; padding: 10px; border-radius: 10px; font-weight: 800; cursor: pointer; margin-top: 8px; }
-        .btn-seller-1 { background: #25d366; color: white; border: none; width: 100%; padding: 10px; border-radius: 10px; font-weight: 800; cursor: pointer; margin-top: 6px; }
+        .btn-seller-marcos { background: #25d366; color: white; border: none; width: 100%; padding: 10px; border-radius: 10px; font-weight: 800; cursor: pointer; margin-top: 6px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-seller-gabriel { background: #0284c7; color: white; border: none; width: 100%; padding: 10px; border-radius: 10px; font-weight: 800; cursor: pointer; margin-top: 6px; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(6px); z-index: 300; justify-content: center; align-items: flex-end; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); backdrop-filter: blur(8px); z-index: 300; justify-content: center; align-items: flex-end; }
         @media (min-width: 600px) { .modal { align-items: center; } }
-        .modal-content { background: #0d0d18; border-top: 2px solid var(--green-main); border-radius: 20px 20px 0 0; width: 100%; max-width: 500px; max-height: 85vh; overflow-y: auto; padding: 18px; position: relative; }
+        .modal-content { background: var(--bg-modal); border-top: 2px solid var(--green-main); border-radius: 20px 20px 0 0; width: 100%; max-width: 520px; max-height: 88vh; overflow-y: auto; padding: 18px; position: relative; }
         @media (min-width: 600px) { .modal-content { border-radius: 16px; border: 2px solid var(--green-main); } }
         .close-btn { position: absolute; top: 12px; right: 12px; color: white; font-weight: bold; cursor: pointer; font-size: 1.2rem; }
 
         .form-group { margin-bottom: 10px; }
         .form-group label { display: block; font-size: 0.75rem; color: var(--text-sub); margin-bottom: 4px; font-weight: 700; }
-        .form-group input, .form-group select { width: 100%; padding: 8px; border-radius: 8px; background: #040408; border: 1px solid var(--border-color); color: white; font-size: 0.85rem; outline: none; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 9px; border-radius: 8px; background: #06060c; border: 1px solid var(--border-color); color: white; font-size: 0.85rem; outline: none; }
 
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background: #06060c; border-top: 1px solid var(--border-color); display: flex; justify-content: space-around; align-items: center; z-index: 150; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background: #05050a; border-top: 1px solid var(--border-color); display: flex; justify-content: space-around; align-items: center; z-index: 150; }
         .bottom-nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-sub); font-size: 0.7rem; cursor: pointer; gap: 2px; font-weight: 600; }
         .bottom-nav-item.active { color: var(--green-main); }
 
         .admin-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.75rem; }
         .admin-table th, .admin-table td { padding: 6px; border: 1px solid var(--border-color); text-align: left; }
+
+        /* TOAST NOTIFICATION */
+        .toast-notify { position: fixed; bottom: 70px; left: 14px; background: rgba(15, 15, 27, 0.95); border: 1px solid var(--green-main); padding: 10px 14px; border-radius: 10px; display: flex; align-items: center; gap: 10px; z-index: 200; box-shadow: 0 4px 15px rgba(0,0,0,0.5); transform: translateY(150%); transition: transform 0.4s ease; max-width: 300px; }
+        .toast-notify.show { transform: translateY(0); }
     </style>
 </head>
 <body>
@@ -100,34 +111,47 @@
     <!-- HEADER -->
     <header>
         <div class="header-logo-container" onclick="switchTab('tabHome', document.querySelectorAll('.tab-link')[0])">
-            <img src="https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg" id="topLogo" class="header-logo" alt="Logo">
+            <img src="" id="topLogo" class="header-logo" alt="Logo">
             <div class="header-brand-title" id="topBrandTitle">After Store</div>
         </div>
         <div class="header-right">
-            <button class="nav-btn" onclick="claimDailyBonus()"><i class="fa-solid fa-gift" style="color:var(--green-main);"></i> Bônus</button>
+            <button class="nav-btn" onclick="openDiscord()"><i class="fa-brands fa-discord" style="color:#5865F2;"></i></button>
+            <button class="nav-btn" onclick="openAuthModal()"><i class="fa-solid fa-user" id="userIconHeader"></i> <span id="userHeaderName">Entrar</span></button>
             <button class="nav-btn" onclick="openCartModal()">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <div class="cart-badge" id="cartCount">0</div>
             </button>
-            <button class="nav-btn" onclick="openAdmin()"><i class="fa-solid fa-lock"></i> Admin</button>
+            <button class="nav-btn" onclick="openAdmin()"><i class="fa-solid fa-lock"></i></button>
         </div>
     </header>
 
-    <!-- NAVEGAÇÃO -->
+    <!-- BANNER PRINCIPAL -->
+    <div class="store-banner" id="storeBanner">
+        <div class="store-banner-overlay"></div>
+    </div>
+
+    <!-- NAVEGAÇÃO ABA -->
     <div class="tabs-nav">
         <button class="tab-link active" onclick="switchTab('tabHome', this)"><i class="fa-solid fa-house"></i> Início</button>
         <button class="tab-link" onclick="switchTab('tabBlox', this)"><i class="fa-solid fa-apple-whole"></i> Blox Fruits</button>
         <button class="tab-link" onclick="switchTab('tabVip', this)"><i class="fa-solid fa-crown"></i> Contas VIP</button>
-        <button class="tab-link" onclick="switchTab('tabWheel', this)"><i class="fa-solid fa-spinner"></i> Roleta</button>
+        <button class="tab-link" onclick="switchTab('tabWheel', this)"><i class="fa-solid fa-spinner"></i> Roleta 24h</button>
+        <button class="tab-link" onclick="switchTab('tabFavs', this)"><i class="fa-solid fa-heart"></i> Favoritos</button>
+        <button class="tab-link" onclick="switchTab('tabProfile', this)"><i class="fa-solid fa-id-card"></i> Meu Perfil</button>
         <button class="tab-link" onclick="switchTab('tabFaq', this)"><i class="fa-solid fa-circle-question"></i> FAQ</button>
     </div>
 
     <!-- ABA 1: INÍCIO -->
     <div class="tab-content active" id="tabHome">
-        <div style="margin-bottom: 12px;">
-            <input type="text" id="searchInput" oninput="renderProducts()" placeholder="🔍 Pesquisar produto..." style="width:100%; padding:10px; border-radius:10px; background:var(--bg-card); border:1px solid var(--border-color); color:white;">
+        <div style="margin-bottom: 12px; display:flex; gap:8px;">
+            <input type="text" id="searchInput" oninput="renderProducts()" placeholder="🔍 Pesquisar conta ou fruta..." style="flex:1; padding:10px; border-radius:10px; background:var(--bg-card); border:1px solid var(--border-color); color:white;">
+            <select id="sortSelect" onchange="renderProducts()" style="padding:10px; border-radius:10px; background:var(--bg-card); border:1px solid var(--border-color); color:white;">
+                <option value="default">Relevância</option>
+                <option value="low">Menor Preço</option>
+                <option value="high">Maior Preço</option>
+            </select>
         </div>
-        <h3 style="margin-bottom:10px; font-size:1rem;"><i class="fa-solid fa-fire" style="color:var(--green-main);"></i> Destaques do Catálogo</h3>
+        <h3 style="margin-bottom:10px; font-size:1rem;"><i class="fa-solid fa-fire" style="color:var(--green-main);"></i> Catálogo Completo</h3>
         <div class="products-grid" id="homeProductsGrid"></div>
     </div>
 
@@ -143,43 +167,83 @@
         <div class="products-grid" id="vipProductsGrid"></div>
     </div>
 
-    <!-- ABA 4: ROLETA DA SORTE -->
+    <!-- ABA 4: ROLETA DA SORTE (24H TRAVA REAL) -->
     <div class="tab-content" id="tabWheel">
         <div style="background:var(--bg-card); border:1px solid var(--border-color); padding:20px; border-radius:16px; text-align:center;">
-            <h3><i class="fa-solid fa-spinner" style="color:var(--green-main);"></i> Roleta Diária de Prêmios</h3>
-            <p style="font-size:0.8rem; color:var(--text-sub); margin:6px 0;">Gire para ganhar cupons de desconto ou pontos de carteira!</p>
-            <button class="btn-purple" onclick="spinWheel()"><i class="fa-solid fa-play"></i> Girar Roleta</button>
+            <h3><i class="fa-solid fa-spinner" style="color:var(--green-main);"></i> Roleta Diária de Prêmios (24h)</h3>
+            <p style="font-size:0.8rem; color:var(--text-sub); margin:6px 0;">Gire a roleta uma vez a cada 24 horas para ganhar cupons de desconto ou créditos na carteira!</p>
+            
+            <div id="wheelTimer" style="margin:12px 0; font-weight:800; font-size:1.1rem; color:var(--purple-main);"></div>
+
+            <button class="btn-purple" id="spinWheelBtn" onclick="spinWheel()"><i class="fa-solid fa-play"></i> Girar Roleta Agora</button>
             <div id="wheelResult" style="margin-top:12px; font-weight:800; color:var(--green-main);"></div>
         </div>
     </div>
 
-    <!-- ABA 5: FAQ -->
-    <div class="tab-content" id="tabFaq">
-        <h3 style="margin-bottom:10px;"><i class="fa-solid fa-circle-question"></i> Perguntas Frequentes</h3>
-        <div style="background:var(--bg-card); border:1px solid var(--border-color); padding:12px; border-radius:10px; margin-bottom:8px;">
-            <strong>Como recebo meu produto?</strong>
-            <p style="font-size:0.8rem; color:var(--text-sub); margin-top:4px;">A entrega é enviada automaticamente para o seu WhatsApp no momento da aprovação do PIX.</p>
+    <!-- ABA 5: FAVORITOS -->
+    <div class="tab-content" id="tabFavs">
+        <h3 style="margin-bottom:10px; font-size:1rem;"><i class="fa-solid fa-heart" style="color:var(--red-main);"></i> Seus Itens Favoritos</h3>
+        <div class="products-grid" id="favProductsGrid"></div>
+    </div>
+
+    <!-- ABA 6: MEU PERFIL -->
+    <div class="tab-content" id="tabProfile">
+        <div style="background:var(--bg-card); border:1px solid var(--border-color); padding:16px; border-radius:16px;">
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;">
+                <img src="https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg" id="profileAvatar" style="width:60px; height:60px; border-radius:50%; border:2px solid var(--green-main); object-fit:cover;">
+                <div>
+                    <h3 id="profileUsername">Visitante</h3>
+                    <div style="font-size:0.75rem; color:var(--text-sub);" id="profileEmail">Faça login para ver seu histórico</div>
+                </div>
+            </div>
+
+            <button class="btn-purple" onclick="claimDailyBonus()"><i class="fa-solid fa-gift"></i> Resgatar Bônus Diário (+R$ 1,00)</button>
+
+            <div style="margin-top:16px;">
+                <h4>📜 Histórico de Pedidos</h4>
+                <div id="profileOrderHistory" style="margin-top:8px; font-size:0.8rem; color:var(--text-sub);">Nenhum pedido realizado ainda.</div>
+            </div>
         </div>
     </div>
 
-    <!-- BOTTOM NAV -->
+    <!-- ABA 7: FAQ -->
+    <div class="tab-content" id="tabFaq">
+        <h3 style="margin-bottom:10px;"><i class="fa-solid fa-circle-question"></i> Perguntas Frequentes</h3>
+        <div style="background:var(--bg-card); border:1px solid var(--border-color); padding:12px; border-radius:10px; margin-bottom:8px;">
+            <strong>Como recebo a conta?</strong>
+            <p style="font-size:0.8rem; color:var(--text-sub); margin-top:4px;">Assim que o pagamento for verificado via WhatsApp pelo Marcos ou Gabriel, o login e a senha da conta são liberados imediatamente.</p>
+        </div>
+        <div style="background:var(--bg-card); border:1px solid var(--border-color); padding:12px; border-radius:10px;">
+            <strong>Tem garantia?</strong>
+            <p style="font-size:0.8rem; color:var(--text-sub); margin-top:4px;">Sim, oferecemos 7 dias de garantia total e suporte contínuo para qualquer conta adquirida em nossa loja.</p>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAV MOBILE -->
     <div class="bottom-nav">
         <div class="bottom-nav-item active" onclick="switchTab('tabHome', document.querySelectorAll('.tab-link')[0])"><i class="fa-solid fa-house"></i> Início</div>
         <div class="bottom-nav-item" onclick="switchTab('tabBlox', document.querySelectorAll('.tab-link')[1])"><i class="fa-solid fa-apple-whole"></i> Blox</div>
         <div class="bottom-nav-item" onclick="switchTab('tabVip', document.querySelectorAll('.tab-link')[2])"><i class="fa-solid fa-crown"></i> VIP</div>
         <div class="bottom-nav-item" onclick="openCartModal()"><i class="fa-solid fa-cart-shopping"></i> Carrinho</div>
+        <div class="bottom-nav-item" onclick="switchTab('tabProfile', document.querySelectorAll('.tab-link')[5])"><i class="fa-solid fa-user"></i> Perfil</div>
     </div>
 
-    <!-- MODAL DETALHES -->
+    <!-- MODAL DETALHES PRODUTO -->
     <div class="modal" id="productModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('productModal')">&times;</span>
             <img id="mImg" style="width:100%; height:160px; object-fit:cover; border-radius:10px; margin-bottom:10px;" src="">
             <h3 id="mTitle" style="font-size:1.1rem;">-</h3>
             <div style="color:var(--green-main); font-size:1.3rem; font-weight:900; margin:6px 0;" id="mPrice">R$ 0,00</div>
-            <p style="font-size:0.8rem; color:var(--text-sub); margin-bottom:12px;" id="mDesc">Entrega imediata com garantia total de acesso.</p>
+            <p style="font-size:0.8rem; color:var(--text-sub); margin-bottom:12px;" id="mDesc">Entrega imediata via WhatsApp com suporte e garantia estendida.</p>
+            
             <button class="btn-purple" id="mAddCartBtn"><i class="fa-solid fa-cart-plus"></i> Adicionar ao Carrinho</button>
-            <button class="btn-seller-1" id="mBuyWhats"><i class="fa-brands fa-whatsapp"></i> Comprar via WhatsApp</button>
+            
+            <div style="margin-top:10px;">
+                <label style="font-size:0.75rem; color:var(--text-sub); font-weight:bold;">Comprar diretamente com:</label>
+                <button class="btn-seller-marcos" id="mBuyMarcos"><i class="fa-brands fa-whatsapp"></i> WhatsApp do Marcos</button>
+                <button class="btn-seller-gabriel" id="mBuyGabriel"><i class="fa-brands fa-whatsapp"></i> WhatsApp do Gabriel</button>
+            </div>
         </div>
     </div>
 
@@ -187,7 +251,7 @@
     <div class="modal" id="cartModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('cartModal')">&times;</span>
-            <h3><i class="fa-solid fa-cart-shopping"></i> Seu Carrinho</h3>
+            <h3><i class="fa-solid fa-cart-shopping"></i> Seu Carrinho de Compras</h3>
             <div id="cartItemsList" style="margin:10px 0;"></div>
 
             <div style="display:flex; gap:6px; margin-bottom:10px;">
@@ -201,42 +265,74 @@
                 <span id="cartTotal" style="color:var(--green-main);">R$ 0,00</span>
             </div>
 
-            <button class="btn-seller-1" onclick="checkoutCart()"><i class="fa-brands fa-whatsapp"></i> Finalizar Pedido no WhatsApp</button>
+            <div style="margin-top:8px;">
+                <label style="font-size:0.75rem; color:var(--text-sub); font-weight:bold;">Finalizar Pedido com qual Atendente?</label>
+                <button class="btn-seller-marcos" onclick="checkoutCart('marcos')"><i class="fa-brands fa-whatsapp"></i> Finalizar com Marcos</button>
+                <button class="btn-seller-gabriel" onclick="checkoutCart('gabriel')"><i class="fa-brands fa-whatsapp"></i> Finalizar com Gabriel</button>
+            </div>
         </div>
     </div>
 
-    <!-- PAINEL ADMIN (SENHA: AfterStore872) -->
+    <!-- MODAL AUTENTICAÇÃO (LOGIN / CADASTRO) -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('authModal')">&times;</span>
+            <h3 style="color:var(--green-main); margin-bottom:10px;"><i class="fa-solid fa-user-lock"></i> Entrar / Cadastrar</h3>
+            
+            <div class="form-group"><label>Nome de Usuário</label><input type="text" id="authUser"></div>
+            <div class="form-group"><label>Senha</label><input type="password" id="authPass"></div>
+            
+            <button class="btn-purple" onclick="loginUser()">Fazer Login</button>
+            <button class="btn-purple" style="background:#334155;" onclick="registerUser()">Criar Nova Conta</button>
+        </div>
+    </div>
+
+    <!-- MODAL BOAS-VINDAS -->
+    <div class="modal" id="welcomeModal">
+        <div class="modal-content" style="text-align:center;">
+            <span class="close-btn" onclick="closeModal('welcomeModal')">&times;</span>
+            <img src="" id="welcomeLogo" style="width:70px; height:70px; border-radius:14px; border:2px solid var(--green-main); margin-bottom:10px;">
+            <h3 id="welcomeTitle">Seja bem-vindo(a)!</h3>
+            <p id="welcomeBody" style="font-size:0.85rem; color:var(--text-sub); margin:10px 0;">Aproveite os melhores preços em contas de Blox Fruits com suporte 24h via WhatsApp do Marcos e Gabriel.</p>
+            <button class="btn-purple" onclick="closeModal('welcomeModal')">Acessar a Loja</button>
+            <button class="btn-purple" style="background:#5865F2; margin-top:6px;" onclick="openDiscord()"><i class="fa-brands fa-discord"></i> Entrar no Discord</button>
+        </div>
+    </div>
+
+    <!-- PAINEL ADMIN DO PROPRIETÁRIO -->
     <div class="modal" id="adminModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('adminModal')">&times;</span>
-            <h3 style="color:var(--green-main); margin-bottom:10px;"><i class="fa-solid fa-gear"></i> Painel do Proprietário</h3>
-
-            <div style="background:#000; padding:10px; border-radius:10px; margin-bottom:10px; border:1px solid var(--border-color); font-size:0.8rem;">
-                <div>Vendas Totais: <strong id="adminSales">0</strong></div>
-                <div>Faturamento: <strong id="adminRevenue" style="color:var(--green-main);">R$ 0,00</strong></div>
-            </div>
+            <h3 style="color:var(--green-main); margin-bottom:10px;"><i class="fa-solid fa-sliders"></i> Configurações do Dono</h3>
 
             <hr style="border-color:rgba(255,255,255,0.1); margin:10px 0;">
-            <h4 style="color:var(--purple-main);">🎟️ Gerenciador de Cupons (Exclusivo do Dono)</h4>
+            <h4 style="color:var(--purple-main);">🎨 Personalizar Apresentação da Loja</h4>
+            <div class="form-group"><label>Nome da Loja</label><input type="text" id="cfgName"></div>
+            <div class="form-group"><label>URL do Logo</label><input type="text" id="cfgLogo"></div>
+            <div class="form-group"><label>URL do Banner</label><input type="text" id="cfgBanner"></div>
+            <div class="form-group"><label>Link do Servidor Discord</label><input type="text" id="cfgDiscord"></div>
+            <div class="form-group"><label>WhatsApp do Marcos (apenas números com DDD)</label><input type="text" id="cfgMarcos"></div>
+            <div class="form-group"><label>WhatsApp do Gabriel (apenas números com DDD)</label><input type="text" id="cfgGabriel"></div>
+            <div class="form-group"><label>Mensagem de Boas-Vindas</label><textarea id="cfgWelcomeMsg" rows="2"></textarea></div>
+            <button class="btn-purple" onclick="saveStoreConfig()">Salvar Alterações da Loja</button>
+
+            <hr style="border-color:rgba(255,255,255,0.1); margin:10px 0;">
+            <h4 style="color:var(--purple-main);">🎟️ Gerenciar Cupons</h4>
             <div class="form-group"><label>Código do Cupom</label><input type="text" id="cCode" style="text-transform:uppercase;"></div>
-            <div class="form-group"><label>Porcentagem de Desconto (%)</label><input type="number" id="cDiscount" placeholder="Ex: 10"></div>
-            <button class="btn-purple" onclick="createCoupon()">Criar Novo Cupom</button>
-
-            <div style="margin-top:10px;">
-                <label style="font-size:0.75rem; color:var(--text-sub);">Cupons Ativos:</label>
-                <div id="adminCouponsList" style="margin-top:4px;"></div>
-            </div>
+            <div class="form-group"><label>Desconto (%)</label><input type="number" id="cDiscount"></div>
+            <button class="btn-purple" onclick="createCoupon()">Criar Cupom</button>
+            <div id="adminCouponsList" style="margin-top:6px;"></div>
 
             <hr style="border-color:rgba(255,255,255,0.1); margin:10px 0;">
-            <h4>📦 Cadastrar Produto</h4>
+            <h4>📦 Cadastrar Novo Produto</h4>
             <div class="form-group"><label>Nome do Produto</label><input type="text" id="pName"></div>
             <div class="form-group"><label>Preço (R$)</label><input type="number" step="0.01" id="pPrice"></div>
             <div class="form-group"><label>Categoria (BLOX ou VIP)</label><input type="text" id="pCat"></div>
             <div class="form-group"><label>URL da Imagem</label><input type="text" id="pImg"></div>
-            <button class="btn-purple" onclick="addProduct()">Salvar Produto</button>
+            <button class="btn-purple" onclick="addProduct()">Salvar Produto no Catálogo</button>
 
             <hr style="border-color:rgba(255,255,255,0.1); margin:10px 0;">
-            <h4>Produtos no Catálogo</h4>
+            <h4>Produtos Cadastrados</h4>
             <table class="admin-table">
                 <thead><tr><th>ID</th><th>Nome</th><th>Preço</th><th>Ação</th></tr></thead>
                 <tbody id="adminProductsTable"></tbody>
@@ -244,17 +340,32 @@
         </div>
     </div>
 
+    <!-- TOAST DE COMPRAS RECENTES (SOCIAL PROOF) -->
+    <div class="toast-notify" id="toastNotify">
+        <i class="fa-solid fa-bag-shopping" style="color:var(--green-main); font-size:1.2rem;"></i>
+        <div style="font-size:0.75rem;">
+            <div id="toastUser" style="font-weight:bold; color:#fff;">-</div>
+            <div id="toastAction" style="color:var(--text-sub);">-</div>
+        </div>
+    </div>
+
     <script>
-        // ESTADO GLOBAL DO SISTEMA
-        let config = JSON.parse(localStorage.getItem('after_cfg')) || {
+        // CONFIGURAÇÕES GLOBAIS PERSISTENTES
+        let defaultConfig = {
             name: "After Store",
-            whats: "5521999999999",
-            pix: "afterstore@pix.com"
+            logo: "https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg",
+            banner: "https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg",
+            discord: "https://discord.gg/systemlabs",
+            marcosWhats: "5521999991111",
+            gabrielWhats: "5521999992222",
+            welcomeMsg: "Aproveite as melhores contas de Blox Fruits e VIPs com suporte imediato via WhatsApp do Marcos e Gabriel."
         };
+
+        let config = JSON.parse(localStorage.getItem('after_cfg')) || defaultConfig;
 
         let products = JSON.parse(localStorage.getItem('after_prods')) || [
             { id: 1, name: "🥊 • GODHUMAN + LVL MAX + FRUTAS •", price: 6.90, oldPrice: 12.00, tag: "PROMO", cat: "BLOX", img: "https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg" },
-            { id: 2, name: "🍎 • LEOPARD / DOUGH ENVIADA •", price: 12.00, oldPrice: 18.00, tag: "BLOX", cat: "BLOX", img: "https://i.ibb.co/9kcDwTwf/IMG-20260723-WA0510.jpg" },
+            { id: 2, name: "🍎 • LEOPARD / DOUGH NO INVENTÁRIO •", price: 12.00, oldPrice: 18.00, tag: "BLOX", cat: "BLOX", img: "https://i.ibb.co/9kcDwTwf/IMG-20260723-WA0510.jpg" },
             { id: 3, name: "👑 • CONTA BLOX FRUITS RAÇA V4 MAX •", price: 29.90, oldPrice: 45.00, tag: "VIP", cat: "VIP", img: "https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg" }
         ];
 
@@ -263,20 +374,58 @@
             { code: "DONO20", discount: 20 }
         ];
 
+        let currentUser = JSON.parse(localStorage.getItem('after_active_user')) || {
+            username: "Visitante",
+            wallet: 0.00,
+            points: 0,
+            lastSpin: 0,
+            favs: [],
+            orders: []
+        };
+
         let cart = JSON.parse(localStorage.getItem('after_cart')) || [];
-        let userWallet = parseFloat(localStorage.getItem('after_wallet')) || 0.00;
-        let userPoints = parseInt(localStorage.getItem('after_points')) || 0;
         let appliedDiscount = 0;
 
         function init() {
+            // Aplica dados da loja
+            document.getElementById('pageTitle').innerText = `${config.name} - System Labs 2`;
             document.getElementById('topBrandTitle').innerText = config.name;
-            document.getElementById('userWallet').innerText = `R$ ${userWallet.toFixed(2)}`;
-            document.getElementById('userPoints').innerText = userPoints;
+            document.getElementById('topLogo').src = config.logo;
+            document.getElementById('storeBanner').style.backgroundImage = `url('${config.banner}')`;
+            
+            // Popula modal de boas-vindas
+            document.getElementById('welcomeLogo').src = config.logo;
+            document.getElementById('welcomeTitle').innerText = `Bem-vindo à ${config.name}!`;
+            document.getElementById('welcomeBody').innerText = config.welcomeMsg;
+
+            // Atualiza dados do usuário
+            document.getElementById('userWallet').innerText = `R$ ${parseFloat(currentUser.wallet).toFixed(2)}`;
+            document.getElementById('userPoints').innerText = currentUser.points;
+            document.getElementById('userHeaderName').innerText = currentUser.username;
+            document.getElementById('profileUsername').innerText = currentUser.username;
+
             renderProducts();
             updateCartBadge();
+            checkSpinTimer();
+
+            // Exibe mensagem de boas-vindas se for a primeira abertura da sessão
+            if(!sessionStorage.getItem('welcomed')) {
+                document.getElementById('welcomeModal').style.display = 'flex';
+                sessionStorage.setItem('welcomed', '1');
+            }
+
+            startSocialProofToast();
         }
 
         function formatBRL(v) { return `R$ ${parseFloat(v).toFixed(2).replace('.', ',')}`; }
+
+        function saveState() {
+            localStorage.setItem('after_cfg', JSON.stringify(config));
+            localStorage.setItem('after_prods', JSON.stringify(products));
+            localStorage.setItem('after_coupons', JSON.stringify(coupons));
+            localStorage.setItem('after_active_user', JSON.stringify(currentUser));
+            localStorage.setItem('after_cart', JSON.stringify(cart));
+        }
 
         function switchTab(tabId, btn) {
             document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
@@ -284,32 +433,73 @@
             document.querySelectorAll('.bottom-nav-item').forEach(bn => bn.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             if(btn) btn.classList.add('active');
+            if(tabId === 'tabFavs') renderFavorites();
+            if(tabId === 'tabProfile') renderProfileOrders();
         }
 
         function renderProducts() {
             const search = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = products.filter(p => p.name.toLowerCase().includes(search));
+            const sort = document.getElementById('sortSelect').value;
 
-            const createCards = (list) => list.map(p => `
-                <div class="card" onclick="openProductModal(${p.id})">
-                    <div class="card-tag">${p.tag || 'OFERTA'}</div>
-                    <div class="card-img-container">
-                        <img src="${p.img}" class="card-img" onerror="this.src='https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg'">
-                    </div>
-                    <div class="card-body">
-                        <div class="card-title">${p.name}</div>
-                        <div style="margin-bottom:6px;">
-                            <span class="card-price">${formatBRL(p.price)}</span>
-                            ${p.oldPrice ? `<span class="card-old-price">${formatBRL(p.oldPrice)}</span>` : ''}
+            let filtered = products.filter(p => p.name.toLowerCase().includes(search));
+
+            if(sort === 'low') filtered.sort((a,b) => a.price - b.price);
+            if(sort === 'high') filtered.sort((a,b) => b.price - a.price);
+
+            const createCards = (list) => list.map(p => {
+                const isFav = currentUser.favs && currentUser.favs.includes(p.id);
+                return `
+                    <div class="card">
+                        <div class="card-tag">${p.tag || 'DESTAQUE'}</div>
+                        <div class="card-fav-btn" onclick="toggleFav(event, ${p.id})">
+                            <i class="fa-solid fa-heart" style="color:${isFav ? 'var(--red-main)' : '#fff'};"></i>
                         </div>
-                        <button class="btn-card-buy"><i class="fa-solid fa-cart-plus"></i> Comprar</button>
+                        <div class="card-img-container" onclick="openProductModal(${p.id})">
+                            <img src="${p.img}" class="card-img" onerror="this.src='${config.logo}'">
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title" onclick="openProductModal(${p.id})">${p.name}</div>
+                            <div style="margin-bottom:6px;">
+                                <span class="card-price">${formatBRL(p.price)}</span>
+                                ${p.oldPrice ? `<span class="card-old-price">${formatBRL(p.oldPrice)}</span>` : ''}
+                            </div>
+                            <button class="btn-card-buy" onclick="addToCart(${p.id})"><i class="fa-solid fa-cart-plus"></i> Comprar</button>
+                        </div>
                     </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
 
             document.getElementById('homeProductsGrid').innerHTML = createCards(filtered);
             document.getElementById('bloxProductsGrid').innerHTML = createCards(filtered.filter(p => p.cat === 'BLOX'));
             document.getElementById('vipProductsGrid').innerHTML = createCards(filtered.filter(p => p.cat === 'VIP'));
+        }
+
+        function toggleFav(e, id) {
+            e.stopPropagation();
+            if(!currentUser.favs) currentUser.favs = [];
+            const idx = currentUser.favs.indexOf(id);
+            if(idx > -1) currentUser.favs.splice(idx, 1);
+            else currentUser.favs.push(id);
+            saveState();
+            renderProducts();
+        }
+
+        function renderFavorites() {
+            const favItems = products.filter(p => currentUser.favs && currentUser.favs.includes(p.id));
+            if(favItems.length === 0) {
+                document.getElementById('favProductsGrid').innerHTML = "<div style='color:var(--text-sub); font-size:0.85rem;'>Nenhum item favoritado ainda.</div>";
+                return;
+            }
+            document.getElementById('favProductsGrid').innerHTML = favItems.map(p => `
+                <div class="card" onclick="openProductModal(${p.id})">
+                    <div class="card-img-container"><img src="${p.img}" class="card-img"></div>
+                    <div class="card-body">
+                        <div class="card-title">${p.name}</div>
+                        <div class="card-price">${formatBRL(p.price)}</div>
+                        <button class="btn-card-buy"><i class="fa-solid fa-cart-plus"></i> Comprar</button>
+                    </div>
+                </div>
+            `).join('');
         }
 
         function openProductModal(id) {
@@ -318,19 +508,26 @@
             document.getElementById('mTitle').innerText = p.name;
             document.getElementById('mPrice').innerText = formatBRL(p.price);
             document.getElementById('mAddCartBtn').onclick = () => { addToCart(p.id); closeModal('productModal'); };
-            document.getElementById('mBuyWhats').onclick = () => {
-                let msg = `Olá, quero comprar: *${p.name}* por ${formatBRL(p.price)}`;
-                window.open(`https://wa.me/${config.whats}?text=${encodeURIComponent(msg)}`, '_blank');
+
+            // Links diretos para os dois vendedores
+            document.getElementById('mBuyMarcos').onclick = () => {
+                let msg = `Olá Marcos, quero comprar: *${p.name}* (${formatBRL(p.price)})`;
+                window.open(`https://wa.me/${config.marcosWhats}?text=${encodeURIComponent(msg)}`, '_blank');
             };
+            document.getElementById('mBuyGabriel').onclick = () => {
+                let msg = `Olá Gabriel, quero comprar: *${p.name}* (${formatBRL(p.price)})`;
+                window.open(`https://wa.me/${config.gabrielWhats}?text=${encodeURIComponent(msg)}`, '_blank');
+            };
+
             document.getElementById('productModal').style.display = 'flex';
         }
 
         function addToCart(id) {
             const p = products.find(prod => prod.id === id);
             cart.push(p);
-            localStorage.setItem('after_cart', JSON.stringify(cart));
+            saveState();
             updateCartBadge();
-            alert("Item adicionado ao carrinho!");
+            alert("Produto adicionado ao carrinho!");
         }
 
         function updateCartBadge() {
@@ -357,7 +554,7 @@
 
         function removeFromCart(idx) {
             cart.splice(idx, 1);
-            localStorage.setItem('after_cart', JSON.stringify(cart));
+            saveState();
             updateCartBadge();
             openCartModal();
         }
@@ -365,7 +562,6 @@
         function applyCoupon() {
             const code = document.getElementById('couponInput').value.trim().toUpperCase();
             const found = coupons.find(c => c.code === code);
-
             if(found) {
                 appliedDiscount = found.discount;
                 document.getElementById('couponStatus').innerText = `Cupom ${code} aplicado! (-${found.discount}%)`;
@@ -377,74 +573,165 @@
             }
         }
 
-        function checkoutCart() {
+        function checkoutCart(seller) {
             if(cart.length === 0) return alert("Carrinho vazio!");
             let total = cart.reduce((acc, i) => acc + parseFloat(i.price), 0);
             let finalTotal = total - (total * (appliedDiscount / 100));
 
-            let msg = `🛒 *PEDIDO - ${config.name}*\n\n*Itens:*\n`;
+            let msg = `🛒 *NOVO PEDIDO - ${config.name}*\n\n*Cliente:* ${currentUser.username}\n*Itens:*\n`;
             cart.forEach(i => msg += `• ${i.name} - ${formatBRL(i.price)}\n`);
             if(appliedDiscount > 0) msg += `\n🏷️ *Desconto:* ${appliedDiscount}%\n`;
-            msg += `\n💰 *TOTAL:* ${formatBRL(finalTotal)}\n_Solicito a chave PIX para pagamento!_`;
+            msg += `\n💰 *TOTAL A PAGAR:* ${formatBRL(finalTotal)}`;
 
+            // Salva pedido no perfil do cliente
+            if(!currentUser.orders) currentUser.orders = [];
+            currentUser.orders.push({ id: Date.now(), total: finalTotal, itemsCount: cart.length, date: new Date().toLocaleDateString() });
+            
             cart = [];
-            localStorage.setItem('after_cart', JSON.stringify(cart));
+            saveState();
             updateCartBadge();
             closeModal('cartModal');
-            window.open(`https://wa.me/${config.whats}?text=${encodeURIComponent(msg)}`, '_blank');
+
+            const phone = seller === 'marcos' ? config.marcosWhats : config.gabrielWhats;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        function claimDailyBonus() {
-            userWallet += 1.00;
-            userPoints += 20;
-            localStorage.setItem('after_wallet', userWallet);
-            localStorage.setItem('after_points', userPoints);
-            init();
-            alert("🎉 Bônus Diário Resgatado! +R$ 1,00 na carteira e +20 Pontos.");
+        // ROLETA COM TRAVA DE 24 HORAS REAL
+        function checkSpinTimer() {
+            const now = Date.now();
+            const lastSpin = currentUser.lastSpin || 0;
+            const diff = now - lastSpin;
+            const hours24 = 24 * 60 * 60 * 1000;
+
+            if(diff < hours24) {
+                document.getElementById('spinWheelBtn').disabled = true;
+                document.getElementById('spinWheelBtn').style.opacity = '0.5';
+                
+                let remaining = hours24 - diff;
+                let h = Math.floor(remaining / (1000 * 60 * 60));
+                let m = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+                let s = Math.floor((remaining % (1000 * 60)) / 1000);
+
+                document.getElementById('wheelTimer').innerText = `⏳ Próximo giro em: ${h}h ${m}m ${s}s`;
+                setTimeout(checkSpinTimer, 1000);
+            } else {
+                document.getElementById('spinWheelBtn').disabled = false;
+                document.getElementById('spinWheelBtn').style.opacity = '1';
+                document.getElementById('wheelTimer').innerText = "✅ Giro Diário Liberado!";
+            }
         }
 
         function spinWheel() {
-            const prizes = ["Cupom 10% OFF", "+50 Pontos", "R$ 2,00 na Carteira", "Tente Novamente"];
+            const now = Date.now();
+            if(currentUser.lastSpin && (now - currentUser.lastSpin < 24 * 60 * 60 * 1000)) {
+                return alert("Você precisa aguardar 24 horas entre cada giro!");
+            }
+
+            const prizes = ["Cupom DONO20", "R$ 2,00 na Carteira", "+50 Pontos VIP", "Cupom PRIMEIRA10"];
             const rand = prizes[Math.floor(Math.random() * prizes.length)];
-            document.getElementById('wheelResult').innerText = `🎉 Resultado: ${rand}!`;
+            
+            currentUser.lastSpin = now;
+            if(rand.includes("R$ 2,00")) currentUser.wallet += 2.00;
+            if(rand.includes("+50 Pontos")) currentUser.points += 50;
+
+            saveState();
+            init();
+            document.getElementById('wheelResult').innerText = `🎉 Você ganhou: ${rand}!`;
+            checkSpinTimer();
         }
 
-        // FUNÇÕES DO PAINEL ADMIN (APENAS DONO)
+        function claimDailyBonus() {
+            currentUser.wallet += 1.00;
+            currentUser.points += 20;
+            saveState();
+            init();
+            alert("🎁 Bônus Diário de R$ 1,00 adicionado à sua carteira!");
+        }
+
+        function renderProfileOrders() {
+            const container = document.getElementById('profileOrderHistory');
+            if(!currentUser.orders || currentUser.orders.length === 0) {
+                container.innerHTML = "Nenhum pedido efetuado ainda.";
+                return;
+            }
+            container.innerHTML = currentUser.orders.map(o => `
+                <div style="background:#000; padding:8px; border-radius:8px; margin-top:6px; border:1px solid var(--border-color);">
+                    <div>Pedido #${o.id} - <strong>${o.date}</strong></div>
+                    <div style="color:var(--green-main);">${o.itemsCount} item(s) | Total: ${formatBRL(o.total)}</div>
+                </div>
+            `).join('');
+        }
+
+        // SISTEMA DE USUÁRIOS
+        function openAuthModal() { document.getElementById('authModal').style.display = 'flex'; }
+
+        function loginUser() {
+            const u = document.getElementById('authUser').value.trim();
+            if(!u) return alert("Digite o nome de usuário!");
+            currentUser.username = u;
+            saveState();
+            init();
+            closeModal('authModal');
+            alert(`Bem-vindo de volta, ${u}!`);
+        }
+
+        function registerUser() { loginUser(); }
+
+        // SISTEMA PAINEL ADMIN (CONFIGURAÇÃO DO DONO)
         function openAdmin() {
             if(prompt("Digite a Senha do Dono:") === "AfterStore872") {
+                document.getElementById('cfgName').value = config.name;
+                document.getElementById('cfgLogo').value = config.logo;
+                document.getElementById('cfgBanner').value = config.banner;
+                document.getElementById('cfgDiscord').value = config.discord;
+                document.getElementById('cfgMarcos').value = config.marcosWhats;
+                document.getElementById('cfgGabriel').value = config.gabrielWhats;
+                document.getElementById('cfgWelcomeMsg').value = config.welcomeMsg;
+
                 renderAdminTable();
                 renderCouponsAdmin();
                 document.getElementById('adminModal').style.display = 'flex';
             } else { alert("Senha incorreta!"); }
         }
 
+        function saveStoreConfig() {
+            config.name = document.getElementById('cfgName').value;
+            config.logo = document.getElementById('cfgLogo').value;
+            config.banner = document.getElementById('cfgBanner').value;
+            config.discord = document.getElementById('cfgDiscord').value;
+            config.marcosWhats = document.getElementById('cfgMarcos').value;
+            config.gabrielWhats = document.getElementById('cfgGabriel').value;
+            config.welcomeMsg = document.getElementById('cfgWelcomeMsg').value;
+
+            saveState();
+            init();
+            alert("Configurações da loja atualizadas com sucesso!");
+        }
+
         function createCoupon() {
             const code = document.getElementById('cCode').value.trim().toUpperCase();
             const discount = parseFloat(document.getElementById('cDiscount').value);
-
-            if(!code || !discount) return alert("Preencha o código e a porcentagem!");
+            if(!code || !discount) return alert("Preencha todos os campos do cupom!");
 
             coupons.push({ code, discount });
-            localStorage.setItem('after_coupons', JSON.stringify(coupons));
+            saveState();
             renderCouponsAdmin();
-            document.getElementById('cCode').value = '';
-            document.getElementById('cDiscount').value = '';
-            alert("Cupom criado com sucesso!");
-        }
-
-        function deleteCoupon(code) {
-            coupons = coupons.filter(c => c.code !== code);
-            localStorage.setItem('after_coupons', JSON.stringify(coupons));
-            renderCouponsAdmin();
+            alert("Cupom criado!");
         }
 
         function renderCouponsAdmin() {
             document.getElementById('adminCouponsList').innerHTML = coupons.map(c => `
-                <div style="display:flex; justify-content:space-between; align-items:center; background:#000; padding:6px 10px; border-radius:6px; margin-top:4px; font-size:0.75rem;">
-                    <span>🎟️ <strong>${c.code}</strong> (-${c.discount}%)</span>
+                <div style="display:flex; justify-content:space-between; background:#000; padding:6px; border-radius:6px; margin-top:4px; font-size:0.75rem;">
+                    <span>🎟️ ${c.code} (-${c.discount}%)</span>
                     <button style="color:var(--red-main); background:none; border:none; cursor:pointer;" onclick="deleteCoupon('${c.code}')"><i class="fa-solid fa-trash"></i></button>
                 </div>
             `).join('');
+        }
+
+        function deleteCoupon(code) {
+            coupons = coupons.filter(c => c.code !== code);
+            saveState();
+            renderCouponsAdmin();
         }
 
         function addProduct() {
@@ -453,18 +740,20 @@
             const cat = document.getElementById('pCat').value.toUpperCase() || "BLOX";
             const img = document.getElementById('pImg').value;
 
-            if(!name || !price) return alert("Preencha os campos!");
+            if(!name || !price) return alert("Preencha os dados do produto!");
 
             products.push({ id: Date.now(), name, price, cat, img });
-            localStorage.setItem('after_prods', JSON.stringify(products));
-            renderAdminTable(); init();
-            alert("Produto adicionado!");
+            saveState();
+            renderAdminTable();
+            init();
+            alert("Produto cadastrado!");
         }
 
         function deleteProduct(id) {
             products = products.filter(p => p.id !== id);
-            localStorage.setItem('after_prods', JSON.stringify(products));
-            renderAdminTable(); init();
+            saveState();
+            renderAdminTable();
+            init();
         }
 
         function renderAdminTable() {
@@ -478,7 +767,26 @@
             `).join('');
         }
 
+        function openDiscord() { window.open(config.discord, '_blank'); }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+        // TOAST SOCIAL PROOF
+        function startSocialProofToast() {
+            const names = ["Gabriel S.", "Lucas M.", "Mateus R.", "Enzo P.", "Felipe A."];
+            const actions = ["comprou Conta Godhuman", "comprou Fruta Leopard", "resgatou Cupom DONO20"];
+
+            setInterval(() => {
+                const rName = names[Math.floor(Math.random() * names.length)];
+                const rAction = actions[Math.floor(Math.random() * actions.length)];
+
+                document.getElementById('toastUser').innerText = rName;
+                document.getElementById('toastAction').innerText = rAction;
+
+                const toast = document.getElementById('toastNotify');
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 4000);
+            }, 18000);
+        }
 
         init();
     </script>
