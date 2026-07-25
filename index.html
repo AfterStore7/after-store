@@ -1,4 +1,4 @@
-h<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -7,101 +7,108 @@ h<!DOCTYPE html>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-dark: #07050e;
-            --bg-card: #110c1f;
-            --bg-modal: #150f28;
-            --purple-main: #a855f7;
-            --purple-light: #c084fc;
-            --purple-glow: rgba(168, 85, 247, 0.25);
+            --bg-dark: #0a0507;
+            --bg-card: #160c10;
+            --bg-modal: #1c0f15;
+            --red-main: #ff2b4e;
+            --red-hover: #e01e3f;
+            --red-glow: rgba(255, 43, 78, 0.3);
             --text-main: #f8fafc;
-            --text-sub: #94a3b8;
-            --border-color: rgba(168, 85, 247, 0.18);
+            --text-sub: #a1a1aa;
+            --border-color: rgba(255, 43, 78, 0.2);
             --green: #10b981;
-            --red: #ef4444;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background-color: var(--bg-dark); color: var(--text-main); min-height: 100vh; padding-bottom: 70px; }
+        body { background-color: var(--bg-dark); color: var(--text-main); min-height: 100vh; padding-bottom: 75px; }
 
         /* TOAST NOTIFICAÇÕES */
         .toast-container { position: fixed; top: 12px; right: 12px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; max-width: 300px; pointer-events: none; }
-        .toast { background: var(--bg-card); border: 1px solid var(--purple-main); box-shadow: 0 4px 15px var(--purple-glow); color: #fff; padding: 10px 14px; border-radius: 10px; font-size: 0.78rem; display: flex; align-items: center; gap: 8px; animation: slideIn 0.3s ease, fadeOut 0.4s ease 3.5s forwards; }
+        .toast { background: var(--bg-card); border: 1px solid var(--red-main); box-shadow: 0 4px 15px var(--red-glow); color: #fff; padding: 10px 14px; border-radius: 10px; font-size: 0.78rem; display: flex; align-items: center; gap: 8px; animation: slideIn 0.3s ease, fadeOut 0.4s ease 3.5s forwards; }
         @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         @keyframes fadeOut { to { opacity: 0; transform: translateY(-8px); } }
 
-        /* BARRA TOP & HEADER */
-        .top-status { background: #030206; padding: 6px 14px; font-size: 0.75rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); }
-        .online-badge { display: flex; align-items: center; gap: 6px; color: var(--purple-light); font-weight: 700; }
-        .dot { width: 7px; height: 7px; background: var(--purple-main); border-radius: 50%; box-shadow: 0 0 8px var(--purple-main); animation: pulse 1.5s infinite; }
+        /* HEADER & STATUS BAR */
+        .top-status { background: #050203; padding: 6px 14px; font-size: 0.75rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); }
+        .online-badge { display: flex; align-items: center; gap: 6px; color: var(--red-main); font-weight: 700; }
+        .dot { width: 7px; height: 7px; background: var(--red-main); border-radius: 50%; box-shadow: 0 0 8px var(--red-main); animation: pulse 1.5s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
 
-        header { background: rgba(11, 8, 20, 0.9); backdrop-filter: blur(10px); height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 14px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border-color); }
+        header { background: rgba(10, 5, 7, 0.95); backdrop-filter: blur(10px); height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 14px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border-color); }
         .brand { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-        .brand-logo { width: 36px; height: 36px; border-radius: 8px; object-fit: cover; border: 1.5px solid var(--purple-main); }
-        .brand-name { font-weight: 800; font-size: 1.1rem; color: #fff; }
+        .brand-logo { width: 36px; height: 36px; border-radius: 8px; object-fit: cover; border: 1.5px solid var(--red-main); }
+        .brand-name { font-weight: 900; font-size: 1.15rem; color: #fff; letter-spacing: 0.5px; }
 
         .header-btns { display: flex; gap: 8px; }
-        .btn-icon { position: relative; background: var(--bg-card); border: 1px solid var(--border-color); color: #fff; padding: 7px 11px; border-radius: 8px; font-size: 0.8rem; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 6px; }
-        .cart-badge { position: absolute; top: -5px; right: -5px; background: var(--purple-main); color: #fff; font-size: 0.62rem; font-weight: 900; width: 17px; height: 17px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .btn-icon { position: relative; background: var(--bg-card); border: 1px solid var(--border-color); color: #fff; padding: 7px 11px; border-radius: 8px; font-size: 0.85rem; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+        .cart-badge { position: absolute; top: -5px; right: -5px; background: var(--red-main); color: #fff; font-size: 0.62rem; font-weight: 900; width: 17px; height: 17px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 
-        /* NAV TABS */
-        .tabs { display: flex; background: #040208; border-bottom: 1px solid var(--border-color); overflow-x: auto; scrollbar-width: none; padding: 0 8px; }
+        /* TABS NAV */
+        .tabs { display: flex; background: #050203; border-bottom: 1px solid var(--border-color); overflow-x: auto; scrollbar-width: none; padding: 0 8px; }
         .tab-item { padding: 11px 14px; font-size: 0.8rem; font-weight: 600; color: var(--text-sub); border: none; background: transparent; cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; }
-        .tab-item.active { color: var(--purple-light); border-bottom-color: var(--purple-main); font-weight: 700; }
+        .tab-item.active { color: var(--red-main); border-bottom-color: var(--red-main); font-weight: 700; }
 
         .container { max-width: 1100px; margin: 0 auto; padding: 16px; }
         .panel { display: none; }
         .panel.active { display: block; }
 
-        /* GRID DE PRODUTOS */
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
-        .card { background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border-color); overflow: hidden; display: flex; flex-direction: column; position: relative; transition: transform 0.2s; }
-        .card:hover { transform: translateY(-3px); border-color: var(--purple-main); }
-        .card-tag { position: absolute; top: 6px; left: 6px; background: rgba(7, 5, 14, 0.85); border: 1px solid var(--purple-main); color: var(--purple-light); font-size: 0.58rem; font-weight: 800; padding: 2px 6px; border-radius: 4px; z-index: 2; }
+        /* GRID PRODUTOS */
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; }
+        .card { background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border-color); overflow: hidden; display: flex; flex-direction: column; position: relative; transition: transform 0.2s, border-color 0.2s; }
+        .card:hover { transform: translateY(-3px); border-color: var(--red-main); }
+        .card-tag { position: absolute; top: 6px; left: 6px; background: rgba(10, 5, 7, 0.9); border: 1px solid var(--red-main); color: var(--red-main); font-size: 0.58rem; font-weight: 800; padding: 2px 6px; border-radius: 4px; z-index: 2; }
         
         .card-img-wrap { width: 100%; height: 130px; background: #000; overflow: hidden; }
         .card-img { width: 100%; height: 100%; object-fit: cover; }
         .card-body { padding: 10px; display: flex; flex-direction: column; flex: 1; justify-content: space-between; }
-        .card-title { font-size: 0.82rem; font-weight: 700; color: #fff; margin-bottom: 6px; line-height: 1.2; height: 2.4em; overflow: hidden; }
-        .card-price { font-size: 1.05rem; font-weight: 900; color: var(--purple-light); }
+        .card-title { font-size: 0.82rem; font-weight: 700; color: #fff; margin-bottom: 6px; line-height: 1.25; height: 2.5em; overflow: hidden; }
+        .card-price { font-size: 1.05rem; font-weight: 900; color: var(--red-main); }
         .card-old-price { font-size: 0.7rem; color: var(--text-sub); text-decoration: line-through; margin-left: 4px; }
 
-        .btn-buy { background: linear-gradient(90deg, var(--purple-main), #7e22ce); color: #fff; border: none; width: 100%; padding: 8px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; cursor: pointer; margin-top: 8px; }
+        .btn-buy { background: linear-gradient(90deg, var(--red-main), #b91c1c); color: #fff; border: none; width: 100%; padding: 8px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; cursor: pointer; margin-top: 8px; }
 
-        /* MODAIS */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3, 2, 6, 0.85); backdrop-filter: blur(6px); z-index: 300; justify-content: center; align-items: center; padding: 14px; }
-        .modal-content { background: var(--bg-modal); border: 1px solid var(--purple-main); border-radius: 14px; width: 100%; max-width: 440px; max-height: 85vh; overflow-y: auto; padding: 16px; position: relative; box-shadow: 0 0 20px var(--purple-glow); }
-        .close-modal { position: absolute; top: 10px; right: 12px; color: var(--text-sub); font-size: 1.2rem; cursor: pointer; }
+        /* INPUTS E BOTÕES GERAM CLEAN */
+        input, select { width: 100%; padding: 10px 12px; border-radius: 8px; background: #0c0608; border: 1px solid var(--border-color); color: white; outline: none; font-size: 0.82rem; margin-bottom: 8px; }
+        input:focus { border-color: var(--red-main); }
 
-        .btn-action { background: linear-gradient(90deg, var(--purple-main), #7e22ce); color: white; border: none; width: 100%; padding: 10px; border-radius: 8px; font-weight: 700; font-size: 0.82rem; cursor: pointer; margin-top: 8px; }
+        .btn-action { background: linear-gradient(90deg, var(--red-main), #b91c1c); color: white; border: none; width: 100%; padding: 10px; border-radius: 8px; font-weight: 700; font-size: 0.82rem; cursor: pointer; margin-top: 6px; }
         .btn-action:disabled { opacity: 0.5; cursor: not-allowed; }
-        .btn-marcos { background: #25d366; color: white; border: none; width: 100%; padding: 9px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 6px; font-size: 0.8rem; }
-        .btn-gabriel { background: #0284c7; color: white; border: none; width: 100%; padding: 9px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 6px; font-size: 0.8rem; }
+        
+        .btn-seller { width: 100%; padding: 10px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 6px; font-size: 0.82rem; border: none; color: white; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-marcos { background: #25d366; }
+        .btn-gabriel { background: #0284c7; }
 
-        /* BOTTOM NAV */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 55px; background: #040208; border-top: 1px solid var(--border-color); display: flex; justify-content: space-around; align-items: center; z-index: 150; }
-        .nav-link { display: flex; flex-direction: column; align-items: center; color: var(--text-sub); font-size: 0.65rem; cursor: pointer; gap: 2px; font-weight: 600; }
-        .nav-link.active { color: var(--purple-light); }
+        /* MODAL */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 2, 3, 0.88); backdrop-filter: blur(6px); z-index: 300; justify-content: center; align-items: center; padding: 14px; }
+        .modal-content { background: var(--bg-modal); border: 1px solid var(--red-main); border-radius: 14px; width: 100%; max-width: 450px; max-height: 85vh; overflow-y: auto; padding: 18px; position: relative; box-shadow: 0 0 25px var(--red-glow); }
+        .close-modal { position: absolute; top: 12px; right: 14px; color: var(--text-sub); font-size: 1.2rem; cursor: pointer; }
+
+        /* BOTTOM NAV MOBILE */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 55px; background: #050203; border-top: 1px solid var(--border-color); display: flex; justify-content: space-around; align-items: center; z-index: 150; }
+        .nav-link { display: flex; flex-direction: column; align-items: center; color: var(--text-sub); font-size: 0.65rem; cursor: pointer; gap: 3px; font-weight: 600; }
+        .nav-link.active { color: var(--red-main); }
     </style>
 </head>
 <body>
 
     <div class="toast-container" id="toastContainer"></div>
 
-    <!-- STATUS TOP -->
+    <!-- STATUS TOP BAR -->
     <div class="top-status">
         <div class="online-badge"><div class="dot"></div> ATENDIMENTO ONLINE</div>
-        <div style="color:var(--text-sub);">Saldo: <strong id="userWallet" style="color:var(--purple-light);">R$ 0,00</strong></div>
+        <div style="color:var(--text-sub);">Saldo: <strong id="userWallet" style="color:var(--red-main);">R$ 0,00</strong></div>
     </div>
 
     <!-- HEADER -->
     <header>
         <div class="brand" onclick="switchPanel('tabHome', document.querySelectorAll('.tab-item')[0])">
-            <img src="https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg" class="brand-logo" alt="Logo">
+            <img src="https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg" class="brand-logo" id="headerLogo" alt="Logo">
             <div class="brand-name">After Store</div>
         </div>
         <div class="header-btns">
-            <button class="btn-icon" onclick="openDiscord()"><i class="fa-brands fa-discord" style="color:var(--purple-main);"></i></button>
+            <button class="btn-icon" onclick="openDiscord()" title="Entrar no Discord">
+                <i class="fa-brands fa-discord" style="color:var(--red-main); font-size:1rem;"></i>
+            </button>
             <button class="btn-icon" onclick="openCartModal()">
                 <i class="fa-solid fa-bag-shopping"></i>
                 <div class="cart-badge" id="cartBadge">0</div>
@@ -109,60 +116,116 @@ h<!DOCTYPE html>
         </div>
     </header>
 
-    <!-- ABA NAVEGAÇÃO -->
+    <!-- NAVEGAÇÃO POR ABAS -->
     <div class="tabs">
         <button class="tab-item active" onclick="switchPanel('tabHome', this)"><i class="fa-solid fa-store"></i> Catálogo</button>
         <button class="tab-item" onclick="switchPanel('tabBlox', this)"><i class="fa-solid fa-lemon"></i> Blox Fruits</button>
         <button class="tab-item" onclick="switchPanel('tabVip', this)"><i class="fa-solid fa-crown"></i> VIP</button>
         <button class="tab-item" onclick="switchPanel('tabWheel', this)"><i class="fa-solid fa-spinner"></i> Roleta 24h</button>
         <button class="tab-item" onclick="switchPanel('tabProfile', this)"><i class="fa-solid fa-user"></i> Perfil</button>
+        <button class="tab-item" onclick="switchPanel('tabAdmin', this)" style="color:#ef4444;"><i class="fa-solid fa-user-shield"></i> Painel Dono</button>
     </div>
 
-    <!-- CONTEÚDO -->
+    <!-- CONTEÚDO PRINCIPAL -->
     <div class="container">
-        <!-- CATÁLOGO -->
+        
+        <!-- CATÁLOGO GERAL -->
         <div class="panel active" id="tabHome">
             <div style="margin-bottom:12px;">
-                <input type="text" id="searchInput" oninput="renderGrid()" placeholder="🔍 Pesquisar produto no catálogo..." style="width:100%; padding:9px 12px; border-radius:8px; background:var(--bg-card); border:1px solid var(--border-color); color:white; outline:none; font-size:0.8rem;">
+                <input type="text" id="searchInput" oninput="renderGrid()" placeholder="🔍 Buscar produtos no catálogo...">
             </div>
             <div class="products-grid" id="mainGrid"></div>
         </div>
 
         <!-- BLOX FRUITS -->
         <div class="panel" id="tabBlox">
-            <h3 style="margin-bottom:12px; font-size:0.95rem;"><i class="fa-solid fa-lemon" style="color:var(--purple-main);"></i> Contas Blox Fruits</h3>
+            <h3 style="margin-bottom:12px; font-size:0.95rem; color:var(--red-main);"><i class="fa-solid fa-lemon"></i> Contas Blox Fruits</h3>
             <div class="products-grid" id="bloxGrid"></div>
         </div>
 
         <!-- VIP -->
         <div class="panel" id="tabVip">
-            <h3 style="margin-bottom:12px; font-size:0.95rem;"><i class="fa-solid fa-crown" style="color:var(--purple-main);"></i> Contas VIP Exclusivas</h3>
+            <h3 style="margin-bottom:12px; font-size:0.95rem; color:var(--red-main);"><i class="fa-solid fa-crown"></i> Exclusivos VIP</h3>
             <div class="products-grid" id="vipGrid"></div>
         </div>
 
-        <!-- ROLETA -->
+        <!-- ROLETA DIÁRIA -->
         <div class="panel" id="tabWheel">
-            <div style="background:var(--bg-card); border:1px solid var(--border-color); padding:20px; border-radius:14px; text-align:center; max-width:450px; margin:0 auto;">
-                <h3 style="font-size:1.1rem;"><i class="fa-solid fa-spinner" style="color:var(--purple-main);"></i> Roleta Diária</h3>
-                <p style="font-size:0.78rem; color:var(--text-sub); margin:8px 0;">Gire 1x a cada 24 horas para ganhar saldo ou brindes na loja!</p>
-                <div id="wheelTimer" style="margin:10px 0; font-weight:800; color:var(--purple-light); font-size:0.9rem;"></div>
-                <button class="btn-action" id="btnSpin" onclick="spinWheel()"><i class="fa-solid fa-play"></i> Girar Agora</button>
-                <div id="wheelResult" style="margin-top:12px; font-weight:800; font-size:0.9rem; color:var(--purple-light);"></div>
+            <div style="background:var(--bg-card); border:1px solid var(--border-color); padding:20px; border-radius:14px; text-align:center; max-width:420px; margin:0 auto;">
+                <h3 style="font-size:1.1rem; color:var(--red-main);"><i class="fa-solid fa-spinner"></i> Roleta da Sorte</h3>
+                <p style="font-size:0.78rem; color:var(--text-sub); margin:8px 0;">Gire 1 vez a cada 24 horas para ganhar bônus de saldo!</p>
+                <div id="wheelTimer" style="margin:12px 0; font-weight:800; color:var(--red-main); font-size:0.9rem;"></div>
+                <button class="btn-action" id="btnSpin" onclick="spinWheel()"><i class="fa-solid fa-play"></i> Girar Roleta</button>
             </div>
         </div>
 
-        <!-- PERFIL -->
+        <!-- PERFIL & BÔNUS -->
         <div class="panel" id="tabProfile">
-            <div style="background:var(--bg-card); border:1px solid var(--border-color); padding:16px; border-radius:12px;">
+            <div style="background:var(--bg-card); border:1px solid var(--border-color); padding:16px; border-radius:12px; max-width:450px; margin:0 auto;">
                 <h3 style="font-size:1rem; margin-bottom:8px;">Meu Perfil</h3>
-                <div style="font-size:0.8rem; color:var(--text-sub); margin-bottom:12px;">Saldo Disponível: <strong id="profileWallet" style="color:var(--purple-light);">R$ 0,00</strong></div>
+                <div style="font-size:0.82rem; color:var(--text-sub); margin-bottom:12px;">Saldo acumulado: <strong id="profileWallet" style="color:var(--red-main);">R$ 0,00</strong></div>
                 <button class="btn-action" id="btnBonus" onclick="claimBonus()"><i class="fa-solid fa-gift"></i> Resgatar Bônus Diário (+R$ 1,00)</button>
-                <div id="bonusTimerText" style="font-size:0.75rem; color:var(--purple-light); text-align:center; margin-top:8px;"></div>
+                <div id="bonusTimerText" style="font-size:0.75rem; color:var(--red-main); text-align:center; margin-top:8px;"></div>
             </div>
         </div>
+
+        <!-- PAINEL DE DONO (ADMIN) -->
+        <div class="panel" id="tabAdmin">
+            <div id="adminAuthBlock" style="background:var(--bg-card); border:1px solid var(--border-color); padding:20px; border-radius:12px; max-width:400px; margin:0 auto;">
+                <h3 style="font-size:1rem; margin-bottom:12px; color:var(--red-main);"><i class="fa-solid fa-lock"></i> Acesso Restrito ao Dono</h3>
+                <input type="password" id="adminPassInput" placeholder="Digite a senha de administrador...">
+                <button class="btn-action" onclick="loginAdmin()">Acessar Painel</button>
+            </div>
+
+            <div id="adminContentBlock" style="display:none; background:var(--bg-card); border:1px solid var(--border-color); padding:16px; border-radius:12px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                    <h3 style="color:var(--red-main); font-size:1.1rem;"><i class="fa-solid fa-sliders"></i> Gerenciador da Loja</h3>
+                    <button onclick="logoutAdmin()" style="background:none; border:none; color:var(--text-sub); cursor:pointer;"><i class="fa-solid fa-right-from-bracket"></i> Sair</button>
+                </div>
+
+                <!-- CONFIGURAR CONTATOS -->
+                <div style="margin-bottom:16px; border-bottom:1px solid var(--border-color); padding-bottom:12px;">
+                    <h4 style="font-size:0.85rem; margin-bottom:8px;">📞 Contatos & Discord</h4>
+                    <input type="text" id="cfgMarcos" placeholder="WhatsApp Marcos (ex: 5521999991111)">
+                    <input type="text" id="cfgGabriel" placeholder="WhatsApp Gabriel (ex: 5521999992222)">
+                    <input type="text" id="cfgDiscord" placeholder="Link do Servidor Discord">
+                    <button class="btn-action" onclick="saveContacts()"><i class="fa-solid fa-floppy-disk"></i> Salvar Contatos</button>
+                </div>
+
+                <!-- CRIAR CUPOM -->
+                <div style="margin-bottom:16px; border-bottom:1px solid var(--border-color); padding-bottom:12px;">
+                    <h4 style="font-size:0.85rem; margin-bottom:8px;">🎟️ Adicionar Cupom de Desconto</h4>
+                    <input type="text" id="cupCode" placeholder="Código do Cupom (ex: AFTER10)">
+                    <input type="number" id="cupValue" placeholder="Valor do Desconto em % (ex: 10)">
+                    <button class="btn-action" onclick="addCoupon()"><i class="fa-solid fa-plus"></i> Criar Cupom</button>
+                    <div id="adminCouponsList" style="margin-top:8px; font-size:0.75rem;"></div>
+                </div>
+
+                <!-- ADICIONAR PRODUTO -->
+                <div style="margin-bottom:16px;">
+                    <h4 style="font-size:0.85rem; margin-bottom:8px;">📦 Adicionar Novo Produto</h4>
+                    <input type="text" id="prodTitle" placeholder="Nome do Produto">
+                    <input type="number" id="prodPrice" step="0.01" placeholder="Preço Atual (R$)">
+                    <input type="number" id="prodOldPrice" step="0.01" placeholder="Preço Antigo (R$) (Opcional)">
+                    <select id="prodCat">
+                        <option value="BLOX">Blox Fruits</option>
+                        <option value="VIP">VIP</option>
+                        <option value="GERAL">Geral</option>
+                    </select>
+                    <input type="text" id="prodImg" placeholder="URL da Imagem (Link Direto)">
+                    <button class="btn-action" onclick="addProduct()"><i class="fa-solid fa-cart-plus"></i> Adicionar Produto</button>
+                </div>
+
+                <!-- EXPORTAR CÓDIGO -->
+                <button class="btn-action" style="background:#10b981; margin-top:10px;" onclick="exportUpdatedCode()">
+                    <i class="fa-solid fa-file-code"></i> Copiar Código Atualizado para Atualizar Site
+                </button>
+            </div>
+        </div>
+
     </div>
 
-    <!-- BOTTOM NAV MOBILE -->
+    <!-- NAV BOTTOM MOBILE -->
     <div class="bottom-nav">
         <div class="nav-link active" onclick="switchPanel('tabHome', document.querySelectorAll('.tab-item')[0])"><i class="fa-solid fa-store"></i> Loja</div>
         <div class="nav-link" onclick="switchPanel('tabBlox', document.querySelectorAll('.tab-item')[1])"><i class="fa-solid fa-lemon"></i> Blox</div>
@@ -175,72 +238,75 @@ h<!DOCTYPE html>
     <div class="modal" id="cartModal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('cartModal')">&times;</span>
-            <h3 style="margin-bottom:10px; font-size:0.95rem;"><i class="fa-solid fa-bag-shopping"></i> Seu Carrinho</h3>
-            <div id="cartList" style="margin-bottom:10px;"></div>
-            <div style="display:flex; justify-content:space-between; font-weight:900; font-size:0.95rem; margin-bottom:12px;">
-                <span>Total:</span>
-                <span id="cartTotal" style="color:var(--purple-light);">R$ 0,00</span>
+            <h3 style="margin-bottom:12px; font-size:1rem; color:var(--red-main);"><i class="fa-solid fa-bag-shopping"></i> Seu Carrinho</h3>
+            
+            <div id="cartList" style="margin-bottom:12px;"></div>
+
+            <!-- ÁREA DE CUPOM -->
+            <div style="display:flex; gap:6px; margin-bottom:12px;">
+                <input type="text" id="cartCouponInput" placeholder="Cupom de desconto" style="margin:0; text-transform:uppercase;">
+                <button onclick="applyCoupon()" style="width:auto; padding:0 12px; background:var(--red-main); border:none; border-radius:8px; color:white; font-weight:700; cursor:pointer;">Aplicar</button>
             </div>
-            <button class="btn-marcos" onclick="checkout('marcos')"><i class="fa-brands fa-whatsapp"></i> Comprar com Marcos</button>
-            <button class="btn-gabriel" onclick="checkout('gabriel')"><i class="fa-brands fa-whatsapp"></i> Comprar com Gabriel</button>
+            <div id="couponMsg" style="font-size:0.75rem; margin-bottom:10px;"></div>
+
+            <div style="border-top:1px solid var(--border-color); padding-top:10px; margin-bottom:12px;">
+                <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:var(--text-sub);">
+                    <span>Subtotal:</span>
+                    <span id="cartSubtotal">R$ 0,00</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:#10b981;">
+                    <span>Desconto:</span>
+                    <span id="cartDiscount">- R$ 0,00</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; font-weight:900; font-size:1.1rem; margin-top:6px; color:var(--red-main);">
+                    <span>Total Final:</span>
+                    <span id="cartTotal">R$ 0,00</span>
+                </div>
+            </div>
+
+            <p style="font-size:0.75rem; color:var(--text-sub); text-align:center; margin-bottom:8px;">Escolha o atendente para finalizar no WhatsApp:</p>
+            <button class="btn-seller btn-marcos" onclick="checkout('marcos')"><i class="fa-brands fa-whatsapp"></i> Comprar com Marcos</button>
+            <button class="btn-seller btn-gabriel" onclick="checkout('gabriel')"><i class="fa-brands fa-whatsapp"></i> Comprar com Gabriel</button>
         </div>
     </div>
 
     <script>
-        // SINTETIZADOR DE SOM NATIVO
-        function playSound(type) {
-            try {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-
-                if (type === 'buy') {
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(587, ctx.currentTime);
-                    osc.frequency.setValueAtTime(880, ctx.currentTime + 0.1);
-                    gain.gain.setValueAtTime(0.2, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
-                    osc.start(ctx.currentTime);
-                    osc.stop(ctx.currentTime + 0.3);
-                } else if (type === 'bonus') {
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(523, ctx.currentTime);
-                    osc.frequency.setValueAtTime(659, ctx.currentTime + 0.1);
-                    gain.gain.setValueAtTime(0.25, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
-                    osc.start(ctx.currentTime);
-                    osc.stop(ctx.currentTime + 0.4);
-                }
-            } catch(e){}
-        }
-
-        // CATÁLOGO OFICIAL FIXO
-        const STORE_CONFIG = {
+        // CONFIGURAÇÕES GLOBAIS DA LOJA
+        let STORE_CONFIG = JSON.parse(localStorage.getItem('after_config')) || {
             marcosWhats: "5521999991111",
             gabrielWhats: "5521999992222",
-            discord: "https://discord.gg/systemlabs"
+            discord: "https://discord.gg/systemlabs",
+            adminPass: "admin123"
         };
 
-        const GLOBAL_PRODUCTS = [
+        let GLOBAL_PRODUCTS = JSON.parse(localStorage.getItem('after_products')) || [
             { id: 1, name: "🥊 • GODHUMAN + LVL MAX + FRUTAS •", price: 6.90, oldPrice: 15.00, cat: "BLOX", img: "https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg" },
             { id: 2, name: "🍎 • LEOPARD / DOUGH NO INVENTÁRIO •", price: 12.00, oldPrice: 22.00, cat: "BLOX", img: "https://i.ibb.co/9kcDwTwf/IMG-20260723-WA0510.jpg" },
             { id: 3, name: "👑 • CONTA BLOX FRUITS RAÇA V4 MAX •", price: 29.90, oldPrice: 55.00, cat: "VIP", img: "https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg" }
         ];
 
-        let userState = JSON.parse(localStorage.getItem('after_user_clean')) || {
+        let COUPONS = JSON.parse(localStorage.getItem('after_coupons')) || [
+            { code: "AFTER10", percent: 10 }
+        ];
+
+        let userState = JSON.parse(localStorage.getItem('after_user')) || {
             wallet: 0.00,
             lastBonus: 0,
             lastSpin: 0
         };
 
         let cart = [];
+        let appliedCoupon = null;
 
         function init() {
             updateWalletDisplay();
             renderGrid();
             checkTimers();
+            
+            document.getElementById('cfgMarcos').value = STORE_CONFIG.marcosWhats;
+            document.getElementById('cfgGabriel').value = STORE_CONFIG.gabrielWhats;
+            document.getElementById('cfgDiscord').value = STORE_CONFIG.discord;
+            renderAdminCoupons();
         }
 
         function formatBRL(v) { return `R$ ${parseFloat(v).toFixed(2).replace('.', ',')}`; }
@@ -248,7 +314,7 @@ h<!DOCTYPE html>
         function updateWalletDisplay() {
             document.getElementById('userWallet').innerText = formatBRL(userState.wallet);
             document.getElementById('profileWallet').innerText = formatBRL(userState.wallet);
-            localStorage.setItem('after_user_clean', JSON.stringify(userState));
+            localStorage.setItem('after_user', JSON.stringify(userState));
         }
 
         function switchPanel(panelId, btn) {
@@ -263,7 +329,7 @@ h<!DOCTYPE html>
             const search = document.getElementById('searchInput').value.toLowerCase();
             const filtered = GLOBAL_PRODUCTS.filter(p => p.name.toLowerCase().includes(search));
 
-            const buildCards = (list) => list.map(p => `
+            const buildCards = (list) => list.length === 0 ? '<p style="color:var(--text-sub); font-size:0.8rem;">Nenhum produto encontrado.</p>' : list.map(p => `
                 <div class="card">
                     <div class="card-tag">${p.cat}</div>
                     <div class="card-img-wrap"><img src="${p.img}" class="card-img"></div>
@@ -287,24 +353,29 @@ h<!DOCTYPE html>
             const prod = GLOBAL_PRODUCTS.find(p => p.id === id);
             cart.push(prod);
             document.getElementById('cartBadge').innerText = cart.length;
-            playSound('buy');
             showToast(`🛒 ${prod.name} adicionado!`);
         }
 
         function openCartModal() {
             const list = document.getElementById('cartList');
-            let total = 0;
-            list.innerHTML = cart.length === 0 ? "<div style='text-align:center; color:var(--text-sub); padding:10px;'>Carrinho vazio.</div>" : cart.map((item, i) => {
-                total += item.price;
+            let subtotal = 0;
+
+            list.innerHTML = cart.length === 0 ? "<div style='text-align:center; color:var(--text-sub); padding:10px;'>Seu carrinho está vazio.</div>" : cart.map((item, i) => {
+                subtotal += item.price;
                 return `
-                    <div style="display:flex; justify-content:space-between; align-items:center; background:#080510; padding:8px 10px; border-radius:8px; margin-bottom:6px; font-size:0.78rem;">
-                        <div>${item.name} <br><strong style="color:var(--purple-light);">${formatBRL(item.price)}</strong></div>
-                        <button style="background:none; border:none; color:var(--red); cursor:pointer;" onclick="removeFromCart(${i})"><i class="fa-solid fa-trash"></i></button>
+                    <div style="display:flex; justify-content:space-between; align-items:center; background:#0e0709; padding:8px 10px; border-radius:8px; margin-bottom:6px; font-size:0.78rem;">
+                        <div>${item.name} <br><strong style="color:var(--red-main);">${formatBRL(item.price)}</strong></div>
+                        <button style="background:none; border:none; color:#ef4444; cursor:pointer;" onclick="removeFromCart(${i})"><i class="fa-solid fa-trash"></i></button>
                     </div>
                 `;
             }).join('');
 
-            document.getElementById('cartTotal').innerText = formatBRL(total);
+            let discount = appliedCoupon ? (subtotal * (appliedCoupon.percent / 100)) : 0;
+            let total = subtotal - discount;
+
+            document.getElementById('cartSubtotal').innerText = formatBRL(subtotal);
+            document.getElementById('cartDiscount').innerText = `- ${formatBRL(discount)}`;
+            document.getElementById('cartTotal').innerText = formatBRL(total < 0 ? 0 : total);
             document.getElementById('cartModal').style.display = 'flex';
         }
 
@@ -314,16 +385,38 @@ h<!DOCTYPE html>
             openCartModal();
         }
 
+        function applyCoupon() {
+            const code = document.getElementById('cartCouponInput').value.trim().toUpperCase();
+            const found = COUPONS.find(c => c.code === code);
+            const msgEl = document.getElementById('couponMsg');
+
+            if(found) {
+                appliedCoupon = found;
+                msgEl.style.color = "#10b981";
+                msgEl.innerText = `✅ Cupom "${code}" aplicado com ${found.percent}% de desconto!`;
+                openCartModal();
+            } else {
+                appliedCoupon = null;
+                msgEl.style.color = "#ef4444";
+                msgEl.innerText = "❌ Cupom inválido ou expirado.";
+                openCartModal();
+            }
+        }
+
         function checkout(seller) {
-            if(cart.length === 0) return alert("Carrinho vazio!");
-            let total = cart.reduce((a, b) => a + b.price, 0);
+            if(cart.length === 0) return alert("Adicione produtos ao carrinho primeiro!");
+            
+            let subtotal = cart.reduce((a, b) => a + b.price, 0);
+            let discount = appliedCoupon ? (subtotal * (appliedCoupon.percent / 100)) : 0;
+            let total = subtotal - discount;
+
             let msg = `🛒 *NOVO PEDIDO - AFTER STORE*\n\n*Itens:*\n`;
             cart.forEach(i => msg += `• ${i.name} - ${formatBRL(i.price)}\n`);
-            msg += `\n💰 *Total:* ${formatBRL(total)}`;
-
-            cart = [];
-            document.getElementById('cartBadge').innerText = 0;
-            closeModal('cartModal');
+            
+            if(appliedCoupon) {
+                msg += `\n🎟️ *Cupom:* ${appliedCoupon.code} (${appliedCoupon.percent}% OFF)`;
+            }
+            msg += `\n💰 *Total:* ${formatBRL(total < 0 ? 0 : total)}`;
 
             const phone = seller === 'marcos' ? STORE_CONFIG.marcosWhats : STORE_CONFIG.gabrielWhats;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
@@ -336,8 +429,7 @@ h<!DOCTYPE html>
             userState.lastBonus = now;
             userState.wallet += 1.00;
             updateWalletDisplay();
-            playSound('bonus');
-            showToast("🎁 Bônus de R$ 1,00 adicionado!");
+            showToast("🎁 Bônus de R$ 1,00 resgatado!");
             checkTimers();
         }
 
@@ -348,8 +440,7 @@ h<!DOCTYPE html>
             userState.lastSpin = now;
             userState.wallet += 1.00;
             updateWalletDisplay();
-            playSound('bonus');
-            document.getElementById('wheelResult').innerText = "🎉 Parabéns! Você ganhou R$ 1,00 de saldo!";
+            showToast("🎉 Parabéns! Ganhou R$ 1,00 na Roleta!");
             checkTimers();
         }
 
@@ -360,7 +451,7 @@ h<!DOCTYPE html>
 
             if(now - userState.lastBonus < 86400000) {
                 btnBonus.disabled = true;
-                document.getElementById('bonusTimerText').innerText = "⏳ Bônus indisponível no momento (Retorne em 24h)";
+                document.getElementById('bonusTimerText').innerText = "⏳ Bônus disponível em 24h";
             } else {
                 btnBonus.disabled = false;
                 document.getElementById('bonusTimerText').innerText = "🎁 Bônus disponível!";
@@ -368,18 +459,92 @@ h<!DOCTYPE html>
 
             if(now - userState.lastSpin < 86400000) {
                 btnSpin.disabled = true;
-                document.getElementById('wheelTimer').innerText = "⏳ Roleta indisponível no momento (Retorne em 24h)";
+                document.getElementById('wheelTimer').innerText = "⏳ Roleta disponível em 24h";
             } else {
                 btnSpin.disabled = false;
                 document.getElementById('wheelTimer').innerText = "⚡ Giro disponível!";
             }
         }
 
+        /* FUNÇÕES DE ADMIN PAINEL DO DONO */
+        function loginAdmin() {
+            const pass = document.getElementById('adminPassInput').value;
+            if(pass === STORE_CONFIG.adminPass) {
+                document.getElementById('adminAuthBlock').style.display = 'none';
+                document.getElementById('adminContentBlock').style.display = 'block';
+            } else {
+                alert("Senha incorreta!");
+            }
+        }
+
+        function logoutAdmin() {
+            document.getElementById('adminAuthBlock').style.display = 'block';
+            document.getElementById('adminContentBlock').style.display = 'none';
+        }
+
+        function saveContacts() {
+            STORE_CONFIG.marcosWhats = document.getElementById('cfgMarcos').value;
+            STORE_CONFIG.gabrielWhats = document.getElementById('cfgGabriel').value;
+            STORE_CONFIG.discord = document.getElementById('cfgDiscord').value;
+            localStorage.setItem('after_config', JSON.stringify(STORE_CONFIG));
+            showToast("✅ Contatos atualizados!");
+        }
+
+        function addCoupon() {
+            const code = document.getElementById('cupCode').value.trim().toUpperCase();
+            const val = parseFloat(document.getElementById('cupValue').value);
+            if(!code || isNaN(val)) return alert("Preencha o código e porcentagem!");
+
+            COUPONS.push({ code: code, percent: val });
+            localStorage.setItem('after_coupons', JSON.stringify(COUPONS));
+            renderAdminCoupons();
+            showToast("🎟️ Cupom criado!");
+        }
+
+        function renderAdminCoupons() {
+            const list = document.getElementById('adminCouponsList');
+            list.innerHTML = COUPONS.map((c, i) => `
+                <div style="display:flex; justify-content:space-between; margin-top:4px;">
+                    <span>${c.code} (${c.percent}% OFF)</span>
+                    <button onclick="removeCoupon(${i})" style="color:red; background:none; border:none; cursor:pointer;">Excluir</button>
+                </div>
+            `).join('');
+        }
+
+        function removeCoupon(i) {
+            COUPONS.splice(i, 1);
+            localStorage.setItem('after_coupons', JSON.stringify(COUPONS));
+            renderAdminCoupons();
+        }
+
+        function addProduct() {
+            const title = document.getElementById('prodTitle').value;
+            const price = parseFloat(document.getElementById('prodPrice').value);
+            const oldPrice = parseFloat(document.getElementById('prodOldPrice').value) || null;
+            const cat = document.getElementById('prodCat').value;
+            const img = document.getElementById('prodImg').value || "https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg";
+
+            if(!title || isNaN(price)) return alert("Preencha o título e preço!");
+
+            const newProd = { id: Date.now(), name: title, price: price, oldPrice: oldPrice, cat: cat, img: img };
+            GLOBAL_PRODUCTS.push(newProd);
+            localStorage.setItem('after_products', JSON.stringify(GLOBAL_PRODUCTS));
+            renderGrid();
+            showToast("📦 Produto cadastrado!");
+        }
+
+        function exportUpdatedCode() {
+            let pageSource = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+            navigator.clipboard.writeText(pageSource).then(() => {
+                alert("✅ Código da página copiado com sucesso! Agora vá no seu Termux ou GitHub e cole este código no index.html para atualizar para todos os clientes.");
+            });
+        }
+
         function showToast(msg) {
             const container = document.getElementById('toastContainer');
             const t = document.createElement('div');
             t.className = 'toast';
-            t.innerHTML = `<i class="fa-solid fa-bell" style="color:var(--purple-light);"></i> ${msg}`;
+            t.innerHTML = `<i class="fa-solid fa-bell" style="color:var(--red-main);"></i> ${msg}`;
             container.appendChild(t);
             setTimeout(() => t.remove(), 3500);
         }
