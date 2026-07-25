@@ -1,364 +1,193 @@
-<!DOCTYPE html>
+h<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title id="pageTitle">After Store - Ultra Clean Purple</title>
+    <title>After Store - Oficial</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-dark: #06040a;
-            --bg-card: rgba(18, 13, 30, 0.75);
-            --bg-modal: #120c22;
+            --bg-dark: #07050e;
+            --bg-card: #110c1f;
+            --bg-modal: #150f28;
             --purple-main: #a855f7;
-            --purple-dark: #6b21a8;
             --purple-light: #c084fc;
-            --purple-glow: rgba(168, 85, 247, 0.2);
-            --text-light: #f8fafc;
+            --purple-glow: rgba(168, 85, 247, 0.25);
+            --text-main: #f8fafc;
             --text-sub: #94a3b8;
-            --border-color: rgba(168, 85, 247, 0.15);
-            --green-main: #10b981;
-            --red-main: #ef4444;
+            --border-color: rgba(168, 85, 247, 0.18);
+            --green: #10b981;
+            --red: #ef4444;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background-color: var(--bg-dark); color: var(--text-light); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; padding-bottom: 75px; }
+        body { background-color: var(--bg-dark); color: var(--text-main); min-height: 100vh; padding-bottom: 70px; }
 
-        /* TOAST NOTIFICATION */
-        .toast-container { position: fixed; top: 15px; right: 15px; z-index: 999; display: flex; flex-direction: column; gap: 10px; max-width: 320px; pointer-events: none; }
-        .toast { background: rgba(18, 13, 30, 0.95); border: 1px solid var(--purple-main); box-shadow: 0 4px 20px var(--purple-glow); color: #fff; padding: 12px 16px; border-radius: 12px; font-size: 0.8rem; display: flex; align-items: center; gap: 10px; backdrop-filter: blur(8px); animation: slideIn 0.3s ease, fadeOut 0.5s ease 3.5s forwards; }
+        /* TOAST NOTIFICAÇÕES */
+        .toast-container { position: fixed; top: 12px; right: 12px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; max-width: 300px; pointer-events: none; }
+        .toast { background: var(--bg-card); border: 1px solid var(--purple-main); box-shadow: 0 4px 15px var(--purple-glow); color: #fff; padding: 10px 14px; border-radius: 10px; font-size: 0.78rem; display: flex; align-items: center; gap: 8px; animation: slideIn 0.3s ease, fadeOut 0.4s ease 3.5s forwards; }
         @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        @keyframes fadeOut { to { opacity: 0; transform: translateY(-10px); } }
+        @keyframes fadeOut { to { opacity: 0; transform: translateY(-8px); } }
 
-        /* FLASH BAR */
-        .flash-bar { background: linear-gradient(90deg, #4c1d95, #7e22ce, #4c1d95); color: #fff; text-align: center; padding: 6px; font-weight: 700; font-size: 0.78rem; display: flex; justify-content: center; align-items: center; gap: 8px; }
-
-        /* TOP BAR */
-        .top-bar { background: #030206; padding: 8px 16px; font-size: 0.78rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); }
-        .status-online { display: flex; align-items: center; gap: 6px; color: var(--purple-light); font-weight: 700; }
-        .status-dot { width: 8px; height: 8px; background: var(--purple-main); border-radius: 50%; box-shadow: 0 0 8px var(--purple-main); animation: pulse 1.6s infinite; }
+        /* BARRA TOP & HEADER */
+        .top-status { background: #030206; padding: 6px 14px; font-size: 0.75rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); }
+        .online-badge { display: flex; align-items: center; gap: 6px; color: var(--purple-light); font-weight: 700; }
+        .dot { width: 7px; height: 7px; background: var(--purple-main); border-radius: 50%; box-shadow: 0 0 8px var(--purple-main); animation: pulse 1.5s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
 
-        /* HEADER CLEAN */
-        header { background: rgba(8, 5, 14, 0.85); backdrop-filter: blur(12px); height: 65px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border-color); }
-        .logo-box { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-        .logo-img { width: 40px; height: 40px; border-radius: 10px; object-fit: cover; border: 1.5px solid var(--purple-main); }
-        .brand-title { font-weight: 800; font-size: 1.15rem; color: #fff; }
+        header { background: rgba(11, 8, 20, 0.9); backdrop-filter: blur(10px); height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 14px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border-color); }
+        .brand { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .brand-logo { width: 36px; height: 36px; border-radius: 8px; object-fit: cover; border: 1.5px solid var(--purple-main); }
+        .brand-name { font-weight: 800; font-size: 1.1rem; color: #fff; }
 
-        .header-actions { display: flex; gap: 8px; align-items: center; }
-        .icon-btn { position: relative; background: var(--bg-card); border: 1px solid var(--border-color); color: #fff; padding: 8px 12px; border-radius: 10px; font-size: 0.82rem; cursor: pointer; display: flex; align-items: center; gap: 6px; font-weight: 600; transition: all 0.2s; }
-        .icon-btn:hover { border-color: var(--purple-main); transform: translateY(-2px); }
-        .cart-count { position: absolute; top: -5px; right: -5px; background: var(--purple-main); color: #fff; font-size: 0.65rem; font-weight: 900; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .header-btns { display: flex; gap: 8px; }
+        .btn-icon { position: relative; background: var(--bg-card); border: 1px solid var(--border-color); color: #fff; padding: 7px 11px; border-radius: 8px; font-size: 0.8rem; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+        .cart-badge { position: absolute; top: -5px; right: -5px; background: var(--purple-main); color: #fff; font-size: 0.62rem; font-weight: 900; width: 17px; height: 17px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 
-        /* TABS DE NAVEGAÇÃO */
-        .tabs-bar { display: flex; background: #040207; border-bottom: 1px solid var(--border-color); overflow-x: auto; scrollbar-width: none; padding: 0 10px; gap: 4px; }
-        .tab-btn { padding: 12px 16px; font-size: 0.82rem; font-weight: 600; color: var(--text-sub); border: none; background: transparent; cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s; }
-        .tab-btn.active { color: var(--purple-light); border-bottom-color: var(--purple-main); font-weight: 700; }
+        /* NAV TABS */
+        .tabs { display: flex; background: #040208; border-bottom: 1px solid var(--border-color); overflow-x: auto; scrollbar-width: none; padding: 0 8px; }
+        .tab-item { padding: 11px 14px; font-size: 0.8rem; font-weight: 600; color: var(--text-sub); border: none; background: transparent; cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; }
+        .tab-item.active { color: var(--purple-light); border-bottom-color: var(--purple-main); font-weight: 700; }
 
-        .tab-panel { display: none; padding: 20px 16px; max-width: 1200px; margin: 0 auto; width: 100%; }
-        .tab-panel.active { display: block; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 16px; }
+        .panel { display: none; }
+        .panel.active { display: block; }
 
         /* GRID DE PRODUTOS */
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
-
-        .card { background: var(--bg-card); border-radius: 14px; border: 1px solid var(--border-color); overflow: hidden; display: flex; flex-direction: column; position: relative; transition: all 0.25s ease; backdrop-filter: blur(6px); }
-        .card:hover { transform: translateY(-3px); border-color: var(--purple-main); box-shadow: 0 6px 20px var(--purple-glow); }
-        .card-tag { position: absolute; top: 8px; left: 8px; background: rgba(6, 4, 10, 0.85); border: 1px solid var(--purple-main); color: var(--purple-light); font-size: 0.6rem; font-weight: 800; padding: 3px 7px; border-radius: 6px; z-index: 2; }
-        .stock-tag { position: absolute; top: 8px; right: 8px; background: rgba(16, 185, 129, 0.2); border: 1px solid var(--green-main); color: var(--green-main); font-size: 0.6rem; font-weight: 800; padding: 3px 7px; border-radius: 6px; z-index: 2; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+        .card { background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border-color); overflow: hidden; display: flex; flex-direction: column; position: relative; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-3px); border-color: var(--purple-main); }
+        .card-tag { position: absolute; top: 6px; left: 6px; background: rgba(7, 5, 14, 0.85); border: 1px solid var(--purple-main); color: var(--purple-light); font-size: 0.58rem; font-weight: 800; padding: 2px 6px; border-radius: 4px; z-index: 2; }
         
-        .card-img-wrap { width: 100%; height: 140px; background: #000; overflow: hidden; }
-        .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
-        .card:hover .card-img { transform: scale(1.05); }
-        .card-body { padding: 12px; display: flex; flex-direction: column; flex: 1; }
-        .card-title { font-size: 0.85rem; font-weight: 700; color: #fff; margin-bottom: 8px; line-height: 1.3; height: 2.6em; overflow: hidden; cursor: pointer; }
-        .card-price { font-size: 1.15rem; font-weight: 900; color: var(--purple-light); }
-        .card-old-price { font-size: 0.72rem; color: var(--text-sub); text-decoration: line-through; margin-left: 6px; }
-        
-        .btn-buy { background: linear-gradient(90deg, var(--purple-main), var(--purple-dark)); color: #fff; border: none; width: 100%; padding: 9px; border-radius: 8px; font-weight: 700; font-size: 0.82rem; cursor: pointer; margin-top: 10px; transition: opacity 0.2s; }
-        .btn-buy:hover { opacity: 0.9; }
+        .card-img-wrap { width: 100%; height: 130px; background: #000; overflow: hidden; }
+        .card-img { width: 100%; height: 100%; object-fit: cover; }
+        .card-body { padding: 10px; display: flex; flex-direction: column; flex: 1; justify-content: space-between; }
+        .card-title { font-size: 0.82rem; font-weight: 700; color: #fff; margin-bottom: 6px; line-height: 1.2; height: 2.4em; overflow: hidden; }
+        .card-price { font-size: 1.05rem; font-weight: 900; color: var(--purple-light); }
+        .card-old-price { font-size: 0.7rem; color: var(--text-sub); text-decoration: line-through; margin-left: 4px; }
 
-        /* BOTÕES & MODAIS */
-        .btn-action { background: linear-gradient(90deg, var(--purple-main), var(--purple-dark)); color: white; border: none; width: 100%; padding: 11px; border-radius: 10px; font-weight: 700; font-size: 0.85rem; cursor: pointer; margin-top: 10px; transition: all 0.2s; }
-        .btn-action:disabled { opacity: 0.5; cursor: not-allowed; background: #334155; }
-        .btn-marcos { background: #25d366; color: white; border: none; width: 100%; padding: 10px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.82rem; }
-        .btn-gabriel { background: #0284c7; color: white; border: none; width: 100%; padding: 10px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.82rem; }
+        .btn-buy { background: linear-gradient(90deg, var(--purple-main), #7e22ce); color: #fff; border: none; width: 100%; padding: 8px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; cursor: pointer; margin-top: 8px; }
 
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3, 2, 6, 0.85); backdrop-filter: blur(8px); z-index: 300; justify-content: center; align-items: flex-end; }
-        @media (min-width: 600px) { .modal { align-items: center; } }
-        .modal-box { background: var(--bg-modal); border-top: 2px solid var(--purple-main); border-radius: 18px 18px 0 0; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; padding: 18px; position: relative; }
-        @media (min-width: 600px) { .modal-box { border-radius: 14px; border: 1.5px solid var(--purple-main); box-shadow: 0 0 25px var(--purple-glow); } }
-        .close-btn { position: absolute; top: 10px; right: 14px; color: var(--text-sub); font-size: 1.2rem; cursor: pointer; }
+        /* MODAIS */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3, 2, 6, 0.85); backdrop-filter: blur(6px); z-index: 300; justify-content: center; align-items: center; padding: 14px; }
+        .modal-content { background: var(--bg-modal); border: 1px solid var(--purple-main); border-radius: 14px; width: 100%; max-width: 440px; max-height: 85vh; overflow-y: auto; padding: 16px; position: relative; box-shadow: 0 0 20px var(--purple-glow); }
+        .close-modal { position: absolute; top: 10px; right: 12px; color: var(--text-sub); font-size: 1.2rem; cursor: pointer; }
 
-        .form-group { margin-bottom: 10px; }
-        .form-group label { display: block; font-size: 0.75rem; color: var(--text-sub); margin-bottom: 4px; font-weight: 600; }
-        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; border-radius: 8px; background: #080510; border: 1px solid var(--border-color); color: #fff; font-size: 0.85rem; outline: none; }
-        .form-group input:focus { border-color: var(--purple-main); }
+        .btn-action { background: linear-gradient(90deg, var(--purple-main), #7e22ce); color: white; border: none; width: 100%; padding: 10px; border-radius: 8px; font-weight: 700; font-size: 0.82rem; cursor: pointer; margin-top: 8px; }
+        .btn-action:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-marcos { background: #25d366; color: white; border: none; width: 100%; padding: 9px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 6px; font-size: 0.8rem; }
+        .btn-gabriel { background: #0284c7; color: white; border: none; width: 100%; padding: 9px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 6px; font-size: 0.8rem; }
 
-        /* ROLETA DA SORTE */
-        .wheel-box { background: var(--bg-card); border: 1px solid var(--border-color); padding: 22px; border-radius: 16px; text-align: center; max-width: 500px; margin: 0 auto; }
-
-        /* BOTTOM NAV MOBILE */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 58px; background: #040207; border-top: 1px solid var(--border-color); display: flex; justify-content: space-around; align-items: center; z-index: 150; }
-        .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-sub); font-size: 0.68rem; cursor: pointer; gap: 2px; font-weight: 600; }
-        .nav-item.active { color: var(--purple-light); }
-
-        .admin-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.78rem; }
-        .admin-table th, .admin-table td { padding: 7px; border: 1px solid var(--border-color); text-align: left; }
+        /* BOTTOM NAV */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 55px; background: #040208; border-top: 1px solid var(--border-color); display: flex; justify-content: space-around; align-items: center; z-index: 150; }
+        .nav-link { display: flex; flex-direction: column; align-items: center; color: var(--text-sub); font-size: 0.65rem; cursor: pointer; gap: 2px; font-weight: 600; }
+        .nav-link.active { color: var(--purple-light); }
     </style>
 </head>
 <body>
 
-    <!-- CONTAINER NOTIFICAÇÕES TOAST -->
     <div class="toast-container" id="toastContainer"></div>
 
-    <!-- BARRINHA DE OFERTA -->
-    <div class="flash-bar">
-        <span>⚡ OFERTA RELÂMPAGO</span>
-        <span id="flashTimer" style="background:#080510; padding:2px 6px; border-radius:4px; font-family:monospace; border:1px solid var(--border-color);">02:45:12</span>
+    <!-- STATUS TOP -->
+    <div class="top-status">
+        <div class="online-badge"><div class="dot"></div> ATENDIMENTO ONLINE</div>
+        <div style="color:var(--text-sub);">Saldo: <strong id="userWallet" style="color:var(--purple-light);">R$ 0,00</strong></div>
     </div>
 
-    <!-- STATUS TOP BAR -->
-    <div class="top-bar">
-        <div class="status-online"><div class="status-dot"></div> ONLINE</div>
-        <div style="color:var(--text-sub);">
-            💰 Saldo: <strong id="userWallet" style="color:var(--purple-light);">R$ 0,00</strong> 
-            <small id="walletLimitText">(Máx: R$ 500,00)</small> | Pontos: <strong id="userPoints" style="color:#fff;">0</strong>
-        </div>
-    </div>
-
-    <!-- HEADER CLEAN -->
+    <!-- HEADER -->
     <header>
-        <div class="logo-box" onclick="switchTab('tabHome', document.querySelectorAll('.tab-btn')[0])">
-            <img src="" id="topLogo" class="logo-img" alt="Logo">
-            <div class="brand-title" id="topBrandTitle">After Store</div>
+        <div class="brand" onclick="switchPanel('tabHome', document.querySelectorAll('.tab-item')[0])">
+            <img src="https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg" class="brand-logo" alt="Logo">
+            <div class="brand-name">After Store</div>
         </div>
-        <div class="header-actions">
-            <button class="icon-btn" onclick="openDiscord()"><i class="fa-brands fa-discord" style="color:#a855f7;"></i></button>
-            <button class="icon-btn" onclick="openAuthModal()"><i class="fa-solid fa-user"></i> <span id="userHeaderName">Entrar</span></button>
-            <button class="icon-btn" onclick="openCartModal()">
+        <div class="header-btns">
+            <button class="btn-icon" onclick="openDiscord()"><i class="fa-brands fa-discord" style="color:var(--purple-main);"></i></button>
+            <button class="btn-icon" onclick="openCartModal()">
                 <i class="fa-solid fa-bag-shopping"></i>
-                <div class="cart-count" id="cartCount">0</div>
+                <div class="cart-badge" id="cartBadge">0</div>
             </button>
-            <button class="icon-btn" onclick="openAdmin()"><i class="fa-solid fa-sliders"></i></button>
         </div>
     </header>
 
-    <!-- TABS DE NAVEGAÇÃO -->
-    <div class="tabs-bar">
-        <button class="tab-btn active" onclick="switchTab('tabHome', this)"><i class="fa-solid fa-store"></i> Catálogo</button>
-        <button class="tab-btn" onclick="switchTab('tabOffers', this)"><i class="fa-solid fa-bolt"></i> Ofertas</button>
-        <button class="tab-btn" onclick="switchTab('tabBlox', this)"><i class="fa-solid fa-lemon"></i> Blox Fruits</button>
-        <button class="tab-btn" onclick="switchTab('tabVip', this)"><i class="fa-solid fa-crown"></i> VIP</button>
-        <button class="tab-btn" onclick="switchTab('tabWheel', this)"><i class="fa-solid fa-spinner"></i> Roleta 24h</button>
-        <button class="tab-btn" onclick="switchTab('tabReviews', this)"><i class="fa-solid fa-star"></i> Avaliações</button>
-        <button class="tab-btn" onclick="switchTab('tabProfile', this)"><i class="fa-solid fa-id-card"></i> Perfil</button>
+    <!-- ABA NAVEGAÇÃO -->
+    <div class="tabs">
+        <button class="tab-item active" onclick="switchPanel('tabHome', this)"><i class="fa-solid fa-store"></i> Catálogo</button>
+        <button class="tab-item" onclick="switchPanel('tabBlox', this)"><i class="fa-solid fa-lemon"></i> Blox Fruits</button>
+        <button class="tab-item" onclick="switchPanel('tabVip', this)"><i class="fa-solid fa-crown"></i> VIP</button>
+        <button class="tab-item" onclick="switchPanel('tabWheel', this)"><i class="fa-solid fa-spinner"></i> Roleta 24h</button>
+        <button class="tab-item" onclick="switchPanel('tabProfile', this)"><i class="fa-solid fa-user"></i> Perfil</button>
     </div>
 
-    <!-- ABA 1: CATÁLOGO -->
-    <div class="tab-panel active" id="tabHome">
-        <div style="margin-bottom:14px; display:flex; gap:8px; flex-wrap:wrap;">
-            <input type="text" id="searchInput" oninput="renderProducts()" placeholder="🔍 Pesquisar produto..." style="flex:2; min-width:160px; padding:10px; border-radius:8px; background:var(--bg-card); border:1px solid var(--border-color); color:white; outline:none;">
-            <select id="sortSelect" onchange="renderProducts()" style="flex:1; min-width:120px; padding:10px; border-radius:8px; background:var(--bg-card); border:1px solid var(--border-color); color:white; outline:none;">
-                <option value="default">Relevância</option>
-                <option value="low">Menor Preço</option>
-                <option value="high">Maior Preço</option>
-            </select>
-        </div>
-        <div class="products-grid" id="homeProductsGrid"></div>
-    </div>
-
-    <!-- ABA 2: OFERTAS -->
-    <div class="tab-panel" id="tabOffers">
-        <h3 style="margin-bottom:12px; font-size:1rem;"><i class="fa-solid fa-bolt" style="color:var(--purple-main);"></i> Promoções Ativas</h3>
-        <div class="products-grid" id="offersProductsGrid"></div>
-    </div>
-
-    <!-- ABA 3: BLOX FRUITS -->
-    <div class="tab-panel" id="tabBlox">
-        <h3 style="margin-bottom:12px; font-size:1rem;"><i class="fa-solid fa-lemon" style="color:var(--purple-main);"></i> Categorias Blox Fruits</h3>
-        <div class="products-grid" id="bloxProductsGrid"></div>
-    </div>
-
-    <!-- ABA 4: CONTAS VIP -->
-    <div class="tab-panel" id="tabVip">
-        <h3 style="margin-bottom:12px; font-size:1rem;"><i class="fa-solid fa-crown" style="color:var(--purple-main);"></i> Contas VIP Exclusivas</h3>
-        <div class="products-grid" id="vipProductsGrid"></div>
-    </div>
-
-    <!-- ABA 5: ROLETA DA SORTE -->
-    <div class="tab-panel" id="tabWheel">
-        <div class="wheel-box">
-            <h3 style="font-size:1.15rem;"><i class="fa-solid fa-spinner" style="color:var(--purple-main);"></i> Roleta da Sorte (1 Giro / 24h)</h3>
-            <p style="font-size:0.8rem; color:var(--text-sub); margin:8px 0;">Concorra a bônus de saldo, pontos ou <strong>5% de chance de ganhar QUALQUER ITEM da loja de graça!</strong></p>
-            
-            <div id="wheelTimer" style="margin:12px 0; font-weight:800; font-size:1rem; color:var(--purple-light);"></div>
-
-            <button class="btn-action" id="spinWheelBtn" onclick="spinWheel()"><i class="fa-solid fa-play"></i> Girar Roleta Agora</button>
-            <div id="wheelResult" style="margin-top:14px; font-weight:800; font-size:0.95rem; color:var(--purple-light);"></div>
-        </div>
-    </div>
-
-    <!-- ABA 6: AVALIAÇÕES DOS CLIENTES (NOVA FUNÇÃO) -->
-    <div class="tab-panel" id="tabReviews">
-        <div style="background:var(--bg-card); border:1px solid var(--border-color); padding:16px; border-radius:14px; margin-bottom:14px;">
-            <h3 style="font-size:1rem; margin-bottom:6px;"><i class="fa-solid fa-star" style="color:#eab308;"></i> Avaliações da Loja (4.9/5)</h3>
-            <p style="font-size:0.78rem; color:var(--text-sub);">Depoimentos reais de compradores da After Store.</p>
-        </div>
-        <div id="reviewsList" style="display:flex; flex-direction:column; gap:10px;"></div>
-    </div>
-
-    <!-- ABA 7: PERFIL -->
-    <div class="tab-panel" id="tabProfile">
-        <div style="background:var(--bg-card); border:1px solid var(--border-color); padding:18px; border-radius:14px;">
-            <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;">
-                <img src="" id="profileAvatar" style="width:50px; height:50px; border-radius:50%; border:2px solid var(--purple-main); object-fit:cover;">
-                <div>
-                    <h3 id="profileUsername" style="font-size:1.1rem;">Visitante</h3>
-                    <div style="font-size:0.75rem; color:var(--text-sub);" id="profileStatus">Faça login para salvar suas compras</div>
-                </div>
+    <!-- CONTEÚDO -->
+    <div class="container">
+        <!-- CATÁLOGO -->
+        <div class="panel active" id="tabHome">
+            <div style="margin-bottom:12px;">
+                <input type="text" id="searchInput" oninput="renderGrid()" placeholder="🔍 Pesquisar produto no catálogo..." style="width:100%; padding:9px 12px; border-radius:8px; background:var(--bg-card); border:1px solid var(--border-color); color:white; outline:none; font-size:0.8rem;">
             </div>
+            <div class="products-grid" id="mainGrid"></div>
+        </div>
 
-            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap:8px; margin-bottom:14px;">
-                <button class="btn-action" id="dailyBonusBtn" onclick="claimDailyBonus()"><i class="fa-solid fa-gift"></i> Resgatar Bônus (+R$ 1,00)</button>
-                <button class="btn-action" style="background:linear-gradient(90deg, #0284c7, #2563eb);" onclick="openRechargeModal()"><i class="fa-solid fa-qrcode"></i> Recarga PIX Instantânea</button>
+        <!-- BLOX FRUITS -->
+        <div class="panel" id="tabBlox">
+            <h3 style="margin-bottom:12px; font-size:0.95rem;"><i class="fa-solid fa-lemon" style="color:var(--purple-main);"></i> Contas Blox Fruits</h3>
+            <div class="products-grid" id="bloxGrid"></div>
+        </div>
+
+        <!-- VIP -->
+        <div class="panel" id="tabVip">
+            <h3 style="margin-bottom:12px; font-size:0.95rem;"><i class="fa-solid fa-crown" style="color:var(--purple-main);"></i> Contas VIP Exclusivas</h3>
+            <div class="products-grid" id="vipGrid"></div>
+        </div>
+
+        <!-- ROLETA -->
+        <div class="panel" id="tabWheel">
+            <div style="background:var(--bg-card); border:1px solid var(--border-color); padding:20px; border-radius:14px; text-align:center; max-width:450px; margin:0 auto;">
+                <h3 style="font-size:1.1rem;"><i class="fa-solid fa-spinner" style="color:var(--purple-main);"></i> Roleta Diária</h3>
+                <p style="font-size:0.78rem; color:var(--text-sub); margin:8px 0;">Gire 1x a cada 24 horas para ganhar saldo ou brindes na loja!</p>
+                <div id="wheelTimer" style="margin:10px 0; font-weight:800; color:var(--purple-light); font-size:0.9rem;"></div>
+                <button class="btn-action" id="btnSpin" onclick="spinWheel()"><i class="fa-solid fa-play"></i> Girar Agora</button>
+                <div id="wheelResult" style="margin-top:12px; font-weight:800; font-size:0.9rem; color:var(--purple-light);"></div>
             </div>
-            
-            <div id="bonusTimerText" style="font-size:0.75rem; color:var(--purple-light); font-weight:700; text-align:center; margin-bottom:10px;"></div>
+        </div>
 
-            <div>
-                <h4 style="font-size:0.88rem; margin-bottom:8px;"><i class="fa-solid fa-receipt"></i> Histórico de Compras / Prêmios</h4>
-                <div id="profileOrderHistory" style="font-size:0.8rem; color:var(--text-sub);">Nenhuma atividade registrada.</div>
+        <!-- PERFIL -->
+        <div class="panel" id="tabProfile">
+            <div style="background:var(--bg-card); border:1px solid var(--border-color); padding:16px; border-radius:12px;">
+                <h3 style="font-size:1rem; margin-bottom:8px;">Meu Perfil</h3>
+                <div style="font-size:0.8rem; color:var(--text-sub); margin-bottom:12px;">Saldo Disponível: <strong id="profileWallet" style="color:var(--purple-light);">R$ 0,00</strong></div>
+                <button class="btn-action" id="btnBonus" onclick="claimBonus()"><i class="fa-solid fa-gift"></i> Resgatar Bônus Diário (+R$ 1,00)</button>
+                <div id="bonusTimerText" style="font-size:0.75rem; color:var(--purple-light); text-align:center; margin-top:8px;"></div>
             </div>
         </div>
     </div>
 
     <!-- BOTTOM NAV MOBILE -->
     <div class="bottom-nav">
-        <div class="nav-item active" onclick="switchTab('tabHome', document.querySelectorAll('.tab-btn')[0])"><i class="fa-solid fa-store"></i> Loja</div>
-        <div class="nav-item" onclick="switchTab('tabOffers', document.querySelectorAll('.tab-btn')[1])"><i class="fa-solid fa-bolt"></i> Ofertas</div>
-        <div class="nav-item" onclick="switchTab('tabWheel', document.querySelectorAll('.tab-btn')[4])"><i class="fa-solid fa-spinner"></i> Roleta</div>
-        <div class="nav-item" onclick="openCartModal()"><i class="fa-solid fa-bag-shopping"></i> Carrinho</div>
-        <div class="nav-item" onclick="switchTab('tabProfile', document.querySelectorAll('.tab-btn')[6])"><i class="fa-solid fa-user"></i> Perfil</div>
-    </div>
-
-    <!-- MODAL PRODUTO -->
-    <div class="modal" id="productModal">
-        <div class="modal-box">
-            <span class="close-btn" onclick="closeModal('productModal')">&times;</span>
-            <img id="mImg" style="width:100%; height:160px; object-fit:cover; border-radius:10px; margin-bottom:10px;" src="">
-            <h3 id="mTitle" style="font-size:1rem;">-</h3>
-            <div style="color:var(--purple-light); font-size:1.2rem; font-weight:900; margin:4px 0;" id="mPrice">R$ 0,00</div>
-            <p style="font-size:0.78rem; color:var(--text-sub); margin-bottom:12px;">Entrega imediata via suporte no WhatsApp.</p>
-            
-            <button class="btn-action" id="mAddCartBtn"><i class="fa-solid fa-cart-plus"></i> Adicionar ao Carrinho</button>
-            
-            <div style="margin-top:10px;">
-                <label style="font-size:0.72rem; color:var(--text-sub); font-weight:600;">Comprar com Vendedor:</label>
-                <button class="btn-marcos" id="mBuyMarcos"><i class="fa-brands fa-whatsapp"></i> Falar com Marcos</button>
-                <button class="btn-gabriel" id="mBuyGabriel"><i class="fa-brands fa-whatsapp"></i> Falar com Gabriel</button>
-            </div>
-        </div>
+        <div class="nav-link active" onclick="switchPanel('tabHome', document.querySelectorAll('.tab-item')[0])"><i class="fa-solid fa-store"></i> Loja</div>
+        <div class="nav-link" onclick="switchPanel('tabBlox', document.querySelectorAll('.tab-item')[1])"><i class="fa-solid fa-lemon"></i> Blox</div>
+        <div class="nav-link" onclick="switchPanel('tabWheel', document.querySelectorAll('.tab-item')[3])"><i class="fa-solid fa-spinner"></i> Roleta</div>
+        <div class="nav-link" onclick="openCartModal()"><i class="fa-solid fa-bag-shopping"></i> Carrinho</div>
+        <div class="nav-link" onclick="switchPanel('tabProfile', document.querySelectorAll('.tab-item')[4])"><i class="fa-solid fa-user"></i> Perfil</div>
     </div>
 
     <!-- MODAL CARRINHO -->
     <div class="modal" id="cartModal">
-        <div class="modal-box">
-            <span class="close-btn" onclick="closeModal('cartModal')">&times;</span>
-            <h3 style="margin-bottom:10px; font-size:1rem;"><i class="fa-solid fa-bag-shopping"></i> Carrinho de Compras</h3>
-            <div id="cartItemsList" style="margin-bottom:10px;"></div>
-
-            <div style="display:flex; gap:6px; margin-bottom:8px;">
-                <input type="text" id="couponInput" placeholder="CÓDIGO CUPOM" style="flex:1; padding:8px; border-radius:8px; background:#080510; border:1px solid var(--border-color); color:#fff; text-transform:uppercase; font-size:0.8rem;">
-                <button class="btn-action" style="width:auto; margin:0; padding:0 14px;" onclick="applyCoupon()">Aplicar</button>
-            </div>
-            <div id="couponStatus" style="font-size:0.75rem; margin-bottom:8px;"></div>
-
-            <div style="display:flex; justify-content:space-between; font-weight:900; font-size:1rem; margin-bottom:12px;">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('cartModal')">&times;</span>
+            <h3 style="margin-bottom:10px; font-size:0.95rem;"><i class="fa-solid fa-bag-shopping"></i> Seu Carrinho</h3>
+            <div id="cartList" style="margin-bottom:10px;"></div>
+            <div style="display:flex; justify-content:space-between; font-weight:900; font-size:0.95rem; margin-bottom:12px;">
                 <span>Total:</span>
                 <span id="cartTotal" style="color:var(--purple-light);">R$ 0,00</span>
             </div>
-
-            <div>
-                <label style="font-size:0.72rem; color:var(--text-sub); font-weight:600;">Finalizar com Atendente:</label>
-                <button class="btn-marcos" onclick="checkoutCart('marcos')"><i class="fa-brands fa-whatsapp"></i> Marcos</button>
-                <button class="btn-gabriel" onclick="checkoutCart('gabriel')"><i class="fa-brands fa-whatsapp"></i> Gabriel</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL PAINEL DO DONO -->
-    <div class="modal" id="adminModal">
-        <div class="modal-box">
-            <span class="close-btn" onclick="closeModal('adminModal')">&times;</span>
-            <h3 style="color:var(--purple-light); margin-bottom:10px; font-size:1rem;"><i class="fa-solid fa-sliders"></i> Painel do Proprietário</h3>
-
-            <div class="form-group"><label>Nome da Loja</label><input type="text" id="cfgName"></div>
-            <div class="form-group"><label>Limite do Saldo (R$)</label><input type="number" id="cfgMaxWallet"></div>
-            <div class="form-group"><label>URL do Logo</label><input type="text" id="cfgLogo"></div>
-            <div class="form-group"><label>URL do Banner</label><input type="text" id="cfgBanner"></div>
-            <div class="form-group"><label>Link do Discord</label><input type="text" id="cfgDiscord"></div>
-            <div class="form-group"><label>WhatsApp Marcos</label><input type="text" id="cfgMarcos"></div>
-            <div class="form-group"><label>WhatsApp Gabriel</label><input type="text" id="cfgGabriel"></div>
-            <button class="btn-action" onclick="saveStoreConfig()">Salvar Configurações</button>
-
-            <hr style="border-color:var(--border-color); margin:14px 0;">
-            <h4 style="font-size:0.85rem; margin-bottom:6px;">🎟️ Gerenciar Cupons</h4>
-            <div style="display:flex; gap:6px;">
-                <input type="text" id="cCode" placeholder="CÓDIGO" style="flex:2; padding:6px; border-radius:6px; background:#080510; border:1px solid var(--border-color); color:#fff; text-transform:uppercase;">
-                <input type="number" id="cDisc" placeholder="% Desconto" style="flex:1; padding:6px; border-radius:6px; background:#080510; border:1px solid var(--border-color); color:#fff;">
-            </div>
-            <button class="btn-action" style="padding:6px;" onclick="addCoupon()">Adicionar Cupom</button>
-            <div id="adminCouponsList" style="margin-top:6px; font-size:0.75rem; color:var(--text-sub);"></div>
-
-            <hr style="border-color:var(--border-color); margin:14px 0;">
-            <h4 style="font-size:0.85rem; margin-bottom:6px;">📦 Cadastrar Produto</h4>
-            <div class="form-group"><label>Nome</label><input type="text" id="pName"></div>
-            <div class="form-group"><label>Preço Atual (R$)</label><input type="number" step="0.01" id="pPrice"></div>
-            <div class="form-group"><label>Preço Antigo (R$)</label><input type="number" step="0.01" id="pOldPrice"></div>
-            <div class="form-group"><label>Categoria (BLOX ou VIP)</label><input type="text" id="pCat"></div>
-            <div class="form-group"><label>URL Imagem</label><input type="text" id="pImg"></div>
-            <button class="btn-action" onclick="addProduct()">Salvar Produto</button>
-
-            <table class="admin-table">
-                <thead><tr><th>ID</th><th>Nome</th><th>Preço</th><th>Ação</th></tr></thead>
-                <tbody id="adminProductsTable"></tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- MODAL RECARGA PIX -->
-    <div class="modal" id="rechargeModal">
-        <div class="modal-box">
-            <span class="close-btn" onclick="closeModal('rechargeModal')">&times;</span>
-            <h3 style="font-size:1rem;"><i class="fa-solid fa-qrcode"></i> Recarga de Saldo PIX</h3>
-            <p style="font-size:0.78rem; color:var(--text-sub); margin-bottom:10px;">Digite a quantia para gerar a chave PIX Copia e Cola:</p>
-            <div class="form-group"><label>Valor da Recarga (R$)</label><input type="number" id="rechargeVal" value="10.00" step="5"></div>
-            
-            <button class="btn-action" onclick="generatePixCode()"><i class="fa-solid fa-bolt"></i> Gerar PIX Copia e Cola</button>
-            
-            <div id="pixContainer" style="display:none; margin-top:12px; text-align:center;">
-                <div style="background:#080510; padding:10px; border-radius:8px; border:1px dashed var(--purple-main); word-break:break-all; font-family:monospace; font-size:0.7rem; color:var(--purple-light);" id="pixCodeArea">
-                    00020126360014BR.GOV.BCB.PIX0114+5521999991111520400005303986540510.005802BR5910AFTERSTORE6009SAO_PAULO62070503***6304E2CA
-                </div>
-                <button class="btn-action" style="background:#10b981;" onclick="copyPixCode()"><i class="fa-solid fa-copy"></i> Copiar Código PIX</button>
-                <button class="btn-action" onclick="processRecharge()"><i class="fa-solid fa-check"></i> Simular Pagamento Aprovado</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL LOGIN/CADASTRO -->
-    <div class="modal" id="authModal">
-        <div class="modal-box">
-            <span class="close-btn" onclick="closeModal('authModal')">&times;</span>
-            <h3 style="color:var(--purple-light); margin-bottom:10px; font-size:1rem;"><i class="fa-solid fa-user-lock"></i> Entrar na Sua Conta</h3>
-            <div class="form-group"><label>Usuário</label><input type="text" id="authUser"></div>
-            <div class="form-group"><label>Senha</label><input type="password" id="authPass"></div>
-            <button class="btn-action" onclick="loginUser()">Acessar Conta</button>
+            <button class="btn-marcos" onclick="checkout('marcos')"><i class="fa-brands fa-whatsapp"></i> Comprar com Marcos</button>
+            <button class="btn-gabriel" onclick="checkout('gabriel')"><i class="fa-brands fa-whatsapp"></i> Comprar com Gabriel</button>
         </div>
     </div>
 
     <script>
-        // SINTETIZADOR DE SOM NATIVO (WEB AUDIO API)
+        // SINTETIZADOR DE SOM NATIVO
         function playSound(type) {
             try {
                 const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -367,518 +196,196 @@
                 osc.connect(gain);
                 gain.connect(ctx.destination);
 
-                if (type === 'buy') { // Efeito Cha-Ching de Compra
+                if (type === 'buy') {
                     osc.type = 'sine';
-                    osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+                    osc.frequency.setValueAtTime(587, ctx.currentTime);
                     osc.frequency.setValueAtTime(880, ctx.currentTime + 0.1);
-                    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                    gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+                    osc.start(ctx.currentTime);
+                    osc.stop(ctx.currentTime + 0.3);
+                } else if (type === 'bonus') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(523, ctx.currentTime);
+                    osc.frequency.setValueAtTime(659, ctx.currentTime + 0.1);
+                    gain.gain.setValueAtTime(0.25, ctx.currentTime);
                     gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
                     osc.start(ctx.currentTime);
                     osc.stop(ctx.currentTime + 0.4);
-                } else if (type === 'spin') { // Efeito de Giro
-                    osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(320, ctx.currentTime);
-                    gain.gain.setValueAtTime(0.2, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
-                    osc.start(ctx.currentTime);
-                    osc.stop(ctx.currentTime + 0.1);
-                } else if (type === 'bonus') { // Efeito de Bônus / Vitória
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(523.25, ctx.currentTime);
-                    osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1);
-                    osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.2);
-                    gain.gain.setValueAtTime(0.3, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
-                    osc.start(ctx.currentTime);
-                    osc.stop(ctx.currentTime + 0.5);
                 }
-            } catch (e) {
-                console.log("Áudio aguardando interação inicial do usuário.");
-            }
+            } catch(e){}
         }
 
-        // ESTADO GLOBAL DA LOJA
-        let defaultConfig = {
-            name: "After Store",
-            maxWallet: 500.00,
-            logo: "https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg",
-            banner: "https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg",
-            discord: "https://discord.gg/systemlabs",
+        // CATÁLOGO OFICIAL FIXO
+        const STORE_CONFIG = {
             marcosWhats: "5521999991111",
-            gabrielWhats: "5521999992222"
+            gabrielWhats: "5521999992222",
+            discord: "https://discord.gg/systemlabs"
         };
 
-        let config = JSON.parse(localStorage.getItem('after_cfg_v4')) || defaultConfig;
-
-        let products = JSON.parse(localStorage.getItem('after_prods_v4')) || [
+        const GLOBAL_PRODUCTS = [
             { id: 1, name: "🥊 • GODHUMAN + LVL MAX + FRUTAS •", price: 6.90, oldPrice: 15.00, cat: "BLOX", img: "https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg" },
             { id: 2, name: "🍎 • LEOPARD / DOUGH NO INVENTÁRIO •", price: 12.00, oldPrice: 22.00, cat: "BLOX", img: "https://i.ibb.co/9kcDwTwf/IMG-20260723-WA0510.jpg" },
             { id: 3, name: "👑 • CONTA BLOX FRUITS RAÇA V4 MAX •", price: 29.90, oldPrice: 55.00, cat: "VIP", img: "https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg" }
         ];
 
-        let coupons = JSON.parse(localStorage.getItem('after_coupons_v4')) || [
-            { code: "PURPLE10", discount: 10 },
-            { code: "AFTERSALE", discount: 20 }
-        ];
-
-        let currentUser = JSON.parse(localStorage.getItem('after_user_v4')) || {
-            username: "Marcos",
+        let userState = JSON.parse(localStorage.getItem('after_user_clean')) || {
             wallet: 0.00,
-            points: 0,
-            lastSpin: 0,
-            lastBonusClaim: 0,
-            orders: []
+            lastBonus: 0,
+            lastSpin: 0
         };
 
-        let reviews = [
-            { name: "Lucas M.", stars: 5, text: "Conta entregue em menos de 2 minutos pelo WhatsApp! Recomendo dms." },
-            { name: "Gabriel S.", stars: 5, text: "Ganhei R$ 2,00 na roleta e peguei a conta Godhuman muito barato!" },
-            { name: "Felipe K.", stars: 5, text: "Atendimento top do vendedor Marcos, nota 10/10." }
-        ];
-
-        let cart = JSON.parse(localStorage.getItem('after_cart_v4')) || [];
-        let appliedDiscount = 0;
+        let cart = [];
 
         function init() {
-            document.getElementById('pageTitle').innerText = `${config.name} - Ultra Clean`;
-            document.getElementById('topBrandTitle').innerText = config.name;
-            document.getElementById('topLogo').src = config.logo;
-            document.getElementById('profileAvatar').src = config.logo;
-            
-            document.getElementById('userWallet').innerText = formatBRL(currentUser.wallet);
-            document.getElementById('walletLimitText').innerText = `(Máx: ${formatBRL(config.maxWallet)})`;
-            document.getElementById('userPoints').innerText = currentUser.points;
-            document.getElementById('userHeaderName').innerText = currentUser.username;
-            document.getElementById('profileUsername').innerText = currentUser.username;
-
-            renderProducts();
-            renderReviews();
-            updateCartBadge();
-            checkSpinTimer();
-            checkBonusTimer();
-            startFlashTimer();
-            startLiveToasts();
+            updateWalletDisplay();
+            renderGrid();
+            checkTimers();
         }
 
         function formatBRL(v) { return `R$ ${parseFloat(v).toFixed(2).replace('.', ',')}`; }
 
-        function saveState() {
-            localStorage.setItem('after_cfg_v4', JSON.stringify(config));
-            localStorage.setItem('after_prods_v4', JSON.stringify(products));
-            localStorage.setItem('after_coupons_v4', JSON.stringify(coupons));
-            localStorage.setItem('after_user_v4', JSON.stringify(currentUser));
-            localStorage.setItem('after_cart_v4', JSON.stringify(cart));
+        function updateWalletDisplay() {
+            document.getElementById('userWallet').innerText = formatBRL(userState.wallet);
+            document.getElementById('profileWallet').innerText = formatBRL(userState.wallet);
+            localStorage.setItem('after_user_clean', JSON.stringify(userState));
         }
 
-        function switchTab(tabId, btn) {
-            document.querySelectorAll('.tab-panel').forEach(tp => tp.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(tb => tb.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(ni => ni.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
+        function switchPanel(panelId, btn) {
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
+            document.getElementById(panelId).classList.add('active');
             if(btn) btn.classList.add('active');
-            if(tabId === 'tabProfile') renderProfileOrders();
         }
 
-        function renderProducts() {
+        function renderGrid() {
             const search = document.getElementById('searchInput').value.toLowerCase();
-            const sort = document.getElementById('sortSelect').value;
+            const filtered = GLOBAL_PRODUCTS.filter(p => p.name.toLowerCase().includes(search));
 
-            let filtered = products.filter(p => p.name.toLowerCase().includes(search));
-            if(sort === 'low') filtered.sort((a,b) => a.price - b.price);
-            if(sort === 'high') filtered.sort((a,b) => b.price - a.price);
-
-            const buildHTML = (list) => list.map(p => `
+            const buildCards = (list) => list.map(p => `
                 <div class="card">
-                    <div class="card-tag">${p.cat || 'DESTAQUE'}</div>
-                    <div class="stock-tag"><i class="fa-solid fa-check"></i> ESTOQUE</div>
-                    <div class="card-img-wrap" onclick="openProductModal(${p.id})">
-                        <img src="${p.img}" class="card-img" onerror="this.src='${config.logo}'">
-                    </div>
+                    <div class="card-tag">${p.cat}</div>
+                    <div class="card-img-wrap"><img src="${p.img}" class="card-img"></div>
                     <div class="card-body">
-                        <div class="card-title" onclick="openProductModal(${p.id})">${p.name}</div>
+                        <div class="card-title">${p.name}</div>
                         <div>
                             <span class="card-price">${formatBRL(p.price)}</span>
                             ${p.oldPrice ? `<span class="card-old-price">${formatBRL(p.oldPrice)}</span>` : ''}
                         </div>
-                        <button class="btn-buy" onclick="addToCart(${p.id})"><i class="fa-solid fa-cart-plus"></i> Comprar / Carrinho</button>
+                        <button class="btn-buy" onclick="addToCart(${p.id})"><i class="fa-solid fa-cart-plus"></i> Adicionar</button>
                     </div>
                 </div>
             `).join('');
 
-            document.getElementById('homeProductsGrid').innerHTML = buildHTML(filtered);
-            document.getElementById('offersProductsGrid').innerHTML = buildHTML(filtered.filter(p => p.oldPrice > p.price));
-            document.getElementById('bloxProductsGrid').innerHTML = buildHTML(filtered.filter(p => p.cat === 'BLOX'));
-            document.getElementById('vipProductsGrid').innerHTML = buildHTML(filtered.filter(p => p.cat === 'VIP'));
-        }
-
-        function renderReviews() {
-            document.getElementById('reviewsList').innerHTML = reviews.map(r => `
-                <div style="background:var(--bg-card); border:1px solid var(--border-color); padding:12px; border-radius:10px;">
-                    <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
-                        <strong style="font-size:0.85rem;">${r.name}</strong>
-                        <span style="color:#eab308; font-size:0.75rem;">'${"★".repeat(r.stars)}'</span>
-                    </div>
-                    <p style="font-size:0.78rem; color:var(--text-sub);">${r.text}</p>
-                </div>
-            `).join('');
+            document.getElementById('mainGrid').innerHTML = buildCards(filtered);
+            document.getElementById('bloxGrid').innerHTML = buildCards(filtered.filter(p => p.cat === 'BLOX'));
+            document.getElementById('vipGrid').innerHTML = buildCards(filtered.filter(p => p.cat === 'VIP'));
         }
 
         function addToCart(id) {
-            const p = products.find(prod => prod.id === id);
-            cart.push(p);
-            saveState();
-            updateCartBadge();
+            const prod = GLOBAL_PRODUCTS.find(p => p.id === id);
+            cart.push(prod);
+            document.getElementById('cartBadge').innerText = cart.length;
             playSound('buy');
-            showToast(`🛒 ${p.name} foi adicionado ao carrinho!`);
+            showToast(`🛒 ${prod.name} adicionado!`);
         }
 
-        function updateCartBadge() { document.getElementById('cartCount').innerText = cart.length; }
-
         function openCartModal() {
-            const list = document.getElementById('cartItemsList');
+            const list = document.getElementById('cartList');
             let total = 0;
-            list.innerHTML = cart.length === 0 ? "<div style='text-align:center; color:var(--text-sub); padding:10px;'>Carrinho vazio.</div>" : cart.map((item, idx) => {
-                total += parseFloat(item.price);
+            list.innerHTML = cart.length === 0 ? "<div style='text-align:center; color:var(--text-sub); padding:10px;'>Carrinho vazio.</div>" : cart.map((item, i) => {
+                total += item.price;
                 return `
-                    <div style="display:flex; justify-content:space-between; align-items:center; background:#080510; padding:8px 10px; border-radius:8px; margin-bottom:6px; border:1px solid var(--border-color); font-size:0.8rem;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; background:#080510; padding:8px 10px; border-radius:8px; margin-bottom:6px; font-size:0.78rem;">
                         <div>${item.name} <br><strong style="color:var(--purple-light);">${formatBRL(item.price)}</strong></div>
-                        <button style="background:none; border:none; color:var(--red-main); cursor:pointer; font-size:1rem;" onclick="removeFromCart(${idx})"><i class="fa-solid fa-trash"></i></button>
+                        <button style="background:none; border:none; color:var(--red); cursor:pointer;" onclick="removeFromCart(${i})"><i class="fa-solid fa-trash"></i></button>
                     </div>
                 `;
             }).join('');
 
-            let finalTotal = total - (total * (appliedDiscount / 100));
-            document.getElementById('cartTotal').innerText = formatBRL(finalTotal);
+            document.getElementById('cartTotal').innerText = formatBRL(total);
             document.getElementById('cartModal').style.display = 'flex';
         }
 
-        function removeFromCart(idx) {
-            cart.splice(idx, 1);
-            saveState();
-            updateCartBadge();
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            document.getElementById('cartBadge').innerText = cart.length;
             openCartModal();
         }
 
-        function applyCoupon() {
-            const code = document.getElementById('couponInput').value.trim().toUpperCase();
-            const found = coupons.find(c => c.code === code);
-            if(found) {
-                appliedDiscount = found.discount;
-                document.getElementById('couponStatus').innerText = `Cupom ${code} aplicado! (-${found.discount}%)`;
-                document.getElementById('couponStatus').style.color = "var(--purple-light)";
-                playSound('bonus');
-                openCartModal();
-            } else {
-                document.getElementById('couponStatus').innerText = "Cupom inválido!";
-                document.getElementById('couponStatus').style.color = "var(--red-main)";
-            }
-        }
-
-        function checkoutCart(seller) {
+        function checkout(seller) {
             if(cart.length === 0) return alert("Carrinho vazio!");
-            let total = cart.reduce((acc, i) => acc + parseFloat(i.price), 0);
-            let finalTotal = total - (total * (appliedDiscount / 100));
-
-            let msg = `🛒 *PEDIDO FINALIZADO - ${config.name}*\n\n*Cliente:* ${currentUser.username}\n*Itens:*\n`;
+            let total = cart.reduce((a, b) => a + b.price, 0);
+            let msg = `🛒 *NOVO PEDIDO - AFTER STORE*\n\n*Itens:*\n`;
             cart.forEach(i => msg += `• ${i.name} - ${formatBRL(i.price)}\n`);
-            if(appliedDiscount > 0) msg += `\n🏷️ *Desconto Aplicado:* ${appliedDiscount}%\n`;
-            msg += `\n💰 *TOTAL:* ${formatBRL(finalTotal)}`;
-
-            if(!currentUser.orders) currentUser.orders = [];
-            currentUser.orders.push({ id: Date.now(), title: `${cart.length} produto(s)`, total: finalTotal, date: new Date().toLocaleDateString() });
+            msg += `\n💰 *Total:* ${formatBRL(total)}`;
 
             cart = [];
-            saveState();
-            updateCartBadge();
-            playSound('buy');
+            document.getElementById('cartBadge').innerText = 0;
             closeModal('cartModal');
 
-            const phone = seller === 'marcos' ? config.marcosWhats : config.gabrielWhats;
+            const phone = seller === 'marcos' ? STORE_CONFIG.marcosWhats : STORE_CONFIG.gabrielWhats;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        function addWalletBalance(amount) {
-            if(currentUser.wallet + amount > config.maxWallet) {
-                currentUser.wallet = config.maxWallet;
-            } else { currentUser.wallet += amount; }
-            saveState();
-            init();
-        }
-
-        // CORREÇÃO: BLOQUEIO RÍGIDO DE 24H NO BÔNUS DIÁRIO
-        function checkBonusTimer() {
+        function claimBonus() {
             const now = Date.now();
-            const lastClaim = currentUser.lastBonusClaim || 0;
-            const hours24 = 24 * 60 * 60 * 1000;
-            const diff = now - lastClaim;
-            const btn = document.getElementById('dailyBonusBtn');
-            const timerText = document.getElementById('bonusTimerText');
-
-            if(diff < hours24) {
-                btn.disabled = true;
-                let rem = hours24 - diff;
-                let h = Math.floor(rem / 3600000);
-                let m = Math.floor((rem % 3600000) / 60000);
-                let s = Math.floor((rem % 60000) / 1000);
-                timerText.innerText = `⏳ Próximo bônus diário em: ${h}h ${m}m ${s}s`;
-                setTimeout(checkBonusTimer, 1000);
-            } else {
-                btn.disabled = false;
-                timerText.innerText = "🎁 Bônus diário disponível para resgate!";
-            }
-        }
-
-        function claimDailyBonus() {
-            const now = Date.now();
-            const lastClaim = currentUser.lastBonusClaim || 0;
-            if(now - lastClaim < 24 * 60 * 60 * 1000) return alert("⚠️ Você já resgatou seu bônus hoje!");
-
-            currentUser.lastBonusClaim = now;
-            addWalletBalance(1.00);
-            currentUser.points += 20;
-            saveState();
+            if(now - userState.lastBonus < 86400000) return alert("Aguarde 24h para resgatar novamente!");
+            
+            userState.lastBonus = now;
+            userState.wallet += 1.00;
+            updateWalletDisplay();
             playSound('bonus');
-            showToast("🎁 Você resgatou seu Bônus Diário de R$ 1,00!");
-            checkBonusTimer();
-        }
-
-        // CORREÇÃO: ROLETA DA SORTE 24H
-        function checkSpinTimer() {
-            const now = Date.now();
-            const lastSpin = currentUser.lastSpin || 0;
-            const hours24 = 24 * 60 * 60 * 1000;
-            const diff = now - lastSpin;
-            const btn = document.getElementById('spinWheelBtn');
-
-            if(diff < hours24) {
-                btn.disabled = true;
-                let rem = hours24 - diff;
-                let h = Math.floor(rem / 3600000);
-                let m = Math.floor((rem % 3600000) / 60000);
-                let s = Math.floor((rem % 60000) / 1000);
-                document.getElementById('wheelTimer').innerText = `⏳ Próximo giro em: ${h}h ${m}m ${s}s`;
-                setTimeout(checkSpinTimer, 1000);
-            } else {
-                btn.disabled = false;
-                document.getElementById('wheelTimer').innerText = "⚡ Giro livre disponível!";
-            }
+            showToast("🎁 Bônus de R$ 1,00 adicionado!");
+            checkTimers();
         }
 
         function spinWheel() {
             const now = Date.now();
-            if(currentUser.lastSpin && (now - currentUser.lastSpin < 24 * 60 * 60 * 1000)) return alert("⚠️ Aguarde 24 horas para girar novamente!");
+            if(now - userState.lastSpin < 86400000) return alert("Aguarde 24h para girar novamente!");
 
-            playSound('spin');
-            const rand = Math.random() * 100;
-            let prizeText = "";
+            userState.lastSpin = now;
+            userState.wallet += 1.00;
+            updateWalletDisplay();
+            playSound('bonus');
+            document.getElementById('wheelResult').innerText = "🎉 Parabéns! Você ganhou R$ 1,00 de saldo!";
+            checkTimers();
+        }
 
-            if(rand <= 5 && products.length > 0) { // 5% CHANCA ITEM GRÁTIS
-                const randomProduct = products[Math.floor(Math.random() * products.length)];
-                prizeText = `🎉 PARABÉNS! Você ganhou o item: ${randomProduct.name} TOTALMENTE GRÁTIS!`;
-                if(!currentUser.orders) currentUser.orders = [];
-                currentUser.orders.push({ id: Date.now(), title: `🎁 PRÊMIO ROLETA: ${randomProduct.name}`, total: 0.00, date: new Date().toLocaleDateString() });
-            } else if(rand <= 30) {
-                prizeText = "💰 Você ganhou R$ 2,00 na Carteira!";
-                addWalletBalance(2.00);
-            } else if(rand <= 70) {
-                prizeText = "⭐ Você ganhou +50 Pontos!";
-                currentUser.points += 50;
+        function checkTimers() {
+            const now = Date.now();
+            const btnBonus = document.getElementById('btnBonus');
+            const btnSpin = document.getElementById('btnSpin');
+
+            if(now - userState.lastBonus < 86400000) {
+                btnBonus.disabled = true;
+                document.getElementById('bonusTimerText').innerText = "⏳ Bônus indisponível no momento (Retorne em 24h)";
             } else {
-                prizeText = "💰 Você ganhou R$ 1,00 na Carteira!";
-                addWalletBalance(1.00);
+                btnBonus.disabled = false;
+                document.getElementById('bonusTimerText').innerText = "🎁 Bônus disponível!";
             }
 
-            currentUser.lastSpin = now;
-            saveState();
-            playSound('bonus');
-            document.getElementById('wheelResult').innerText = prizeText;
-            checkSpinTimer();
-        }
-
-        // GERADOR PIX
-        function generatePixCode() {
-            document.getElementById('pixContainer').style.display = 'block';
-            playSound('buy');
-        }
-
-        function copyPixCode() {
-            const code = document.getElementById('pixCodeArea').innerText.trim();
-            navigator.clipboard.writeText(code);
-            showToast("📋 Chave PIX copiada para a área de transferência!");
-            playSound('bonus');
+            if(now - userState.lastSpin < 86400000) {
+                btnSpin.disabled = true;
+                document.getElementById('wheelTimer').innerText = "⏳ Roleta indisponível no momento (Retorne em 24h)";
+            } else {
+                btnSpin.disabled = false;
+                document.getElementById('wheelTimer').innerText = "⚡ Giro disponível!";
+            }
         }
 
         function showToast(msg) {
             const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.innerHTML = `<i class="fa-solid fa-bell" style="color:var(--purple-light);"></i> ${msg}`;
-            container.appendChild(toast);
-            setTimeout(() => toast.remove(), 4000);
+            const t = document.createElement('div');
+            t.className = 'toast';
+            t.innerHTML = `<i class="fa-solid fa-bell" style="color:var(--purple-light);"></i> ${msg}`;
+            container.appendChild(t);
+            setTimeout(() => t.remove(), 3500);
         }
 
-        function startLiveToasts() {
-            const mockNames = ["Matheus", "Vitor", "Gabriel", "Enzo", "Rafaela", "Bruno"];
-            const mockItems = ["Godhuman Max", "Conta VIP Raça V4", "Fruta Leopard", "Fruta Dough"];
-            
-            setInterval(() => {
-                const name = mockNames[Math.floor(Math.random() * mockNames.length)];
-                const item = mockItems[Math.floor(Math.random() * mockItems.length)];
-                showToast(`⚡ ${name} acabou de adquirir <strong>${item}</strong>!`);
-            }, 18000);
-        }
-
-        function startFlashTimer() {
-            let sec = 9912;
-            setInterval(() => {
-                sec--;
-                let h = Math.floor(sec / 3600);
-                let m = Math.floor((sec % 3600) / 60);
-                let s = sec % 60;
-                document.getElementById('flashTimer').innerText = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-            }, 1000);
-        }
-
-        function openProductModal(id) {
-            const p = products.find(prod => prod.id === id);
-            document.getElementById('mImg').src = p.img;
-            document.getElementById('mTitle').innerText = p.name;
-            document.getElementById('mPrice').innerText = formatBRL(p.price);
-            document.getElementById('mAddCartBtn').onclick = () => { addToCart(p.id); closeModal('productModal'); };
-
-            document.getElementById('mBuyMarcos').onclick = () => {
-                window.open(`https://wa.me/${config.marcosWhats}?text=${encodeURIComponent(`Olá Marcos, quero comprar: ${p.name}`)}`, '_blank');
-            };
-            document.getElementById('mBuyGabriel').onclick = () => {
-                window.open(`https://wa.me/${config.gabrielWhats}?text=${encodeURIComponent(`Olá Gabriel, quero comprar: ${p.name}`)}`, '_blank');
-            };
-
-            document.getElementById('productModal').style.display = 'flex';
-        }
-
-        function openAdmin() {
-            if(prompt("Senha do Proprietário:") === "AfterStore872") {
-                document.getElementById('cfgName').value = config.name;
-                document.getElementById('cfgMaxWallet').value = config.maxWallet;
-                document.getElementById('cfgLogo').value = config.logo;
-                document.getElementById('cfgBanner').value = config.banner;
-                document.getElementById('cfgDiscord').value = config.discord;
-                document.getElementById('cfgMarcos').value = config.marcosWhats;
-                document.getElementById('cfgGabriel').value = config.gabrielWhats;
-
-                renderAdminCoupons();
-                renderAdminTable();
-                document.getElementById('adminModal').style.display = 'flex';
-            } else { alert("Senha incorreta!"); }
-        }
-
-        function saveStoreConfig() {
-            config.name = document.getElementById('cfgName').value;
-            config.maxWallet = parseFloat(document.getElementById('cfgMaxWallet').value) || 500.00;
-            config.logo = document.getElementById('cfgLogo').value;
-            config.banner = document.getElementById('cfgBanner').value;
-            config.discord = document.getElementById('cfgDiscord').value;
-            config.marcosWhats = document.getElementById('cfgMarcos').value;
-            config.gabrielWhats = document.getElementById('cfgGabriel').value;
-
-            saveState();
-            init();
-            alert("Configurações salvas!");
-        }
-
-        function addCoupon() {
-            const code = document.getElementById('cCode').value.trim().toUpperCase();
-            const disc = parseFloat(document.getElementById('cDisc').value);
-            if(!code || !disc) return alert("Preencha o código e desconto!");
-            coupons.push({ code, discount: disc });
-            saveState();
-            renderAdminCoupons();
-        }
-
-        function deleteCoupon(idx) {
-            coupons.splice(idx, 1);
-            saveState();
-            renderAdminCoupons();
-        }
-
-        function renderAdminCoupons() {
-            document.getElementById('adminCouponsList').innerHTML = coupons.map((c, i) => `
-                <div style="display:flex; justify-content:space-between; margin-top:4px;">
-                    <span>🎟️ ${c.code} (-${c.discount}%)</span>
-                    <button style="color:var(--red-main); background:none; border:none; cursor:pointer;" onclick="deleteCoupon(${i})">Remover</button>
-                </div>
-            `).join('');
-        }
-
-        function addProduct() {
-            const name = document.getElementById('pName').value;
-            const price = parseFloat(document.getElementById('pPrice').value);
-            const oldPrice = parseFloat(document.getElementById('pOldPrice').value) || null;
-            const cat = document.getElementById('pCat').value.toUpperCase() || "BLOX";
-            const img = document.getElementById('pImg').value;
-
-            if(!name || !price) return alert("Preencha nome e preço!");
-            products.push({ id: Date.now(), name, price, oldPrice, cat, img });
-            saveState();
-            renderAdminTable();
-            init();
-            alert("Produto salvo!");
-        }
-
-        function deleteProduct(id) {
-            products = products.filter(p => p.id !== id);
-            saveState();
-            renderAdminTable();
-            init();
-        }
-
-        function renderAdminTable() {
-            document.getElementById('adminProductsTable').innerHTML = products.map(p => `
-                <tr>
-                    <td>${p.id}</td>
-                    <td>${p.name}</td>
-                    <td>${formatBRL(p.price)}</td>
-                    <td><button style="color:var(--red-main); background:none; border:none; cursor:pointer;" onclick="deleteProduct(${p.id})"><i class="fa-solid fa-trash"></i></button></td>
-                </tr>
-            `).join('');
-        }
-
-        function openRechargeModal() { document.getElementById('rechargeModal').style.display = 'flex'; }
-        function processRecharge() {
-            const val = parseFloat(document.getElementById('rechargeVal').value);
-            if(!val || val <= 0) return alert("Valor inválido!");
-            addWalletBalance(val);
-            closeModal('rechargeModal');
-            playSound('bonus');
-            showToast(`✅ Recarga de ${formatBRL(val)} efetuada com sucesso!`);
-        }
-
-        function openAuthModal() { document.getElementById('authModal').style.display = 'flex'; }
-        function loginUser() {
-            const u = document.getElementById('authUser').value.trim();
-            if(!u) return alert("Digite o usuário!");
-            currentUser.username = u;
-            saveState();
-            init();
-            closeModal('authModal');
-        }
-
-        function renderProfileOrders() {
-            const container = document.getElementById('profileOrderHistory');
-            if(!currentUser.orders || currentUser.orders.length === 0) {
-                container.innerHTML = "Nenhuma atividade registrada ainda.";
-                return;
-            }
-            container.innerHTML = currentUser.orders.map(o => `
-                <div style="background:#080510; padding:8px 10px; border-radius:8px; margin-top:6px; border:1px solid var(--border-color); font-size:0.78rem;">
-                    <div>${o.title || 'Pedido'} - <strong>${o.date}</strong></div>
-                    <div style="color:var(--purple-light); font-weight:bold;">Total: ${formatBRL(o.total)}</div>
-                </div>
-            `).join('');
-        }
-
-        function openDiscord() { window.open(config.discord, '_blank'); }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        function openDiscord() { window.open(STORE_CONFIG.discord, '_blank'); }
 
         init();
     </script>
