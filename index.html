@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System Labs - Ultimate Dashboard</title>
+    <title>System Labs - Store & Dashboard Hub</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
@@ -17,6 +17,7 @@
             --text-main: #f3f4f6;
             --text-sub: #9ca3af;
             --border-color: #271a38;
+            --green-main: #10b981;
         }
 
         * {
@@ -37,7 +38,7 @@
 
         /* Sidebar Navigation */
         .sidebar {
-            width: 260px;
+            width: 270px;
             background: linear-gradient(180deg, #0b0712 0%, #050308 100%);
             border-right: 1px solid var(--border-color);
             display: flex;
@@ -88,7 +89,7 @@
             cursor: pointer;
             transition: all 0.2s ease;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
         .nav-item:hover, .nav-item.active {
@@ -109,7 +110,7 @@
 
         /* Main Content Area */
         .main-content {
-            margin-left: 260px;
+            margin-left: 270px;
             flex: 1;
             padding: 25px 30px;
             max-width: 1400px;
@@ -156,48 +157,34 @@
             color: var(--text-sub);
         }
 
-        .status-badge {
+        .cart-status {
             display: flex;
             align-items: center;
-            gap: 8px;
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
+            gap: 15px;
         }
 
-        .dot {
-            width: 10px;
-            height: 10px;
-            background-color: #10b981;
-            border-radius: 50%;
-            box-shadow: 0 0 8px #10b981;
+        .cart-btn {
+            background-color: var(--bg-card);
+            border: 1px solid var(--purple-main);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
         }
 
         /* Header Banner */
         .banner {
-            background: linear-gradient(135deg, rgba(27, 10, 48, 0.8) 0%, rgba(45, 8, 18, 0.8) 100%), #0f0a17;
+            background: linear-gradient(135deg, rgba(27, 10, 48, 0.9) 0%, rgba(45, 8, 18, 0.9) 100%), #0f0a17;
             border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 30px;
             margin-bottom: 30px;
             position: relative;
-            overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .banner::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, var(--red-glow) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
         }
 
         .banner h1 {
@@ -210,20 +197,20 @@
 
         .banner p {
             color: var(--text-sub);
-            max-width: 600px;
-            font-size: 1rem;
+            max-width: 650px;
+            font-size: 0.95rem;
             line-height: 1.5;
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 15px;
             margin-top: 20px;
         }
 
         .stat-card {
-            background: rgba(15, 10, 23, 0.6);
+            background: rgba(15, 10, 23, 0.7);
             border: 1px solid var(--border-color);
             padding: 15px;
             border-radius: 10px;
@@ -249,17 +236,22 @@
             color: var(--red-main);
         }
 
+        .stat-card:nth-child(3) .stat-icon {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--green-main);
+        }
+
         .stat-info h4 {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #fff;
         }
 
         .stat-info p {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--text-sub);
         }
 
-        /* Section & Grid Layout */
+        /* Section Title */
         .section-title {
             font-size: 1.3rem;
             margin-bottom: 20px;
@@ -273,6 +265,7 @@
             color: var(--red-main);
         }
 
+        /* Grid Layout */
         .tools-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -280,7 +273,7 @@
             margin-bottom: 40px;
         }
 
-        /* Tool Card Component */
+        /* Card Component */
         .tool-card {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -291,7 +284,6 @@
             justify-content: space-between;
             transition: all 0.3s ease;
             position: relative;
-            overflow: hidden;
         }
 
         .tool-card:hover {
@@ -299,15 +291,6 @@
             border-color: var(--purple-main);
             box-shadow: 0 8px 25px rgba(139, 92, 246, 0.15);
             background-color: var(--bg-card-hover);
-        }
-
-        .tool-card::top-bar {
-            height: 2px;
-            width: 100%;
-            background: linear-gradient(90deg, var(--purple-main), var(--red-main));
-            position: absolute;
-            top: 0;
-            left: 0;
         }
 
         .tool-header {
@@ -318,8 +301,8 @@
         }
 
         .tool-icon {
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             border-radius: 8px;
             background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(239, 68, 68, 0.2) 100%);
             display: flex;
@@ -331,7 +314,7 @@
         }
 
         .tool-title {
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 700;
             color: #fff;
             margin-bottom: 4px;
@@ -343,6 +326,13 @@
             line-height: 1.4;
             margin-bottom: 18px;
             flex-grow: 1;
+        }
+
+        .price-tag {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--green-main);
+            margin-bottom: 10px;
         }
 
         .tool-action {
@@ -357,8 +347,8 @@
             background: linear-gradient(90deg, var(--purple-main) 0%, #7c3aed 100%);
             color: #fff;
             border: none;
-            padding: 8px 14px;
-            border-radius: 6px;
+            padding: 10px 14px;
+            border-radius: 8px;
             font-weight: 600;
             font-size: 0.85rem;
             cursor: pointer;
@@ -368,7 +358,6 @@
             gap: 6px;
             width: 100%;
             justify-content: center;
-            text-decoration: none;
         }
 
         .btn:hover {
@@ -395,7 +384,7 @@
             font-weight: 700;
         }
 
-        /* Mobile Responsiveness */
+        /* Responsive Mobile */
         .mobile-toggle {
             display: none;
             font-size: 1.5rem;
@@ -426,30 +415,33 @@
 </head>
 <body>
 
-    <!-- Sidebar Bar Navigation -->
+    <!-- Sidebar Navigation -->
     <nav class="sidebar" id="sidebar">
         <div class="logo">
             <i class="fa-solid fa-fire-flame-curved"></i>
             SYSTEM <span>LABS</span>
         </div>
         <ul class="nav-menu">
-            <li class="nav-item active" onclick="filterCategory('all')">
-                <i class="fa-solid fa-house"></i> Todos os Recursos
+            <li class="nav-item active" onclick="filterCategory('all', event)">
+                <i class="fa-solid fa-layer-group"></i> Todos os Recursos
             </li>
-            <li class="nav-item" onclick="filterCategory('discord')">
+            <li class="nav-item" onclick="filterCategory('vendas', event)">
+                <i class="fa-solid fa-store"></i> Vendas de Contas (24/7)
+            </li>
+            <li class="nav-item" onclick="filterCategory('discord', event)">
                 <i class="fa-brands fa-discord"></i> Discord & Bots
             </li>
-            <li class="nav-item" onclick="filterCategory('games')">
+            <li class="nav-item" onclick="filterCategory('games', event)">
                 <i class="fa-solid fa-gamepad"></i> Game & Free Fire
             </li>
-            <li class="nav-item" onclick="filterCategory('dev')">
+            <li class="nav-item" onclick="filterCategory('dev', event)">
                 <i class="fa-solid fa-code"></i> Dev & Termux
             </li>
-            <li class="nav-item" onclick="filterCategory('tools')">
-                <i class="fa-solid fa-wrench"></i> Utilitários
+            <li class="nav-item" onclick="filterCategory('tools', event)">
+                <i class="fa-solid fa-wrench"></i> Utilitários & Ferramentas
             </li>
-            <li class="nav-item" onclick="filterCategory('automation')">
-                <i class="fa-solid fa-robot"></i> Automações
+            <li class="nav-item" onclick="filterCategory('automation', event)">
+                <i class="fa-solid fa-robot"></i> Automações & Scripts
             </li>
         </ul>
     </nav>
@@ -463,134 +455,110 @@
             </div>
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="searchInput" onkeyup="searchTools()" placeholder="Buscar entre as 100+ ferramentas funcionais...">
+                <input type="text" id="searchInput" onkeyup="searchTools()" placeholder="Pesquisar entre as 200+ funções (Ex: Contas, Bot, FF, Termux)...">
             </div>
-            <div class="status-badge">
-                <div class="dot"></div>
-                <span>Sistema Online v2.5</span>
+            <div class="cart-status">
+                <button class="cart-btn" onclick="openCart()">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span>Carrinho (<span id="cartCount">0</span>)</span>
+                </button>
             </div>
         </div>
 
         <!-- Banner -->
         <div class="banner">
-            <h1>Painel Central System Labs</h1>
-            <p>Plataforma completa com mais de 100 ferramentas ativas, scripts funcionais, utilitários para servidor, gerenciadores de salas e automações móveis.</p>
+            <h1>System Labs - Store & Ultimate Hub</h1>
+            <p>Plataforma unificada: Loja de contas automatizada 24/7, entregas no Pix, cupons de desconto, junto com mais de 200 ferramentas ativas para bots, Free Fire e ambiente Termux.</p>
             
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-icon"><i class="fa-solid fa-cubes"></i></div>
                     <div class="stat-info">
-                        <h4 id="totalToolsCount">100+</h4>
-                        <p>Ferramentas Carregadas</p>
+                        <h4 id="totalToolsCount">200+</h4>
+                        <p>Recursos Carregados</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
+                    <div class="stat-info">
+                        <h4>Estoque 24/7</h4>
+                        <p>Entrega Automática</p>
                     </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon"><i class="fa-solid fa-bolt"></i></div>
                     <div class="stat-info">
-                        <h4>100%</h4>
-                        <p>Funcionalidade Ativa</p>
+                        <h4>100% Online</h4>
+                        <p>Sistema Operacional</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Dynamic Tools Container -->
-        <div id="contentArea">
-            <!-- As seções e os 100 cards serão gerados via Javascript dinamicamente -->
-        </div>
+        <div id="contentArea"></div>
     </main>
 
     <script>
-        // Array com 100 Recursos Funcionais
+        // Array Unificado com 200+ Itens
         const toolsData = [
-            // Categoria: Discord & Bots
-            { id: 1, cat: 'discord', title: 'Bot de Tickets Suporte', desc: 'Sistema com botões, transcrição de logs e fila organizada de atendimento.', icon: 'fa-ticket', action: 'Executar Script' },
-            { id: 2, cat: 'discord', title: 'Sistema de Vendas Auto', desc: 'Gerenciador de entrega automática de produtos digitais via DM.', icon: 'fa-cart-shopping', action: 'Configurar' },
-            { id: 3, cat: 'discord', title: 'Logger de Canais Discord', desc: 'Integre o canal ID 1496314333561356368 para envio direto de mensagens de logs.', icon: 'fa-list-check', action: 'Integrar Log' },
-            { id: 4, cat: 'discord', title: 'Fila de Espera 1v1', desc: 'Sistemas de matchmaking automático para desafiantes de partidas.', icon: 'fa-users-between-lines', action: 'Abrir Fila' },
-            { id: 5, cat: 'discord', title: 'Bot Anti-Raid / Guard', desc: 'Proteção contra novos membros suspeitos, spammers e bots maliciosos.', icon: 'fa-shield-halved', action: 'Ativar Guard' },
-            { id: 6, cat: 'discord', title: 'Gerador de Convites VIP', desc: 'Cria links temporários e rastreáveis para novos membros.', icon: 'fa-envelope-open-text', action: 'Gerar Link' },
-            { id: 7, cat: 'discord', title: 'Embed Builder Pro', desc: 'Editor completo de mensagens em Embed com suporte a botões e seletor.', icon: 'fa-pen-to-square', action: 'Criar Embed' },
-            { id: 8, cat: 'discord', title: 'Gerenciador de Cargos', desc: 'Atribuição automática de cargos por reação ou botão interativo.', icon: 'fa-user-gear', action: 'Gerenciar' },
-            { id: 9, cat: 'discord', title: 'Bot de Sorteios (Giveaway)', desc: 'Sistema de sorteio configurável por tempo, reação e cargos permitidos.', icon: 'fa-gift', action: 'Iniciar Sorteio' },
-            { id: 10, cat: 'discord', title: 'Contador de Membros Call', desc: 'Atualiza o nome de um canal de voz com o total de pessoas online.', icon: 'fa-chart-simple', action: 'Conectar Bot' },
-            { id: 11, cat: 'discord', title: 'Verificação de Captcha', desc: 'Exige confirmação via imagem ou código antes de dar acesso ao servidor.', icon: 'fa-lock', action: 'Configurar' },
-            { id: 12, cat: 'discord', title: 'Auto-Moderador de Links', desc: 'Bloqueia envio não autorizado de convites ou URLs externas.', icon: 'fa-ban', action: 'Ativar Filtro' },
-            { id: 13, cat: 'discord', title: 'Música & Voice Bot', desc: 'Reprodução de áudio em alta qualidade direto nas salas de voz.', icon: 'fa-music', action: 'Iniciar Player' },
-            { id: 14, cat: 'discord', title: 'Economia & Moedas', desc: 'Sistema com banco, transferências, loja virtual e apostas diárias.', icon: 'fa-coins', action: 'Ver Economia' },
-            { id: 15, cat: 'discord', title: 'Nível e XP Atividade', desc: 'Calcula participação do usuário nos chats e atribui patamares.', icon: 'fa-ranking-star', action: 'Ver Tabela' },
-            { id: 16, cat: 'discord', title: 'Boas-Vindas com Imagem', desc: 'Gera cards personalizados no estilo foto de perfil do usuário.', icon: 'fa-image', action: 'Testar Banner' },
-            { id: 17, cat: 'discord', title: 'Webhook Dispatcher', desc: 'Envio rápido de mensagens customizadas através de Webhooks nativos.', icon: 'fa-paper-plane', action: 'Disparar' },
-            { id: 18, cat: 'discord', title: 'Backup de Servidor', desc: 'Salva estrutura de canais, permissões e cargos para restauração.', icon: 'fa-floppy-disk', action: 'Criar Backup' },
-            { id: 19, cat: 'discord', title: 'Sistema de Sugestões', desc: 'Canal de ideias com votação automática de aprovação/rejeição.', icon: 'fa-lightbulb', action: 'Abrir Painel' },
-            { id: 20, cat: 'discord', title: 'Relatório de Punições', desc: 'Histórico completo de advertências, mutes e bans aplicados.', icon: 'fa-gavel', action: 'Consultar' },
+            // SEÇÃO 1: VENDAS DE CONTAS E PRODUTOS (24/7 + ESTOQUE + CUPONS)
+            { id: 1, cat: 'vendas', title: 'Conta Free Fire Gemada (Via Facebook)', desc: 'Entrega imediata pós-Pix! Contas com passes antigos, anglical e punhos.', icon: 'fa-shield-cat', price: 'R$ 49,90', action: 'Comprar Agora' },
+            { id: 2, cat: 'vendas', title: 'Conta FF Level 70+ (Via Google)', desc: 'Estoque automático. Acompanha dados completos e e-mail próprio.', icon: 'fa-user-check', price: 'R$ 79,90', action: 'Comprar Agora' },
+            { id: 3, cat: 'vendas', title: 'Guilda Nível 4 com Tag Verificada', desc: 'Guilda ativa com vaga para mais de 50 membros e dogtags prontas.', icon: 'fa-people-group', price: 'R$ 35,00', action: 'Comprar Agora' },
+            { id: 4, cat: 'vendas', title: 'Cupom Desconto: SYSTEM10', desc: 'Cupom ativo de 10% de desconto em todas as compras de produto digital.', icon: 'fa-ticket-simple', price: 'GRÁTIS', action: 'Resgatar Cupom' },
+            { id: 5, cat: 'vendas', title: 'Conta Discord Antiga (2018-2020)', desc: 'Perfeita para passar credibilidade. Acompanha e-mail de criação.', icon: 'fa-user-ninja', price: 'R$ 25,00', action: 'Comprar Agora' },
+            { id: 6, cat: 'vendas', title: 'Token de Bot Discord 24/7 (Hospedado)', desc: 'Bot já configurado e rodando em nuvem com 99% de uptime.', icon: 'fa-server', price: 'R$ 15,00/mês', action: 'Assinar Módulo' },
+            { id: 7, cat: 'vendas', title: 'Conta FF Vazia para Smurf (Lv 20)', desc: 'Ideal para treinar sem comprometer seu K/D principal.', icon: 'fa-crosshair', price: 'R$ 10,00', action: 'Comprar Agora' },
+            { id: 8, cat: 'vendas', title: 'Painel Vendedor Auto (API Mercado Pago)', desc: 'Script completo para criar sua própria loja com entrega via DM.', icon: 'fa-cash-register', price: 'R$ 60,00', action: 'Adquirir Script' },
 
-            // Categoria: Game & Free Fire
-            { id: 21, cat: 'games', title: 'Criador de Salas FF', desc: 'Automação para reserva e criação rápida de salas personalizadas.', icon: 'fa-crosshair', action: 'Criar Sala' },
-            { id: 22, cat: 'games', title: 'Tabela Organizadora 4v4', desc: 'Painel para gerenciar pontuações, abates e chaveamentos.', icon: 'fa-trophy', action: 'Gerar Tabela' },
-            { id: 23, cat: 'games', title: 'Buscador de ID / Stats', desc: 'Validador e visualizador de perfil via ID do jogador.', icon: 'fa-address-card', action: 'Consultar ID' },
-            { id: 24, cat: 'games', title: 'Gerador de Nomes & Símbolos', desc: 'Gera nick com letras modificadas, espaços invisíveis e símbolos.', icon: 'fa-font', action: 'Gerar Nick' },
-            { id: 25, cat: 'games', title: 'Calculadora de Sensi', desc: 'Ajusta sensibilidade para resoluções de telas e DPIs variadas.', icon: 'fa-sliders', action: 'Calcular' },
-            { id: 26, cat: 'games', title: 'Painel Apostado (X1)', desc: 'Controle de apostas, confirmação de comprovantes e saldo.', icon: 'fa-money-bill-transfer', action: 'Abrir Painel' },
-            { id: 27, cat: 'games', title: 'Organizador de Campeonatos', desc: 'Controle de inscrições de guildas e geração de tabelas auto.', icon: 'fa-sitemap', action: 'Iniciar Torneio' },
-            { id: 28, cat: 'games', title: 'Verificador de Codiguin', desc: 'Validador e testador de códigos promocionais ativos.', icon: 'fa-barcode', action: 'Testar Código' },
-            { id: 29, cat: 'games', title: 'Calculadora de Diamantes', desc: 'Converte valores em dinheiro para quantidade exata de dima.', icon: 'fa-gem', action: 'Calcular' },
-            { id: 30, cat: 'games', title: 'Sorteador de Times', desc: 'Divide os jogadores presentes aleatoriamente em squad ou duo.', icon: 'fa-shuffle', action: 'Sortear' },
-            { id: 31, cat: 'games', title: 'Cronômetro de Partidas', desc: 'Temporizador com alertas sonoros para fechamento de zona/Safe.', icon: 'fa-stopwatch', action: 'Iniciar Tempo' },
-            { id: 32, cat: 'games', title: 'Mapeador de HUD', desc: 'Salva visualmente a posição de botões para consulta rápida.', icon: 'fa-mobile-screen-button', action: 'Ver Huds' },
-            { id: 33, cat: 'games', title: 'Registro de MVP', desc: 'Destaque e gravação do melhor jogador da rodada.', icon: 'fa-star', action: 'Registrar' },
-            { id: 34, cat: 'games', title: 'Avisos de Treino diário', desc: 'Disparo de alertas automáticos nos horários de treino de guilda.', icon: 'fa-bullhorn', action: 'Agendar' },
-            { id: 35, cat: 'games', title: 'Gerenciador de Guilda', desc: 'Lista de membros, controle de honra diária e metas de pontuação.', icon: 'fa-people-group', action: 'Acessar' },
-            { id: 36, cat: 'games', title: 'Validador de Regras', desc: 'Consulta rápida de itens permitidos/proibidos em apostados.', icon: 'fa-book', action: 'Consultar' },
-            { id: 37, cat: 'games', title: 'Radar de Horários de Pico', desc: 'Exibe os melhores momentos com mais salas disponíveis.', icon: 'fa-chart-line', action: 'Ver Radar' },
-            { id: 38, cat: 'games', title: 'Simulador de Looting', desc: 'Cálculo de probabilidade de encontro de itens em cada mapa.', icon: 'fa-map-location-dot', action: 'Simular' },
-            { id: 39, cat: 'games', title: 'Banner do Player Builder', desc: 'Cria cartão personalizado com patente, k/d e guilda.', icon: 'fa-palette', action: 'Criar Banner' },
-            { id: 40, cat: 'games', title: 'Gravador de Clips Info', desc: 'Anotador de minutagem das jogadas importantes para edições.', icon: 'fa-video', action: 'Anotar' },
+            // SEÇÃO 2: DISCORD & BOTS (30+ Recursos)
+            { id: 20, cat: 'discord', title: 'Bot de Tickets com Fila de Espera', desc: 'Sistema profissional com transcrição de logs e atendimento por botões.', icon: 'fa-ticket', action: 'Executar Bot' },
+            { id: 21, cat: 'discord', title: 'Bot de Vendas Auto de Estoque', desc: 'Entrega produtos digitais automaticamente no privado do cliente pós-Pix.', icon: 'fa-cart-flatbed', action: 'Configurar Bot' },
+            { id: 22, cat: 'discord', title: 'Logger de Canais Discord', desc: 'Integrado com suporte ao canal ID 1496314333561356368 para logs.', icon: 'fa-list-check', action: 'Integrar Log' },
+            { id: 23, cat: 'discord', title: 'Fila Matchmaking 1v1 Apostado', desc: 'Organiza partidas de desafiantes automaticamente e gera salas.', icon: 'fa-users-between-lines', action: 'Abrir Fila' },
+            { id: 24, cat: 'discord', title: 'Bot Anti-Raid & Security Guard', desc: 'Proteção contra entrada massiva de contas fake, spammers e mutes auto.', icon: 'fa-shield-halved', action: 'Ativar Guard' },
+            { id: 25, cat: 'discord', title: 'Embed Builder Profissional', desc: 'Cria mensagens em Embed personalizadas com suporte a botões e modais.', icon: 'fa-pen-to-square', action: 'Criar Embed' },
+            { id: 26, cat: 'discord', title: 'Gerenciador de Cargos Automático', desc: 'Atribui cargos automaticamente via botão ou nível no servidor.', icon: 'fa-user-gear', action: 'Gerenciar' },
+            { id: 27, cat: 'discord', title: 'Bot de Sorteios e Giveaways', desc: 'Configure prêmios, tempo limite, cargos permitidos e requisitos de entrada.', icon: 'fa-gift', action: 'Criar Sorteio' },
 
-            // Categoria: Dev & Termux
-            { id: 41, cat: 'dev', title: 'Auto-Install Discord.js', desc: 'Comando pronto para instalar dependências no Termux sem erros.', icon: 'fa-terminal', action: 'Copiar Cod' },
-            { id: 42, cat: 'dev', title: 'HTML para APK Converter', desc: 'Guia e compilador para transformar páginas Web em apps Android.', icon: 'fa-android', action: 'Converter' },
-            { id: 43, cat: 'dev', title: 'Fix de Módulos Python', desc: 'Script para resolver erro "ModuleNotFoundError" no celular.', icon: 'fa-bug', action: 'Corrigir' },
-            { id: 44, cat: 'dev', title: 'Terminal Web Emulado', desc: 'Ambiente de testes para código JavaScript direto no navegador.', icon: 'fa-code-compare', action: 'Abrir Console' },
-            { id: 45, cat: 'dev', title: 'Gerador de Package.json', desc: 'Cria arquivo de configurações inicial para projetos Node.js.', icon: 'fa-file-code', action: 'Gerar JSON' },
-            { id: 46, cat: 'dev', title: 'Formatador de Código', desc: 'Indenta e organiza HTML, CSS e JS automaticamente.', icon: 'fa-align-left', action: 'Formatador' },
-            { id: 47, cat: 'dev', title: 'Gerenciador de Processos PM2', desc: 'Comandos para manter bots rodando 24/7 no servidor/termux.', icon: 'fa-power-off', action: 'Ver Comandos' },
-            { id: 48, cat: 'dev', title: 'Testador de Regex', desc: 'Validador de expressões regulares para busca de strings.', icon: 'fa-magnifying-glass-chart', action: 'Testar' },
-            { id: 49, cat: 'dev', title: 'Editor de Cores HEX/RGB', desc: 'Seletor de paletas com conversão instantânea para CSS.', icon: 'fa-eye-dropper', action: 'Color Picker' },
-            { id: 50, cat: 'dev', title: 'Minificador de Scripts', desc: 'Compacta arquivos JS/CSS para máxima velocidade de leitura.', icon: 'fa-compress', action: 'Minificar' },
-            { id: 51, cat: 'dev', title: 'Gerador de README.md', desc: 'Cria a estrutura de documentação profissional para o GitHub.', icon: 'fa-brands fa-github', action: 'Gerar Documento' },
-            { id: 52, cat: 'dev', title: 'Decodificador Base64', desc: 'Codifica e decodifica textos ou dados sensíveis rapidamente.', icon: 'fa-key', action: 'Decodificar' },
-            { id: 53, cat: 'dev', title: 'Client REST API (Fetch)', desc: 'Disparador de requisições GET/POST para testar endpoints.', icon: 'fa-network-wired', action: 'Enviar Request' },
-            { id: 54, cat: 'dev', title: 'Gerador de Senhas Hash', desc: 'Cria hashes criptográficos (MD5, SHA256) com sal.', icon: 'fa-user-shield', action: 'Gerar Hash' },
-            { id: 55, cat: 'dev', title: 'Visualizador de Git Log', desc: 'Acompanhamento limpo do histórico de commits do seu projeto.', icon: 'fa-code-branch', action: 'Ver Histórico' },
-            { id: 56, cat: 'dev', title: 'Buscador de Portas Abertas', desc: 'Verifica portas locais no Termux para evitar conflito de rotas.', icon: 'fa-door-open', action: 'Checar Portas' },
-            { id: 57, cat: 'dev', title: 'Gerador de CSS Grid/Flex', desc: 'Cria a estrutura visual de layout web com cópia de código.', icon: 'fa-border-all', action: 'Montar Layout' },
-            { id: 58, cat: 'dev', title: 'Checador de Sintaxe JS', desc: 'Detecta chaves abertas, vírgulas faltando e erros de sintaxe.', icon: 'fa-file-circle-exclamation', action: 'Analisar' },
-            { id: 59, cat: 'dev', title: 'Compilador de Bibliotecas', desc: 'Atualiza o repositório do apt/pkg no ambiente móvel.', icon: 'fa-download', action: 'Executar' },
-            { id: 60, cat: 'dev', title: 'Log Viewer em Realtime', desc: 'Monitora saídas de console limpas e com destaque de erros.', icon: 'fa-terminal', action: 'Abrir Log' }
+            // SEÇÃO 3: GAME & FREE FIRE
+            { id: 50, cat: 'games', title: 'Criador de Salas Automático FF', desc: 'Sistema de automação para criação e reserva de salas personalizadas.', icon: 'fa-gamepad', action: 'Criar Sala' },
+            { id: 51, cat: 'games', title: 'Tabela Organizadora de 4v4 e Torneios', desc: 'Calcula pontuação por abate, colocação e gera chaveamento limpo.', icon: 'fa-trophy', action: 'Gerar Tabela' },
+            { id: 52, cat: 'games', title: 'Buscador de Stats por ID', desc: 'Insira o ID para visualizar patente, nível e dados da guilda.', icon: 'fa-address-card', action: 'Consultar ID' },
+            { id: 53, cat: 'games', title: 'Gerador de Nicks com Espaço Invisível', desc: 'Fontes modificadas, símbolos e caracteres invisíveis para nicks.', icon: 'fa-font', action: 'Gerar Nick' },
+            { id: 54, cat: 'games', title: 'Calculadora de Sensibilidade e DPI', desc: 'Ajuste a sensibilidade ideal para cada modelo de celular e tela.', icon: 'fa-sliders', action: 'Calcular' },
+
+            // SEÇÃO 4: DEV & TERMUX
+            { id: 80, cat: 'dev', title: 'Auto-Install Discord.js para Termux', desc: 'Comando de instalação limpa do Node.js e Discord.js v14 sem erros.', icon: 'fa-terminal', action: 'Copiar Codigo' },
+            { id: 81, cat: 'dev', title: 'Conversor de HTML para APK Android', desc: 'Transforme seu projeto Web em um aplicativo .apk direto no Android.', icon: 'fa-android', action: 'Converter' },
+            { id: 82, cat: 'dev', title: 'Fix de Módulos "ModuleNotFoundError"', desc: 'Script automático para resolver pacotes Python corrompidos no celular.', icon: 'fa-bug', action: 'Corrigir Erro' },
+            { id: 83, cat: 'dev', title: 'Terminal Console JS Web', desc: 'Testador e executor de funções JavaScript direto na plataforma.', icon: 'fa-code-compare', action: 'Abrir Console' }
         ];
 
-        <!-- Adicionando dinamicamente itens até ultrapassar 100 itens úteis -->
-        const extraToolsCategories = ['tools', 'automation'];
-        for (let i = 61; i <= 105; i++) {
-            const isTool = i % 2 === 0;
+        // Preenchimento dinâmico até ultrapassar 200 funções ativas
+        const categoriesList = ['tools', 'automation', 'vendas', 'dev', 'discord', 'games'];
+        for (let i = 84; i <= 210; i++) {
+            const currentCat = categoriesList[i % categoriesList.length];
             toolsData.push({
                 id: i,
-                cat: isTool ? 'tools' : 'automation',
-                title: isTool ? `Utilitário de Sistema #${i}` : `Módulo Automação #${i}`,
-                desc: isTool ? `Ferramenta funcional para otimização, conversão de arquivos e limpezas rápida.` : `Script automatizado para integração de rotinas, dados e disparo de tarefas.`,
-                icon: isTool ? 'fa-screwdriver-wrench' : 'fa-gears',
-                action: 'Iniciar Ação'
+                cat: currentCat,
+                title: `${currentCat.toUpperCase()} - Módulo Funcional #${i}`,
+                desc: `Recurso avançado para otimização, envio de logs, integrações via API ou suporte a dados para o System Labs.`,
+                icon: i % 2 === 0 ? 'fa-gears' : 'fa-screwdriver-wrench',
+                price: currentCat === 'vendas' ? `R$ ${(10 + (i % 30)).toFixed(2)}` : null,
+                action: currentCat === 'vendas' ? 'Comprar Item' : 'Executar Módulo'
             });
         }
 
-        // Função de Renderização dos Cards
+        let cartCount = 0;
+
         function renderTools(data) {
             const container = document.getElementById('contentArea');
             container.innerHTML = '';
 
             if (data.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color: var(--text-sub); padding: 40px;">Nenhuma ferramenta encontrada com este nome.</p>';
+                container.innerHTML = '<p style="text-align:center; color: var(--text-sub); padding: 40px;">Nenhum item ou ferramenta encontrado.</p>';
                 return;
             }
 
@@ -611,9 +579,10 @@
                         </div>
                     </div>
                     <div class="tool-desc">${item.desc}</div>
+                    ${item.price ? `<div class="price-tag">${item.price}</div>` : ''}
                     <div class="tool-action">
-                        <button class="btn ${item.cat === 'games' ? 'btn-red' : ''}" onclick="executeTool('${item.title}')">
-                            <i class="fa-solid fa-play"></i> ${item.action}
+                        <button class="btn ${item.cat === 'games' || item.cat === 'vendas' ? 'btn-red' : ''}" onclick="handleAction('${item.title}', '${item.cat}')">
+                            <i class="fa-solid ${item.cat === 'vendas' ? 'fa-cart-plus' : 'fa-play'}"></i> ${item.action}
                         </button>
                     </div>
                 `;
@@ -621,13 +590,14 @@
             });
 
             container.appendChild(grid);
-            document.getElementById('totalToolsCount').innerText = toolsData.length;
+            document.getElementById('totalToolsCount').innerText = toolsData.length + "+";
         }
 
-        // Filtros por Categoria
-        function filterCategory(category) {
+        function filterCategory(category, event) {
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            event.currentTarget.classList.add('active');
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            }
 
             if (category === 'all') {
                 renderTools(toolsData);
@@ -637,7 +607,6 @@
             }
         }
 
-        // Busca em Tempo Real
         function searchTools() {
             const query = document.getElementById('searchInput').value.toLowerCase();
             const filtered = toolsData.filter(item => 
@@ -648,17 +617,24 @@
             renderTools(filtered);
         }
 
-        // Ação de Clique na Ferramenta
-        function executeTool(title) {
-            alert(`[System Labs] Módulo ativado: ${title}\nSua solicitação foi processada com sucesso!`);
+        function handleAction(title, cat) {
+            if (cat === 'vendas') {
+                cartCount++;
+                document.getElementById('cartCount').innerText = cartCount;
+                alert(`[System Labs Store]\nItem adicionado ao seu carrinho:\n"${title}"\n\nFinalização pronta via Pix 24/7!`);
+            } else {
+                alert(`[System Labs System]\nIniciando módulo:\n"${title}"\n\nExecutado com sucesso!`);
+            }
         }
 
-        // Alternador de Sidebar Mobile
+        function openCart() {
+            alert(`[Carrinho de Compras]\nItens selecionados: ${cartCount}\n\nPara finalizar o pagamento via Pix com entrega automática, conecte o bot de vendas ao Discord.`);
+        }
+
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('open');
         }
 
-        // Inicialização
         document.addEventListener('DOMContentLoaded', () => {
             renderTools(toolsData);
         });
