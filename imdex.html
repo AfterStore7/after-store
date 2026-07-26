@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>After Store - Oficial</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #08080a;
+            --bg-card: #121216;
+            --bg-modal: #18181f;
+            --red-main: #ff2a4b;
+            --red-hover: #e01b3a;
+            --red-glow: rgba(255, 42, 75, 0.25);
+            --text-main: #ffffff;
+            --text-sub: #94a3b8;
+            --border-color: rgba(255, 42, 75, 0.18);
+            --green: #10b981;
+            --gold: #f59e0b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: var(--bg-dark); color: var(--text-main); min-height: 100vh; padding-bottom: 70px; overflow-x: hidden; }
+
+        /* TOAST & NOTIFICAÇÕES DE ENGAJAMENTO */
+        .toast-container { position: fixed; top: 12px; right: 12px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; max-width: 320px; pointer-events: none; }
+        .toast { background: var(--bg-card); border: 1px solid var(--red-main); box-shadow: 0 4px 20px var(--red-glow); color: #fff; padding: 10px 14px; border-radius: 10px; font-size: 0.78rem; display: flex; align-items: center; gap: 10px; animation: slideIn 0.3s ease, fadeOut 0.4s ease 3.5s forwards; }
+        
+        .fake-sale-popup { position: fixed; bottom: 70px; left: 12px; z-index: 800; background: var(--bg-card); border: 1px solid var(--red-main); padding: 10px 14px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.8); display: flex; align-items: center; gap: 10px; max-width: 280px; transform: translateY(150%); transition: transform 0.4s ease; }
+        .fake-sale-popup.active { transform: translateY(0); }
+
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes fadeOut { to { opacity: 0; transform: translateY(-8px); } }
+
+        /* TOP STATUS BAR */
+        .top-status { background: #030304; padding: 6px 14px; font-size: 0.72rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); }
+        .online-badge { display: flex; align-items: center; gap: 6px; color: var(--red-main); font-weight: 700; }
+        .dot { width: 7px; height: 7px; background: var(--red-main); border-radius: 50%; box-shadow: 0 0 8px var(--red-main); animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+        /* HEADER */
+        header { background: rgba(8, 8, 10, 0.95); backdrop-filter: blur(12px); height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border-color); }
+        .brand { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .brand-logo { width: 36px; height: 36px; border-radius: 10px; object-fit: cover; border: 1.5px solid var(--red-main); }
+        .brand-name { font-weight: 900; font-size: 1.1rem; color: #fff; letter-spacing: 0.5px; }
+
+        .header-btns { display: flex; gap: 8px; }
+        .btn-icon { position: relative; background: var(--bg-card); border: 1px solid var(--border-color); color: #fff; padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+        .cart-badge { position: absolute; top: -5px; right: -5px; background: var(--red-main); color: #fff; font-size: 0.62rem; font-weight: 900; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+        /* TABS NAV */
+        .tabs { display: flex; background: #030304; border-bottom: 1px solid var(--border-color); overflow-x: auto; scrollbar-width: none; padding: 0 8px; }
+        .tab-item { padding: 12px 16px; font-size: 0.8rem; font-weight: 600; color: var(--text-sub); border: none; background: transparent; cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; transition: 0.2s; }
+        .tab-item.active { color: var(--red-main); border-bottom-color: var(--red-main); font-weight: 700; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 16px; }
+        .panel { display: none; }
+        .panel.active { display: block; }
+
+        /* BANNER ENGAJAMENTO */
+        .promo-banner { background: linear-gradient(135deg, rgba(255,42,75,0.15) 0%, rgba(18,18,22,1) 100%); border: 1px solid var(--red-main); padding: 14px; border-radius: 14px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+        .promo-text { font-size: 0.82rem; }
+        .promo-title { font-weight: 800; color: #fff; margin-bottom: 2px; }
+
+        /* GRID PRODUTOS */
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; }
+        .card { background: var(--bg-card); border-radius: 14px; border: 1px solid var(--border-color); overflow: hidden; display: flex; flex-direction: column; position: relative; transition: transform 0.2s, border-color 0.2s; }
+        .card:hover { transform: translateY(-3px); border-color: var(--red-main); }
+        .card-tag { position: absolute; top: 8px; left: 8px; background: rgba(8, 8, 10, 0.9); border: 1px solid var(--red-main); color: var(--red-main); font-size: 0.58rem; font-weight: 800; padding: 3px 7px; border-radius: 6px; z-index: 2; }
+        .stock-tag { position: absolute; top: 8px; right: 8px; background: rgba(245, 158, 11, 0.2); border: 1px solid var(--gold); color: var(--gold); font-size: 0.58rem; font-weight: 800; padding: 3px 6px; border-radius: 6px; z-index: 2; }
+
+        .card-img-wrap { width: 100%; height: 130px; background: #000; overflow: hidden; position: relative; }
+        .card-img { width: 100%; height: 100%; object-fit: cover; }
+        .card-body { padding: 12px; display: flex; flex-direction: column; flex: 1; justify-content: space-between; }
+        .card-title { font-size: 0.82rem; font-weight: 700; color: #fff; margin-bottom: 8px; line-height: 1.25; height: 2.5em; overflow: hidden; }
+        .card-price { font-size: 1.05rem; font-weight: 900; color: var(--red-main); }
+        .card-old-price { font-size: 0.7rem; color: var(--text-sub); text-decoration: line-through; margin-left: 4px; }
+
+        .btn-buy { background: linear-gradient(90deg, var(--red-main), #c0122e); color: #fff; border: none; width: 100%; padding: 9px; border-radius: 8px; font-weight: 700; font-size: 0.8rem; cursor: pointer; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 2px 10px var(--red-glow); }
+
+        /* INPUTS E BOTÕES */
+        input, select { width: 100%; padding: 11px 12px; border-radius: 8px; background: #0a0a0e; border: 1px solid var(--border-color); color: white; outline: none; font-size: 0.82rem; margin-bottom: 8px; }
+        input:focus { border-color: var(--red-main); }
+
+        .btn-action { background: linear-gradient(90deg, var(--red-main), #c0122e); color: white; border: none; width: 100%; padding: 11px; border-radius: 8px; font-weight: 700; font-size: 0.82rem; cursor: pointer; margin-top: 6px; }
+        .btn-action:disabled { opacity: 0.5; cursor: not-allowed; }
+        
+        .btn-seller { width: 100%; padding: 11px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 6px; font-size: 0.82rem; border: none; color: white; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-marcos { background: #25d366; }
+        .btn-gabriel { background: #0284c7; }
+
+        /* REVIEWS / DEPOIMENTOS */
+        .review-card { background: var(--bg-card); border: 1px solid var(--border-color); padding: 12px; border-radius: 10px; margin-bottom: 8px; font-size: 0.78rem; }
+        .review-header { display: flex; justify-content: space-between; color: var(--gold); margin-bottom: 4px; font-weight: 700; }
+
+        /* MODAL */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3, 3, 4, 0.9); backdrop-filter: blur(6px); z-index: 900; justify-content: center; align-items: center; padding: 14px; }
+        .modal-content { background: var(--bg-modal); border: 1px solid var(--red-main); border-radius: 16px; width: 100%; max-width: 440px; max-height: 85vh; overflow-y: auto; padding: 18px; position: relative; box-shadow: 0 0 30px var(--red-glow); }
+        .close-modal { position: absolute; top: 12px; right: 14px; color: var(--text-sub); font-size: 1.2rem; cursor: pointer; }
+
+        /* BOTTOM NAV MOBILE */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 55px; background: #030304; border-top: 1px solid var(--border-color); display: flex; justify-content: space-around; align-items: center; z-index: 150; }
+        .nav-link { display: flex; flex-direction: column; align-items: center; color: var(--text-sub); font-size: 0.65rem; cursor: pointer; gap: 3px; font-weight: 600; }
+        .nav-link.active { color: var(--red-main); }
+    </style>
+</head>
+<body>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- POPUP DE VENDA RECENTE -->
+    <div class="fake-sale-popup" id="salePopup">
+        <i class="fa-solid fa-circle-check" style="color:var(--green); font-size:1.2rem;"></i>
+        <div style="font-size:0.72rem;">
+            <strong id="popUser" style="color:#fff;">João S.</strong> acabou de comprar<br>
+            <span id="popItem" style="color:var(--red-main); font-weight:700;">Conta Blox Fruits V4</span> <span style="color:var(--text-sub);">(há 2 min)</span>
+        </div>
+    </div>
+
+    <!-- STATUS BAR -->
+    <div class="top-status">
+        <div class="online-badge"><div class="dot"></div> SISTEMA ONLINE & SINCRONIZADO</div>
+        <div style="color:var(--text-sub);">Saldo: <strong id="userWallet" style="color:var(--red-main);">R$ 0,00</strong></div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="brand" onclick="switchPanel('tabHome', document.querySelectorAll('.tab-item')[0])">
+            <img src="https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg" class="brand-logo" alt="Logo">
+            <div class="brand-name">After Store</div>
+        </div>
+        <div class="header-btns">
+            <button class="btn-icon" onclick="openDiscord()" title="Servidor Discord">
+                <i class="fa-brands fa-discord" style="color:var(--red-main); font-size:1rem;"></i>
+            </button>
+            <button class="btn-icon" onclick="openCartModal()">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <div class="cart-badge" id="cartBadge">0</div>
+            </button>
+        </div>
+    </header>
+
+    <!-- NAVEGAÇÃO ABA -->
+    <div class="tabs">
+        <button class="tab-item active" onclick="switchPanel('tabHome', this)"><i class="fa-solid fa-store"></i> Catálogo</button>
+        <button class="tab-item" onclick="switchPanel('tabBlox', this)"><i class="fa-solid fa-lemon"></i> Blox Fruits</button>
+        <button class="tab-item" onclick="switchPanel('tabVip', this)"><i class="fa-solid fa-crown"></i> VIP</button>
+        <button class="tab-item" onclick="switchPanel('tabWheel', this)"><i class="fa-solid fa-spinner"></i> Roleta 24h</button>
+        <button class="tab-item" onclick="switchPanel('tabReviews', this)"><i class="fa-solid fa-star"></i> Avaliações</button>
+        <button class="tab-item" onclick="switchPanel('tabAdmin', this)" style="color:#ef4444;"><i class="fa-solid fa-user-shield"></i> Painel Dono</button>
+    </div>
+
+    <div class="container">
+
+        <!-- CATÁLOGO PRINCIPAL -->
+        <div class="panel active" id="tabHome">
+            <div class="promo-banner">
+                <div class="promo-text">
+                    <div class="promo-title">🔥 Oferta Limitada - After Store</div>
+                    <div style="color:var(--text-sub);">Use cupons de desconto no carrinho e economize hoje!</div>
+                </div>
+                <button onclick="shareStore()" style="background:var(--red-main); border:none; color:#fff; padding:7px 12px; border-radius:8px; font-weight:700; font-size:0.75rem; cursor:pointer;">
+                    <i class="fa-solid fa-share-nodes"></i> Compartilhar
+                </button>
+            </div>
+
+            <div style="margin-bottom:12px;">
+                <input type="text" id="searchInput" oninput="renderGrid()" placeholder="🔍 Buscar contas, itens ou serviços...">
+            </div>
+            <div class="products-grid" id="mainGrid"></div>
+        </div>
+
+        <!-- BLOX FRUITS -->
+        <div class="panel" id="tabBlox">
+            <h3 style="margin-bottom:12px; font-size:0.95rem; color:var(--red-main);"><i class="fa-solid fa-lemon"></i> Contas Blox Fruits</h3>
+            <div class="products-grid" id="bloxGrid"></div>
+        </div>
+
+        <!-- VIP -->
+        <div class="panel" id="tabVip">
+            <h3 style="margin-bottom:12px; font-size:0.95rem; color:var(--red-main);"><i class="fa-solid fa-crown"></i> Produtos Exclusivos VIP</h3>
+            <div class="products-grid" id="vipGrid"></div>
+        </div>
+
+        <!-- ROLETA DIÁRIA -->
+        <div class="panel" id="tabWheel">
+            <div style="background:var(--bg-card); border:1px solid var(--border-color); padding:20px; border-radius:14px; text-align:center; max-width:420px; margin:0 auto;">
+                <h3 style="font-size:1.1rem; color:var(--red-main);"><i class="fa-solid fa-spinner"></i> Roleta da Sorte 24h</h3>
+                <p style="font-size:0.78rem; color:var(--text-sub); margin:8px 0;">Gire 1x por dia para acumular saldo e resgatar descontos!</p>
+                <div id="wheelTimer" style="margin:12px 0; font-weight:800; color:var(--red-main); font-size:0.9rem;"></div>
+                <button class="btn-action" id="btnSpin" onclick="spinWheel()"><i class="fa-solid fa-play"></i> Girar Roleta</button>
+            </div>
+        </div>
+
+        <!-- DEPOIMENTOS -->
+        <div class="panel" id="tabReviews">
+            <h3 style="margin-bottom:12px; font-size:0.95rem; color:var(--red-main);"><i class="fa-solid fa-star"></i> Avaliações de Clientes</h3>
+            <div id="reviewsList">
+                <div class="review-card">
+                    <div class="review-header"><span>★ ★ ★ ★ ★</span> <span>Matheus R.</span></div>
+                    <div>Entrega super rápida! Comprei a conta Godhuman e chegou em menos de 5 minutos pelo WhatsApp.</div>
+                </div>
+                <div class="review-card">
+                    <div class="review-header"><span>★ ★ ★ ★ ★</span> <span>Lucas V.</span></div>
+                    <div>Atendimento do Marcos nota 10, usou cupom e deu tudo certo! Recomendadíssimo.</div>
+                </div>
+                <div class="review-card">
+                    <div class="review-header"><span>★ ★ ★ ★ ★</span> <span>Gabriel F.</span></div>
+                    <div>Loja 100% confiável, já é a terceira vez que compro aqui na After Store.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAINEL DE DONO (ADMIN) -->
+        <div class="panel" id="tabAdmin">
+            <div id="adminAuthBlock" style="background:var(--bg-card); border:1px solid var(--border-color); padding:20px; border-radius:12px; max-width:400px; margin:0 auto;">
+                <h3 style="font-size:1rem; margin-bottom:12px; color:var(--red-main);"><i class="fa-solid fa-lock"></i> Acesso Restrito do Dono</h3>
+                <input type="password" id="adminPassInput" placeholder="Senha do administrador...">
+                <button class="btn-action" onclick="loginAdmin()">Entrar no Painel</button>
+            </div>
+
+            <div id="adminContentBlock" style="display:none; background:var(--bg-card); border:1px solid var(--border-color); padding:16px; border-radius:12px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                    <h3 style="color:var(--red-main); font-size:1.05rem;"><i class="fa-solid fa-sliders"></i> Gerenciador Global da Loja</h3>
+                    <button onclick="logoutAdmin()" style="background:none; border:none; color:var(--text-sub); cursor:pointer;"><i class="fa-solid fa-right-from-bracket"></i> Sair</button>
+                </div>
+
+                <!-- ATUALIZAR CONTATOS GLOBAIS -->
+                <div style="margin-bottom:16px; border-bottom:1px solid var(--border-color); padding-bottom:12px;">
+                    <h4 style="font-size:0.85rem; margin-bottom:8px;">📞 Alterar WhatsApps e Discord (Global)</h4>
+                    <input type="text" id="cfgMarcos" placeholder="WhatsApp Marcos (ex: 5521999991111)">
+                    <input type="text" id="cfgGabriel" placeholder="WhatsApp Gabriel (ex: 5521999992222)">
+                    <input type="text" id="cfgDiscord" placeholder="Link do Discord">
+                    <button class="btn-action" onclick="saveGlobalData()"><i class="fa-solid fa-cloud-arrow-up"></i> Salvar e Sincronizar para Todos</button>
+                </div>
+
+                <!-- GERENCIAR CUPONS GLOBAIS -->
+                <div style="margin-bottom:16px; border-bottom:1px solid var(--border-color); padding-bottom:12px;">
+                    <h4 style="font-size:0.85rem; margin-bottom:8px;">🎟️ Cupons de Desconto</h4>
+                    <input type="text" id="cupCode" placeholder="Código do Cupom (ex: AFTER10)">
+                    <input type="number" id="cupValue" placeholder="Desconto em % (ex: 10)">
+                    <button class="btn-action" onclick="addCoupon()"><i class="fa-solid fa-plus"></i> Adicionar Cupom Global</button>
+                    <div id="adminCouponsList" style="margin-top:8px; font-size:0.75rem;"></div>
+                </div>
+
+                <!-- ADICIONAR PRODUTO GLOBAL -->
+                <div style="margin-bottom:16px;">
+                    <h4 style="font-size:0.85rem; margin-bottom:8px;">📦 Adicionar Produto ao Catálogo</h4>
+                    <input type="text" id="prodTitle" placeholder="Nome do Produto">
+                    <input type="number" id="prodPrice" step="0.01" placeholder="Preço Atual (R$)">
+                    <input type="number" id="prodOldPrice" step="0.01" placeholder="Preço Antigo (R$)">
+                    <select id="prodCat">
+                        <option value="BLOX">Blox Fruits</option>
+                        <option value="VIP">VIP</option>
+                        <option value="GERAL">Geral</option>
+                    </select>
+                    <input type="text" id="prodImg" placeholder="Link Direto da Imagem">
+                    <button class="btn-action" onclick="addProduct()"><i class="fa-solid fa-plus"></i> Cadastrar e Atualizar Loja</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- BOTTOM NAV MOBILE -->
+    <div class="bottom-nav">
+        <div class="nav-link active" onclick="switchPanel('tabHome', document.querySelectorAll('.tab-item')[0])"><i class="fa-solid fa-store"></i> Loja</div>
+        <div class="nav-link" onclick="switchPanel('tabBlox', document.querySelectorAll('.tab-item')[1])"><i class="fa-solid fa-lemon"></i> Blox</div>
+        <div class="nav-link" onclick="switchPanel('tabWheel', document.querySelectorAll('.tab-item')[3])"><i class="fa-solid fa-spinner"></i> Roleta</div>
+        <div class="nav-link" onclick="openCartModal()"><i class="fa-solid fa-bag-shopping"></i> Carrinho</div>
+        <div class="nav-link" onclick="switchPanel('tabReviews', document.querySelectorAll('.tab-item')[4])"><i class="fa-solid fa-star"></i> Avaliações</div>
+    </div>
+
+    <!-- MODAL CARRINHO -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('cartModal')">&times;</span>
+            <h3 style="margin-bottom:12px; font-size:1rem; color:var(--red-main);"><i class="fa-solid fa-bag-shopping"></i> Seu Carrinho</h3>
+            
+            <div id="cartList" style="margin-bottom:12px;"></div>
+
+            <!-- ÁREA DE CUPOM -->
+            <div style="display:flex; gap:6px; margin-bottom:10px;">
+                <input type="text" id="cartCouponInput" placeholder="Código de cupom" style="margin:0; text-transform:uppercase;">
+                <button onclick="applyCoupon()" style="padding:0 14px; background:var(--red-main); border:none; border-radius:8px; color:white; font-weight:700; cursor:pointer;">Aplicar</button>
+            </div>
+            <div id="couponMsg" style="font-size:0.75rem; margin-bottom:10px;"></div>
+
+            <div style="border-top:1px solid var(--border-color); padding-top:10px; margin-bottom:12px;">
+                <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:var(--text-sub);">
+                    <span>Subtotal:</span>
+                    <span id="cartSubtotal">R$ 0,00</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:var(--green);">
+                    <span>Desconto Cupom:</span>
+                    <span id="cartDiscount">- R$ 0,00</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; font-weight:900; font-size:1.1rem; margin-top:6px; color:var(--red-main);">
+                    <span>Total Final:</span>
+                    <span id="cartTotal">R$ 0,00</span>
+                </div>
+            </div>
+
+            <p style="font-size:0.75rem; color:var(--text-sub); text-align:center; margin-bottom:8px;">Escolha o atendente para enviar o pedido no WhatsApp:</p>
+            <button class="btn-seller btn-marcos" onclick="checkout('marcos')"><i class="fa-brands fa-whatsapp"></i> Comprar com Atendente Marcos</button>
+            <button class="btn-seller btn-gabriel" onclick="checkout('gabriel')"><i class="fa-brands fa-whatsapp"></i> Comprar com Atendente Gabriel</button>
+        </div>
+    </div>
+
+    <script>
+        // INTEGRACAO DE NUVEM REST API (JSONBin) PARA SINCRONIZACAO GLOBAL INSTANTANEA
+        const CLOUD_API_URL = "https://api.jsonbin.io/v3/b/663f2d22ad19ca34f8674510"; // Bin Public Store Sync
+        
+        // ESTADO INICIAL DA LOJA
+        let storeData = {
+            config: {
+                marcosWhats: "5521999991111",
+                gabrielWhats: "5521999992222",
+                discord: "https://discord.gg/systemlabs",
+                adminPass: "admin123"
+            },
+            products: [
+                { id: 1, name: "🥊 • GODHUMAN + LVL MAX + FRUTAS •", price: 6.90, oldPrice: 15.00, cat: "BLOX", stock: 3, img: "https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg" },
+                { id: 2, name: "🍎 • LEOPARD / DOUGH INVENTÁRIO •", price: 12.00, oldPrice: 22.00, cat: "BLOX", stock: 5, img: "https://i.ibb.co/9kcDwTwf/IMG-20260723-WA0510.jpg" },
+                { id: 3, name: "👑 • CONTA BLOX FRUITS RAÇA V4 MAX •", price: 29.90, oldPrice: 55.00, cat: "VIP", stock: 2, img: "https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg" }
+            ],
+            coupons: [
+                { code: "AFTER10", percent: 10 }
+            ]
+        };
+
+        let userState = JSON.parse(localStorage.getItem('after_user_state')) || {
+            wallet: 0.00,
+            lastSpin: 0
+        };
+
+        let cart = [];
+        let appliedCoupon = null;
+
+        // INICIALIZAR LOJA E BUSCAR DADOS ATUALIZADOS DA NUVEM
+        async function init() {
+            updateWalletDisplay();
+            await fetchGlobalData();
+            renderGrid();
+            renderAdminCoupons();
+            checkTimers();
+            startFakeSalesNotifier();
+        }
+
+        async function fetchGlobalData() {
+            try {
+                let localSaved = localStorage.getItem('after_store_cloud');
+                if (localSaved) {
+                    storeData = JSON.parse(localSaved);
+                }
+                
+                // Tenta puxar atualizações em tempo real da nuvem
+                let res = await fetch(CLOUD_API_URL + "/latest", { method: 'GET' });
+                if (res.ok) {
+                    let data = await res.json();
+                    if(data.record && data.record.products) {
+                        storeData = data.record;
+                        localStorage.setItem('after_store_cloud', JSON.stringify(storeData));
+                    }
+                }
+            } catch(e) {
+                console.log("Modo offline ativado.");
+            }
+
+            document.getElementById('cfgMarcos').value = storeData.config.marcosWhats;
+            document.getElementById('cfgGabriel').value = storeData.config.gabrielWhats;
+            document.getElementById('cfgDiscord').value = storeData.config.discord;
+        }
+
+        async function saveGlobalData() {
+            storeData.config.marcosWhats = document.getElementById('cfgMarcos').value;
+            storeData.config.gabrielWhats = document.getElementById('cfgGabriel').value;
+            storeData.config.discord = document.getElementById('cfgDiscord').value;
+
+            localStorage.setItem('after_store_cloud', JSON.stringify(storeData));
+
+            try {
+                await fetch(CLOUD_API_URL, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(storeData)
+                });
+                showToast("☁️ Atualizado GLOBALMENTE para todos os clientes!");
+            } catch(e) {
+                showToast("✅ Salvo localmente!");
+            }
+            renderGrid();
+        }
+
+        function formatBRL(v) { return `R$ ${parseFloat(v).toFixed(2).replace('.', ',')}`; }
+
+        function updateWalletDisplay() {
+            document.getElementById('userWallet').innerText = formatBRL(userState.wallet);
+            localStorage.setItem('after_user_state', JSON.stringify(userState));
+        }
+
+        function switchPanel(panelId, btn) {
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
+            document.getElementById(panelId).classList.add('active');
+            if(btn) btn.classList.add('active');
+        }
+
+        function renderGrid() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = storeData.products.filter(p => p.name.toLowerCase().includes(search));
+
+            const buildCards = (list) => list.length === 0 ? '<p style="color:var(--text-sub); font-size:0.8rem;">Nenhum produto cadastrado.</p>' : list.map(p => `
+                <div class="card">
+                    <div class="card-tag">${p.cat}</div>
+                    <div class="stock-tag">${p.stock || 5} restantes</div>
+                    <div class="card-img-wrap"><img src="${p.img}" class="card-img"></div>
+                    <div class="card-body">
+                        <div class="card-title">${p.name}</div>
+                        <div>
+                            <span class="card-price">${formatBRL(p.price)}</span>
+                            ${p.oldPrice ? `<span class="card-old-price">${formatBRL(p.oldPrice)}</span>` : ''}
+                        </div>
+                        <button class="btn-buy" onclick="addToCart(${p.id})"><i class="fa-solid fa-cart-plus"></i> Comprar</button>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('mainGrid').innerHTML = buildCards(filtered);
+            document.getElementById('bloxGrid').innerHTML = buildCards(filtered.filter(p => p.cat === 'BLOX'));
+            document.getElementById('vipGrid').innerHTML = buildCards(filtered.filter(p => p.cat === 'VIP'));
+        }
+
+        function addToCart(id) {
+            const prod = storeData.products.find(p => p.id === id);
+            cart.push(prod);
+            document.getElementById('cartBadge').innerText = cart.length;
+            showToast(`🛒 ${prod.name} adicionado ao carrinho!`);
+        }
+
+        function openCartModal() {
+            const list = document.getElementById('cartList');
+            let subtotal = 0;
+
+            list.innerHTML = cart.length === 0 ? "<div style='text-align:center; color:var(--text-sub); padding:10px;'>Carrinho vazio.</div>" : cart.map((item, i) => {
+                subtotal += item.price;
+                return `
+                    <div style="display:flex; justify-content:space-between; align-items:center; background:#0b0b0f; padding:8px 10px; border-radius:8px; margin-bottom:6px; font-size:0.78rem;">
+                        <div>${item.name} <br><strong style="color:var(--red-main);">${formatBRL(item.price)}</strong></div>
+                        <button style="background:none; border:none; color:#ef4444; cursor:pointer;" onclick="removeFromCart(${i})"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `;
+            }).join('');
+
+            let discount = appliedCoupon ? (subtotal * (appliedCoupon.percent / 100)) : 0;
+            let total = subtotal - discount;
+
+            document.getElementById('cartSubtotal').innerText = formatBRL(subtotal);
+            document.getElementById('cartDiscount').innerText = `- ${formatBRL(discount)}`;
+            document.getElementById('cartTotal').innerText = formatBRL(total < 0 ? 0 : total);
+            document.getElementById('cartModal').style.display = 'flex';
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            document.getElementById('cartBadge').innerText = cart.length;
+            openCartModal();
+        }
+
+        function applyCoupon() {
+            const code = document.getElementById('cartCouponInput').value.trim().toUpperCase();
+            const found = storeData.coupons.find(c => c.code === code);
+            const msgEl = document.getElementById('couponMsg');
+
+            if(found) {
+                appliedCoupon = found;
+                msgEl.style.color = "var(--green)";
+                msgEl.innerText = `✅ Cupom "${code}" de ${found.percent}% aplicado!`;
+                openCartModal();
+            } else {
+                appliedCoupon = null;
+                msgEl.style.color = "#ef4444";
+                msgEl.innerText = "❌ Cupom inválido.";
+                openCartModal();
+            }
+        }
+
+        function checkout(seller) {
+            if(cart.length === 0) return alert("Seu carrinho está vazio!");
+            
+            let subtotal = cart.reduce((a, b) => a + b.price, 0);
+            let discount = appliedCoupon ? (subtotal * (appliedCoupon.percent / 100)) : 0;
+            let total = subtotal - discount;
+
+            let msg = `🛒 *NOVO PEDIDO - AFTER STORE*\n\n*Produtos:*\n`;
+            cart.forEach(i => msg += `• ${i.name} - ${formatBRL(i.price)}\n`);
+            
+            if(appliedCoupon) {
+                msg += `\n🎟️ *Cupom:* ${appliedCoupon.code} (${appliedCoupon.percent}% OFF)`;
+            }
+            msg += `\n💰 *Total:* ${formatBRL(total < 0 ? 0 : total)}`;
+
+            const phone = seller === 'marcos' ? storeData.config.marcosWhats : storeData.config.gabrielWhats;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        /* ENGAJAMENTO & ROLETA */
+        function spinWheel() {
+            const now = Date.now();
+            if(now - userState.lastSpin < 86400000) return alert("Aguarde 24h para girar novamente!");
+
+            userState.lastSpin = now;
+            userState.wallet += 1.00;
+            updateWalletDisplay();
+            showToast("🎉 Ganhou R$ 1,00 na Roleta!");
+            checkTimers();
+        }
+
+        function checkTimers() {
+            const now = Date.now();
+            const btnSpin = document.getElementById('btnSpin');
+
+            if(now - userState.lastSpin < 86400000) {
+                btnSpin.disabled = true;
+                document.getElementById('wheelTimer').innerText = "⏳ Disponível em 24h";
+            } else {
+                btnSpin.disabled = false;
+                document.getElementById('wheelTimer').innerText = "⚡ Giro Grátis Disponível!";
+            }
+        }
+
+        function startFakeSalesNotifier() {
+            const names = ["Matheus P.", "Gabriel R.", "Lucas M.", "Felipe A.", "Enzo K.", "Bruno T."];
+            const items = ["Godhuman + Max", "Conta V4 Full", "Leopard no Inventário", "Dough + V4"];
+
+            setInterval(() => {
+                const pop = document.getElementById('salePopup');
+                document.getElementById('popUser').innerText = names[Math.floor(Math.random() * names.length)];
+                document.getElementById('popItem').innerText = items[Math.floor(Math.random() * items.length)];
+                
+                pop.classList.add('active');
+                setTimeout(() => pop.classList.remove('active'), 4000);
+            }, 18000);
+        }
+
+        function shareStore() {
+            if (navigator.share) {
+                navigator.share({ title: 'After Store - Blox Fruits', url: window.location.href });
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                showToast("🔗 Link copiado para a área de transferência!");
+            }
+        }
+
+        /* ADMIN PAINEL DO DONO */
+        function loginAdmin() {
+            const pass = document.getElementById('adminPassInput').value;
+            if(pass === storeData.config.adminPass) {
+                document.getElementById('adminAuthBlock').style.display = 'none';
+                document.getElementById('adminContentBlock').style.display = 'block';
+            } else {
+                alert("Senha incorreta!");
+            }
+        }
+
+        function logoutAdmin() {
+            document.getElementById('adminAuthBlock').style.display = 'block';
+            document.getElementById('adminContentBlock').style.display = 'none';
+        }
+
+        function addCoupon() {
+            const code = document.getElementById('cupCode').value.trim().toUpperCase();
+            const val = parseFloat(document.getElementById('cupValue').value);
+            if(!code || isNaN(val)) return alert("Preencha os campos do cupom!");
+
+            storeData.coupons.push({ code: code, percent: val });
+            saveGlobalData();
+            renderAdminCoupons();
+        }
+
+        function renderAdminCoupons() {
+            const list = document.getElementById('adminCouponsList');
+            list.innerHTML = storeData.coupons.map((c, i) => `
+                <div style="display:flex; justify-content:space-between; margin-top:4px;">
+                    <span>🎟️ ${c.code} (${c.percent}% OFF)</span>
+                    <button onclick="removeCoupon(${i})" style="color:red; background:none; border:none; cursor:pointer;">Excluir</button>
+                </div>
+            `).join('');
+        }
+
+        function removeCoupon(i) {
+            storeData.coupons.splice(i, 1);
+            saveGlobalData();
+            renderAdminCoupons();
+        }
+
+        function addProduct() {
+            const title = document.getElementById('prodTitle').value;
+            const price = parseFloat(document.getElementById('prodPrice').value);
+            const oldPrice = parseFloat(document.getElementById('prodOldPrice').value) || null;
+            const cat = document.getElementById('prodCat').value;
+            const img = document.getElementById('prodImg').value || "https://i.ibb.co/jPStQR7f/Screenshot-20260724-152152-Samsung-Browser.jpg";
+
+            if(!title || isNaN(price)) return alert("Preencha título e preço!");
+
+            const newProd = { id: Date.now(), name: title, price: price, oldPrice: oldPrice, cat: cat, stock: 5, img: img };
+            storeData.products.push(newProd);
+            saveGlobalData();
+        }
+
+        function showToast(msg) {
+            const container = document.getElementById('toastContainer');
+            const t = document.createElement('div');
+            t.className = 'toast';
+            t.innerHTML = `<i class="fa-solid fa-bell" style="color:var(--red-main);"></i> ${msg}`;
+            container.appendChild(t);
+            setTimeout(() => t.remove(), 3500);
+        }
+
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        function openDiscord() { window.open(storeData.config.discord, '_blank'); }
+
+        init();
+    </script>
+</body>
+</html>
+
